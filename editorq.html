@@ -1,0 +1,279 @@
+﻿<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Luminescent Arena | Indigo Academy</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;family=Fira+Code:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-highest": "#35343e",
+                    "on-secondary": "#003824",
+                    "on-primary-fixed": "#0f0069",
+                    "secondary-container": "#00a572",
+                    "on-error": "#690005",
+                    "on-error-container": "#ffdad6",
+                    "primary-container": "#4f46e5",
+                    "surface-bright": "#393842",
+                    "primary-fixed-dim": "#c3c0ff",
+                    "outline-variant": "#464555",
+                    "on-primary": "#1d00a5",
+                    "tertiary-fixed-dim": "#ffb95f",
+                    "inverse-primary": "#4d44e3",
+                    "secondary": "#4edea3",
+                    "error": "#ffb4ab",
+                    "tertiary-fixed": "#ffddb8",
+                    "surface-dim": "#13121b",
+                    "outline": "#918fa1",
+                    "inverse-on-surface": "#302f39",
+                    "on-primary-container": "#dad7ff",
+                    "surface-container-low": "#1b1b24",
+                    "secondary-fixed-dim": "#4edea3",
+                    "secondary-fixed": "#6ffbbe",
+                    "on-secondary-fixed-variant": "#005236",
+                    "surface-tint": "#c3c0ff",
+                    "on-tertiary": "#472a00",
+                    "on-tertiary-container": "#ffd4a4",
+                    "surface-container": "#1f1f28",
+                    "primary": "#c3c0ff",
+                    "tertiary": "#ffb95f",
+                    "on-secondary-fixed": "#002113",
+                    "inverse-surface": "#e4e1ee",
+                    "background": "#13121b",
+                    "surface-container-lowest": "#0e0d16",
+                    "tertiary-container": "#885500",
+                    "surface-variant": "#35343e",
+                    "on-primary-fixed-variant": "#3323cc",
+                    "surface-container-high": "#2a2933",
+                    "on-secondary-container": "#00311f",
+                    "on-surface-variant": "#c7c4d8",
+                    "on-tertiary-fixed-variant": "#653e00",
+                    "surface": "#13121b",
+                    "on-tertiary-fixed": "#2a1700",
+                    "primary-fixed": "#e2dfff",
+                    "on-background": "#e4e1ee",
+                    "on-surface": "#e4e1ee",
+                    "error-container": "#93000a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Plus Jakarta Sans"],
+                    "body": ["Inter"],
+                    "label": ["Inter"],
+                    "mono": ["Fira Code"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .font-headline { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #35343e; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #464555; }
+    </style>
+</head>
+<body class="bg-background text-on-surface min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<header class="flex justify-between items-center px-6 py-3 w-full sticky top-0 z-50 bg-[#13121b] bg-gradient-to-b from-[#13121b] to-transparent font-['Plus_Jakarta_Sans'] font-bold tracking-tight">
+<div class="flex items-center gap-8">
+<span class="text-xl font-black text-[#c3c0ff] tracking-tighter">Luminescent Arena</span>
+<nav class="hidden md:flex gap-6 items-center">
+<a class="text-[#c3c0ff] border-b-2 border-[#4F46E5] pb-1" href="#">Arena</a>
+<a class="text-[#94a3b8] hover:text-white transition-colors" href="#">Curriculum</a>
+<a class="text-[#94a3b8] hover:text-white transition-colors" href="#">Leaderboard</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2 mr-4">
+<button class="material-symbols-outlined text-[#94a3b8] hover:text-white p-2 rounded-full transition-all duration-300">history</button>
+<button class="material-symbols-outlined text-[#94a3b8] hover:text-white p-2 rounded-full transition-all duration-300">settings</button>
+</div>
+<div class="flex items-center gap-3">
+<button class="px-5 py-1.5 rounded-lg text-sm bg-surface-container-high text-white hover:bg-surface-container-highest transition-all duration-150 active:scale-95" id="runCodeBtn">Run</button>
+<button class="px-5 py-1.5 rounded-lg text-sm bg-primary-container text-white font-semibold hover:opacity-90 transition-all duration-150 active:scale-95">Submit</button>
+<div class="w-8 h-8 rounded-full overflow-hidden ml-2 ring-2 ring-primary/20">
+<img alt="User profile avatar" class="w-full h-full object-cover" data-alt="close-up portrait of a young professional with short dark hair in high-key soft studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3nqJzMtKB-CrHnV4b40VDxRELTj8sDjw4qMp5TkCXh6UCEkuz7lqURorudw0w9C3shcOwyu7hXFflXSI_8z8bTWu-44LwT03qLXY0IdpvLCRFhPS1ruqK-AxFQaVIInjd1CWovoUSG0hQMb04_3XaVSJQPiHGnLpm9GKnFGad-6xCzEsj_feCm2Yx6M0N5aZICaWMMDB4FKMvm0Lu--m_lv4kAwLiQWlpoT_2Umy2iPdzVqpneidZ-3t7ECmQ2ebo2zShgAlR3wvY"/>
+</div>
+</div>
+</div>
+</header>
+<div class="flex flex-1 overflow-hidden relative">
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col h-[calc(100vh-64px)] overflow-hidden">
+<div class="flex flex-1 overflow-hidden p-4 gap-4">
+<!-- Left Panel: Problem Statement (Compact) -->
+<section class="w-full md:w-[28%] flex flex-col gap-4 overflow-y-auto">
+<div class="bg-surface-container-low rounded-2xl p-5 flex flex-col gap-5 shadow-sm">
+<header>
+<span class="px-3 py-1 bg-secondary-container/20 text-secondary text-[10px] font-bold uppercase tracking-widest rounded-full mb-3 inline-block" id="questionDifficulty">Easy</span>
+<h1 class="text-xl font-headline font-extrabold text-on-surface" id="questionTitle">Sum of Two Numbers</h1>
+<p class="text-[10px] text-outline uppercase tracking-widest mt-2" id="questionCode">Q001</p>
+</header>
+<div class="space-y-4 text-on-surface-variant leading-relaxed">
+<p class="text-sm" id="questionStatement">Loading question details...</p>
+<div class="space-y-2">
+<h3 class="text-xs font-bold text-white uppercase tracking-wider">Test Cases:</h3>
+<div class="space-y-2" id="questionTestCases"></div>
+</div>
+<div class="space-y-2">
+<h3 class="text-xs font-bold text-white uppercase tracking-wider">Concept Keywords:</h3>
+<div class="flex flex-wrap gap-2" id="questionKeywords"></div>
+</div>
+</div>
+<div class="mt-auto pt-6 border-t border-outline-variant/10">
+<div class="flex items-center justify-between text-[10px] text-outline">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm">schedule</span>
+<span>Time Limit: 1s</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm">memory</span>
+<span>Memory: 256MB</span>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-high rounded-2xl p-4 border border-primary/10">
+<h4 class="text-xs font-bold text-primary mb-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-base">emoji_events</span>
+                            Arena Progress
+                        </h4>
+<div class="flex items-center gap-3">
+<div class="flex-1 h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="w-3/4 h-full bg-gradient-to-r from-primary to-secondary rounded-full"></div>
+</div>
+<span class="text-[10px] font-bold text-on-surface">75%</span>
+</div>
+</div>
+</section>
+<!-- Middle Panel: Code Editor (Expanded) -->
+<section class="flex-1 flex flex-col bg-surface-container-lowest rounded-2xl overflow-hidden border border-outline-variant/10">
+<header class="flex items-center justify-between px-4 py-3 bg-surface-container-low border-b border-outline-variant/5">
+<div class="flex items-center gap-3">
+<div class="flex items-center gap-2 bg-surface-container-highest px-3 py-1.5 rounded-lg cursor-pointer hover:bg-primary/10 transition-all">
+<img alt="Python" class="w-4 h-4" data-alt="flat color icon of the python programming language logo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6MboupCjABvegBeKedwpr1lW5c7d4sLJ_TTzFEMSk0pYyFUNZ3QLtBa0GUslssIXCvCUczZ7Be5e2oHY-bqjX_YgZhw0TDqvd90kaiS94_0NOiH6vb_mA7_XlpW1KXBk10qCZjsKpp83qwOOh3SmmJdxbmRBqv58oukUhvEcjsJz3dSDzFkmhpEjuN-elJ6QCe7BrF8SSw2r8OHANenvTzx3OkUXWmrD4N7sJ9dq6wSW1eiSZzIZAGSA9WMAI9BTqZtgY1eMxu9v2"/>
+<span class="text-xs font-bold text-white">Python 3.11</span>
+<span class="material-symbols-outlined text-sm">expand_more</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 text-outline hover:text-white hover:bg-surface-container-highest rounded-lg transition-all">
+<span class="material-symbols-outlined text-lg">settings_ethernet</span>
+</button>
+<button class="p-2 text-outline hover:text-white hover:bg-surface-container-highest rounded-lg transition-all">
+<span class="material-symbols-outlined text-lg">fullscreen</span>
+</button>
+</div>
+</header>
+<div class="flex-1 flex overflow-hidden font-mono text-sm">
+<div class="w-12 bg-surface-container-low/30 border-r border-outline-variant/5 pt-6 text-outline/40 select-none text-center leading-relaxed overflow-y-auto custom-scrollbar" id="lineNumbers">
+1
+</div>
+<textarea class="flex-1 bg-transparent border-none outline-none text-on-surface p-6 pl-4 resize-none leading-relaxed custom-scrollbar" id="codeEditor" spellcheck="false"># Write your Python solution here
+
+def solve():
+    pass
+
+solve()
+</textarea>
+</div>
+<!-- Collapsible Bottom Console -->
+<div class="mt-auto border-t border-outline-variant/10 bg-surface-container-low">
+<div class="px-4 py-2 border-b border-outline-variant/10 bg-surface-container-low">
+<label class="text-[10px] font-bold text-outline uppercase tracking-wider mb-1 block">Custom Input (stdin)</label>
+<textarea class="w-full h-16 bg-surface-container-lowest border border-outline-variant/20 rounded-lg px-3 py-2 text-xs font-mono text-on-surface placeholder:text-outline-variant resize-none custom-scrollbar" id="codeInput" placeholder="Example:
+5
+10"></textarea>
+</div>
+<div class="flex items-center justify-between px-4 py-2 cursor-pointer hover:bg-surface-container-highest transition-all group">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-lg text-outline">terminal</span>
+<span class="text-xs font-bold text-outline group-hover:text-white">Console Output</span>
+</div>
+<span class="material-symbols-outlined text-outline">keyboard_arrow_up</span>
+</div>
+<div class="h-16 px-6 py-3 bg-surface-container-lowest font-mono text-xs text-outline/50 italic overflow-auto custom-scrollbar" id="codeOutput">
+                            Run your code to see the output here...
+                        </div>
+</div>
+</section>
+<!-- Right Panel: AI Doubt Solver (Compact) -->
+<section class="hidden lg:flex w-[22%] flex-col gap-4">
+<div class="flex-1 bg-surface-container-low/40 backdrop-blur-xl rounded-2xl flex flex-col overflow-hidden border border-primary/5">
+<header class="p-3 bg-gradient-to-r from-primary/10 to-transparent flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+</div>
+<div>
+<h3 class="text-xs font-bold text-white">AI Mentor</h3>
+<p class="text-[9px] text-primary">Intelligent Partner</p>
+</div>
+</header>
+<div class="flex-1 overflow-y-auto p-4 space-y-4">
+<div class="flex flex-col gap-2">
+<div class="self-start max-w-[95%] bg-surface-container-highest p-3 rounded-2xl rounded-tl-none text-[11px] leading-relaxed text-on-surface-variant">
+                                    Hello! I'm Aura. Stuck on "Sum of Two Numbers"? Ask me about constraints or how to structure the function.
+                                </div>
+<span class="text-[8px] text-outline ml-1 uppercase font-bold">Just Now</span>
+</div>
+<div class="bg-primary/5 rounded-xl p-3 border border-primary/10">
+<p class="text-[9px] font-bold text-primary uppercase mb-2">Suggestions</p>
+<div class="flex flex-col gap-2">
+<button class="w-full text-left px-3 py-1.5 bg-surface-container-low rounded-lg text-[10px] hover:bg-primary hover:text-white transition-all">How to handle overflow?</button>
+<button class="w-full text-left px-3 py-1.5 bg-surface-container-low rounded-lg text-[10px] hover:bg-primary hover:text-white transition-all">Explain logic</button>
+</div>
+</div>
+</div>
+<div class="p-3 bg-surface-container-low/80">
+<div class="relative group">
+<textarea class="w-full bg-surface-container-lowest border-none rounded-xl text-[11px] p-3 pr-10 focus:ring-1 focus:ring-primary placeholder:text-outline-variant resize-none" placeholder="Ask Aura..." rows="2"></textarea>
+<div class="absolute right-2 bottom-3 flex items-center gap-1">
+<button class="p-1.5 text-outline-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-base">mic</span>
+</button>
+<button class="p-1.5 bg-primary text-on-primary rounded-lg hover:opacity-90 transition-all">
+<span class="material-symbols-outlined text-base">send</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Achievement Card (Compact) -->
+<div class="bg-gradient-to-br from-tertiary-container/30 to-surface-container-low rounded-2xl p-3 border border-tertiary/10">
+<div class="flex items-center gap-3">
+<div class="p-1.5 bg-tertiary/20 rounded-full text-tertiary">
+<span class="material-symbols-outlined text-lg">local_fire_department</span>
+</div>
+<div>
+<h5 class="text-[11px] font-bold text-white">5 Day Streak!</h5>
+<p class="text-[9px] text-tertiary-fixed-dim">+50 XP on completion</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+</div>
+<script src="session.js"></script>
+<script src="editorq.js"></script>
+</body></html>
+
+
+

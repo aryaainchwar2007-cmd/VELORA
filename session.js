@@ -7,6 +7,7 @@
     projects: "project.html",
     profile: "profile.html",
     editor: "EDITOR.html",
+    editorq: "editorq.html",
     welcome: "welcome.html",
   };
 
@@ -87,7 +88,7 @@
     if (t.includes("voice help")) return "editor";
     if (t.includes("join room")) return "practice";
     if (t.includes("explore repos")) return "projects";
-    if (t.includes("solve now")) return "editor";
+    if (t.includes("solve now")) return "editorq";
     if (t.includes("initialize project")) return "editor";
     if (t.includes("start building")) return "editor";
     if (t.includes("new project")) return "editor";

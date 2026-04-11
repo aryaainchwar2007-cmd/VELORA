@@ -1,11 +1,10 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 
 <html class="dark" lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;family=Fira+Code:wght@400;500&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <script id="tailwind-config">
       tailwind.config = {
@@ -83,10 +82,21 @@
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(195, 192, 255, 0.2);
+            border-radius: 10px;
+        }
     </style>
 </head>
 <body class="bg-surface text-on-surface antialiased min-h-screen">
-<!-- SideNavBar from JSON -->
+<!-- SideNavBar -->
 <aside class="h-screen w-64 fixed left-0 top-0 z-40 bg-[#13121b] flex flex-col h-full border-r border-[#c3c0ff]/10 font-['Plus_Jakarta_SANS'] text-sm tracking-wide">
 <div class="p-6">
 <div class="flex items-center gap-3 mb-8">
@@ -134,7 +144,7 @@
 </div>
 </div>
 </aside>
-<!-- TopNavBar from JSON -->
+<!-- TopNavBar -->
 <header class="fixed top-0 left-64 right-0 z-50 bg-[#13121b]/80 backdrop-blur-xl h-16 flex items-center justify-between px-8 border-b border-white/5">
 <div class="flex items-center gap-6 flex-1">
 <h1 class="text-2xl font-black tracking-tighter bg-gradient-to-br from-[#c3c0ff] to-[#4F46E5] bg-clip-text text-transparent">Indigo Academy</h1>
@@ -152,22 +162,20 @@
 <span class="text-xs font-bold uppercase tracking-widest">Go Pro</span>
 </button>
 <div class="h-8 w-[1px] bg-white/10 mx-2"></div>
-<div class="flex items-center gap-3 cursor-pointer" data-route="profile" title="Go to Profile">
+<div class="flex items-center gap-3">
 <span class="text-xs font-medium text-slate-400">Profile</span>
-<img class="w-8 h-8 rounded-full border border-[#c3c0ff]/20" data-alt="Portrait of a young creative developer with short dark hair and a neutral expression against a dark minimal background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCAi4cYWlD_27V2jKuMmIW9SIxjoOFUYDSeTzFiS2YmKKC5krGyIrFypIgrejTrNy6YCB8j1WfiCOnU6WviUqpPIRFSk4jofySTdk3EcmDh8P3uQXFb-Cv0HCvIhgla5LRZkeTzXToiMkuMUu-kCQ5wk4JakRE79_z9V6LzhkCmzJq5Xbxp44yZPvyEBNRBBpf5U_S1x-0vEDLyt01P4dpbI5Zun8r8uzTpgKilubIHPnG7oBGhG63-D3T3Mw-7qu2HRoiDnP7KdtYK"/>
+<img alt="User Profile" class="w-8 h-8 rounded-full border border-[#c3c0ff]/20" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCAi4cYWlD_27V2jKuMmIW9SIxjoOFUYDSeTzFiS2YmKKC5krGyIrFypIgrejTrNy6YCB8j1WfiCOnU6WviUqpPIRFSk4jofySTdk3EcmDh8P3uQXFb-Cv0HCvIhgla5LRZkeTzXToiMkuMUu-kCQ5wk4JakRE79_z9V6LzhkCmzJq5Xbxp44yZPvyEBNRBBpf5U_S1x-0vEDLyt01P4dpbI5Zun8r8uzTpgKilubIHPnG7oBGhG63-D3T3Mw-7qu2HRoiDnP7KdtYK"/>
 </div>
 </div>
 </header>
-<!-- Main Content Canvas -->
 <main class="pl-64 pt-16 min-h-screen">
 <div class="max-w-[1400px] mx-auto p-8">
-<!-- Header Section with Stats -->
+<!-- Header Section -->
 <div class="flex flex-col md:flex-row gap-8 mb-12">
 <div class="flex-1">
 <h2 class="text-4xl font-headline font-extrabold tracking-tight mb-2">Practice Arena</h2>
 <p class="text-on-surface-variant max-w-xl">Master your logic through deliberate practice. Choose a path, solve challenges, and ascend the ranks of Indigo Academy.</p>
 </div>
-<!-- Stats Bento Grid -->
 <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full md:w-auto">
 <div class="bg-surface-container-low p-4 rounded-xl border-l-2 border-[#4edea3]">
 <p class="text-[10px] text-slate-500 uppercase font-bold tracking-wider mb-1">Easy</p>
@@ -187,12 +195,13 @@
 </div>
 </div>
 </div>
-<!-- Filters Section -->
+<!-- Filters -->
 <div class="bg-surface-container-low/50 p-6 rounded-xl mb-10 flex flex-col gap-6">
 <div class="flex flex-wrap items-center gap-8">
 <div class="space-y-3">
 <label class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Difficulty</label>
 <div class="flex gap-2">
+<button class="px-5 py-1.5 rounded-full bg-surface-container-high text-on-surface-variant text-xs font-bold hover:bg-surface-container-highest transition-all">All</button>
 <button class="px-5 py-1.5 rounded-full bg-secondary-container text-on-secondary text-xs font-bold transition-all">Easy</button>
 <button class="px-5 py-1.5 rounded-full bg-surface-container-high text-on-surface-variant text-xs font-bold hover:bg-surface-container-highest transition-all">Medium</button>
 <button class="px-5 py-1.5 rounded-full bg-surface-container-high text-on-surface-variant text-xs font-bold hover:bg-surface-container-highest transition-all">Hard</button>
@@ -203,154 +212,225 @@
 <label class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Core Topics</label>
 <div class="flex flex-wrap gap-2">
 <button class="px-5 py-1.5 rounded-full bg-primary text-on-primary text-xs font-bold transition-all">All Topics</button>
-<button class="px-5 py-1.5 rounded-full bg-surface-container-high text-on-surface-variant text-xs font-bold hover:bg-surface-container-highest transition-all">Loops</button>
-<button class="px-5 py-1.5 rounded-full bg-surface-container-high text-on-surface-variant text-xs font-bold hover:bg-surface-container-highest transition-all">Arrays</button>
+<button class="px-5 py-1.5 rounded-full bg-surface-container-high text-on-surface-variant text-xs font-bold hover:bg-surface-container-highest transition-all">Math</button>
+<button class="px-5 py-1.5 rounded-full bg-surface-container-high text-on-surface-variant text-xs font-bold hover:bg-surface-container-highest transition-all">Strings</button>
+<button class="px-5 py-1.5 rounded-full bg-surface-container-high text-on-surface-variant text-xs font-bold hover:bg-surface-container-highest transition-all">Lists</button>
 <button class="px-5 py-1.5 rounded-full bg-surface-container-high text-on-surface-variant text-xs font-bold hover:bg-surface-container-highest transition-all">Recursion</button>
-<button class="px-5 py-1.5 rounded-full bg-surface-container-high text-on-surface-variant text-xs font-bold hover:bg-surface-container-highest transition-all">Trees</button>
-<button class="px-5 py-1.5 rounded-full bg-surface-container-high text-on-surface-variant text-xs font-bold hover:bg-surface-container-highest transition-all">Dynamic Programming</button>
 </div>
 </div>
 </div>
 </div>
-<!-- Problem Cards Grid -->
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-<!-- Example Card: Active/Featured -->
-<div class="relative group">
-<div class="absolute inset-0 bg-gradient-to-br from-[#4F46E5]/20 to-transparent rounded-xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-<div class="relative bg-surface-container-low p-6 rounded-xl flex items-start justify-between border border-transparent group-hover:border-[#c3c0ff]/20 transition-all duration-300">
+<!-- 15 Horizontal Question Cards -->
+<div class="space-y-4 mb-16">
+<!-- Easy Section -->
 <div class="space-y-4">
-<div class="flex items-center gap-3">
-<span class="px-2.5 py-0.5 rounded-full bg-secondary-container/20 text-secondary text-[10px] font-bold tracking-wide uppercase">Easy</span>
-<span class="text-slate-500 text-[10px] uppercase font-bold tracking-widest flex items-center gap-1">
-<span class="material-symbols-outlined text-xs">translate</span>
-                                    Hindi / English
-                                </span>
-</div>
-<div>
-<h3 class="text-xl font-headline font-bold mb-1">Reverse a String</h3>
-<p class="text-slate-400 text-sm line-clamp-1">Write a function that reverses a string. The input string is given as an array of characters.</p>
-</div>
-<div class="flex items-center gap-4 pt-2">
-<div class="flex items-center gap-1 text-slate-500 text-xs">
-<span class="material-symbols-outlined text-xs">check_circle</span>
-                                    84% Success
-                                </div>
-<div class="flex items-center gap-1 text-slate-500 text-xs">
-<span class="material-symbols-outlined text-xs">group</span>
-                                    12.4k Solved
-                                </div>
+<h3 class="text-slate-500 text-xs font-bold uppercase tracking-[0.2em] mb-4">Easy Challenges</h3>
+<!-- Easy 1 -->
+<div class="bg-surface-container-low p-4 rounded-xl flex flex-col sm:flex-row items-center justify-between border border-white/5 hover:border-[#c3c0ff]/20 transition-all group">
+<div class="flex items-center gap-6 flex-1 w-full">
+<span class="text-xs font-mono text-secondary w-8 text-center bg-secondary-container/10 py-1 rounded">01</span>
+<div class="flex-1">
+<h4 class="font-headline font-bold text-lg group-hover:text-primary transition-colors">Sum of Two Numbers</h4>
+<p class="text-slate-400 text-sm">Write a program that takes two integers as input and prints their sum.</p>
 </div>
 </div>
-<div class="flex flex-col items-end gap-12">
-<button class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-slate-400 hover:text-[#ffb95f] transition-colors">
-<span class="material-symbols-outlined">bookmark</span>
-</button>
-<button class="bg-gradient-to-br from-[#c3c0ff] to-[#4F46E5] text-on-primary px-6 py-2.5 rounded-lg text-sm font-bold shadow-lg shadow-[#4F46E5]/20 hover:scale-105 active:scale-95 transition-all">
-                                Solve Now
-                            </button>
+<div class="flex items-center gap-6 mt-4 sm:mt-0">
+<div class="hidden md:flex flex-col items-end mr-4">
+<span class="text-[10px] text-slate-500 uppercase font-bold">Accuracy</span>
+<span class="text-xs font-bold text-on-surface">94.2%</span>
+</div>
+<button class="bg-surface-container-high text-on-surface-variant px-6 py-2 rounded-lg text-sm font-bold hover:bg-primary hover:text-on-primary transition-all whitespace-nowrap">Solve Now</button>
+</div>
+</div>
+<!-- Easy 2 -->
+<div class="bg-surface-container-low p-4 rounded-xl flex flex-col sm:flex-row items-center justify-between border border-white/5 hover:border-[#c3c0ff]/20 transition-all group">
+<div class="flex items-center gap-6 flex-1 w-full">
+<span class="text-xs font-mono text-secondary w-8 text-center bg-secondary-container/10 py-1 rounded">02</span>
+<div class="flex-1">
+<h4 class="font-headline font-bold text-lg group-hover:text-primary transition-colors">Even or Odd</h4>
+<p class="text-slate-400 text-sm">Write a program to check whether a given integer is even or odd.</p>
+</div>
+</div>
+<div class="flex items-center gap-6 mt-4 sm:mt-0">
+<button class="bg-surface-container-high text-on-surface-variant px-6 py-2 rounded-lg text-sm font-bold hover:bg-primary hover:text-on-primary transition-all whitespace-nowrap">Solve Now</button>
+</div>
+</div>
+<!-- Easy 3 -->
+<div class="bg-surface-container-low p-4 rounded-xl flex flex-col sm:flex-row items-center justify-between border border-white/5 hover:border-[#c3c0ff]/20 transition-all group">
+<div class="flex items-center gap-6 flex-1 w-full">
+<span class="text-xs font-mono text-secondary w-8 text-center bg-secondary-container/10 py-1 rounded">03</span>
+<div class="flex-1">
+<h4 class="font-headline font-bold text-lg group-hover:text-primary transition-colors">Largest of Three Numbers</h4>
+<p class="text-slate-400 text-sm">Write a program that takes three integers as input and prints the largest.</p>
+</div>
+</div>
+<div class="flex items-center gap-6 mt-4 sm:mt-0">
+<button class="bg-surface-container-high text-on-surface-variant px-6 py-2 rounded-lg text-sm font-bold hover:bg-primary hover:text-on-primary transition-all whitespace-nowrap">Solve Now</button>
+</div>
+</div>
+<!-- Easy 4 -->
+<div class="bg-surface-container-low p-4 rounded-xl flex flex-col sm:flex-row items-center justify-between border border-white/5 hover:border-[#c3c0ff]/20 transition-all group">
+<div class="flex items-center gap-6 flex-1 w-full">
+<span class="text-xs font-mono text-secondary w-8 text-center bg-secondary-container/10 py-1 rounded">04</span>
+<div class="flex-1">
+<h4 class="font-headline font-bold text-lg group-hover:text-primary transition-colors">Factorial of a Number</h4>
+<p class="text-slate-400 text-sm">Calculate the factorial of a given non-negative integer n.</p>
+</div>
+</div>
+<div class="flex items-center gap-6 mt-4 sm:mt-0">
+<button class="bg-surface-container-high text-on-surface-variant px-6 py-2 rounded-lg text-sm font-bold hover:bg-primary hover:text-on-primary transition-all whitespace-nowrap">Solve Now</button>
+</div>
+</div>
+<!-- Easy 5 -->
+<div class="bg-surface-container-low p-4 rounded-xl flex flex-col sm:flex-row items-center justify-between border border-white/5 hover:border-[#c3c0ff]/20 transition-all group">
+<div class="flex items-center gap-6 flex-1 w-full">
+<span class="text-xs font-mono text-secondary w-8 text-center bg-secondary-container/10 py-1 rounded">05</span>
+<div class="flex-1">
+<h4 class="font-headline font-bold text-lg group-hover:text-primary transition-colors">Reverse a String</h4>
+<p class="text-slate-400 text-sm">Take a string as input and print the reversed string.</p>
+</div>
+</div>
+<div class="flex items-center gap-6 mt-4 sm:mt-0">
+<button class="bg-surface-container-high text-on-surface-variant px-6 py-2 rounded-lg text-sm font-bold hover:bg-primary hover:text-on-primary transition-all whitespace-nowrap">Solve Now</button>
+</div>
+</div>
+<!-- Easy 6 -->
+<div class="bg-surface-container-low p-4 rounded-xl flex flex-col sm:flex-row items-center justify-between border border-white/5 hover:border-[#c3c0ff]/20 transition-all group">
+<div class="flex items-center gap-6 flex-1 w-full">
+<span class="text-xs font-mono text-secondary w-8 text-center bg-secondary-container/10 py-1 rounded">06</span>
+<div class="flex-1">
+<h4 class="font-headline font-bold text-lg group-hover:text-primary transition-colors">Count Vowels in a String</h4>
+<p class="text-slate-400 text-sm">Count and print the number of vowels in a string.</p>
+</div>
+</div>
+<div class="flex items-center gap-6 mt-4 sm:mt-0">
+<button class="bg-surface-container-high text-on-surface-variant px-6 py-2 rounded-lg text-sm font-bold hover:bg-primary hover:text-on-primary transition-all whitespace-nowrap">Solve Now</button>
+</div>
+</div>
+<!-- Easy 7 -->
+<div class="bg-surface-container-low p-4 rounded-xl flex flex-col sm:flex-row items-center justify-between border border-white/5 hover:border-[#c3c0ff]/20 transition-all group">
+<div class="flex items-center gap-6 flex-1 w-full">
+<span class="text-xs font-mono text-secondary w-8 text-center bg-secondary-container/10 py-1 rounded">07</span>
+<div class="flex-1">
+<h4 class="font-headline font-bold text-lg group-hover:text-primary transition-colors">Sum of Digits</h4>
+<p class="text-slate-400 text-sm">Take an integer as input and print the sum of its digits.</p>
+</div>
+</div>
+<div class="flex items-center gap-6 mt-4 sm:mt-0">
+<button class="bg-surface-container-high text-on-surface-variant px-6 py-2 rounded-lg text-sm font-bold hover:bg-primary hover:text-on-primary transition-all whitespace-nowrap">Solve Now</button>
 </div>
 </div>
 </div>
-<!-- Problem Card 2 -->
-<div class="bg-surface-container-low p-6 rounded-xl flex items-start justify-between group">
-<div class="space-y-4">
-<div class="flex items-center gap-3">
-<span class="px-2.5 py-0.5 rounded-full bg-tertiary-container/20 text-tertiary text-[10px] font-bold tracking-wide uppercase">Medium</span>
-<span class="text-slate-500 text-[10px] uppercase font-bold tracking-widest flex items-center gap-1">
-<span class="material-symbols-outlined text-xs">translate</span>
-                                English
-                            </span>
-</div>
-<div>
-<h3 class="text-xl font-headline font-bold mb-1">Binary Tree Level Order Traversal</h3>
-<p class="text-slate-400 text-sm line-clamp-1">Given the root of a binary tree, return the level order traversal of its nodes' values.</p>
-</div>
-<div class="flex items-center gap-4 pt-2">
-<div class="flex items-center gap-1 text-slate-500 text-xs">
-<span class="material-symbols-outlined text-xs">check_circle</span>
-                                62% Success
-                            </div>
-<div class="flex items-center gap-1 text-slate-500 text-xs">
-<span class="material-symbols-outlined text-xs">group</span>
-                                8.2k Solved
-                            </div>
+<!-- Medium Section -->
+<div class="space-y-4 pt-8">
+<h3 class="text-slate-500 text-xs font-bold uppercase tracking-[0.2em] mb-4">Intermediate Paths</h3>
+<!-- Medium 1 -->
+<div class="bg-surface-container-low p-4 rounded-xl flex flex-col sm:flex-row items-center justify-between border border-white/5 hover:border-[#ffb95f]/20 transition-all group">
+<div class="flex items-center gap-6 flex-1 w-full">
+<span class="text-xs font-mono text-tertiary w-8 text-center bg-tertiary-container/10 py-1 rounded">08</span>
+<div class="flex-1">
+<h4 class="font-headline font-bold text-lg group-hover:text-tertiary transition-colors">Prime Number Check</h4>
+<p class="text-slate-400 text-sm">Check whether a given integer is a prime number.</p>
 </div>
 </div>
-<div class="flex flex-col items-end gap-12">
-<button class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-slate-400">
-<span class="material-symbols-outlined">bookmark</span>
-</button>
-<button class="bg-surface-container-high text-on-surface-variant px-6 py-2.5 rounded-lg text-sm font-bold hover:bg-surface-container-highest transition-all">
-                            Solve Now
-                        </button>
+<div class="flex items-center gap-6 mt-4 sm:mt-0">
+<button class="bg-surface-container-high text-on-surface-variant px-6 py-2 rounded-lg text-sm font-bold hover:bg-tertiary hover:text-on-tertiary transition-all whitespace-nowrap">Solve Now</button>
 </div>
 </div>
-<!-- Problem Card 3 -->
-<div class="bg-surface-container-low p-6 rounded-xl flex items-start justify-between">
-<div class="space-y-4">
-<div class="flex items-center gap-3">
-<span class="px-2.5 py-0.5 rounded-full bg-secondary-container/20 text-secondary text-[10px] font-bold tracking-wide uppercase">Easy</span>
-<span class="text-slate-500 text-[10px] uppercase font-bold tracking-widest flex items-center gap-1">
-<span class="material-symbols-outlined text-xs">translate</span>
-                                Hindi / English
-                            </span>
-</div>
-<div>
-<h3 class="text-xl font-headline font-bold mb-1">Check for Palindrome</h3>
-<p class="text-slate-400 text-sm line-clamp-1">A phrase is a palindrome if, after converting all uppercase letters into lowercase letters...</p>
-</div>
-<div class="flex items-center gap-4 pt-2">
-<div class="flex items-center gap-1 text-slate-500 text-xs">
-<span class="material-symbols-outlined text-xs">check_circle</span>
-                                91% Success
-                            </div>
-<div class="flex items-center gap-1 text-slate-500 text-xs">
-<span class="material-symbols-outlined text-xs">group</span>
-                                25k Solved
-                            </div>
+<!-- Medium 2 -->
+<div class="bg-surface-container-low p-4 rounded-xl flex flex-col sm:flex-row items-center justify-between border border-white/5 hover:border-[#ffb95f]/20 transition-all group">
+<div class="flex items-center gap-6 flex-1 w-full">
+<span class="text-xs font-mono text-tertiary w-8 text-center bg-tertiary-container/10 py-1 rounded">09</span>
+<div class="flex-1">
+<h4 class="font-headline font-bold text-lg group-hover:text-tertiary transition-colors">Fibonacci Series</h4>
+<p class="text-slate-400 text-sm">Print the first n terms of the Fibonacci sequence.</p>
 </div>
 </div>
-<div class="flex flex-col items-end gap-12">
-<button class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-slate-400">
-<span class="material-symbols-outlined">bookmark</span>
-</button>
-<button class="bg-surface-container-high text-on-surface-variant px-6 py-2.5 rounded-lg text-sm font-bold hover:bg-surface-container-highest transition-all">
-                            Solve Now
-                        </button>
+<div class="flex items-center gap-6 mt-4 sm:mt-0">
+<button class="bg-surface-container-high text-on-surface-variant px-6 py-2 rounded-lg text-sm font-bold hover:bg-tertiary hover:text-on-tertiary transition-all whitespace-nowrap">Solve Now</button>
 </div>
 </div>
-<!-- Problem Card 4 -->
-<div class="bg-surface-container-low p-6 rounded-xl flex items-start justify-between">
-<div class="space-y-4">
-<div class="flex items-center gap-3">
-<span class="px-2.5 py-0.5 rounded-full bg-error-container/20 text-error text-[10px] font-bold tracking-wide uppercase">Hard</span>
-<span class="text-slate-500 text-[10px] uppercase font-bold tracking-widest flex items-center gap-1">
-<span class="material-symbols-outlined text-xs">translate</span>
-                                English
-                            </span>
-</div>
-<div>
-<h3 class="text-xl font-headline font-bold mb-1">Sudoku Solver</h3>
-<p class="text-slate-400 text-sm line-clamp-1">Write a program to solve a Sudoku puzzle by filling the empty cells.</p>
-</div>
-<div class="flex items-center gap-4 pt-2">
-<div class="flex items-center gap-1 text-slate-500 text-xs">
-<span class="material-symbols-outlined text-xs">check_circle</span>
-                                14% Success
-                            </div>
-<div class="flex items-center gap-1 text-slate-500 text-xs">
-<span class="material-symbols-outlined text-xs">group</span>
-                                1.1k Solved
-                            </div>
+<!-- Medium 3 -->
+<div class="bg-surface-container-low p-4 rounded-xl flex flex-col sm:flex-row items-center justify-between border border-white/5 hover:border-[#ffb95f]/20 transition-all group">
+<div class="flex items-center gap-6 flex-1 w-full">
+<span class="text-xs font-mono text-tertiary w-8 text-center bg-tertiary-container/10 py-1 rounded">10</span>
+<div class="flex-1">
+<h4 class="font-headline font-bold text-lg group-hover:text-tertiary transition-colors">Palindrome Number</h4>
+<p class="text-slate-400 text-sm">Check whether a given integer is a palindrome.</p>
 </div>
 </div>
-<div class="flex flex-col items-end gap-12">
-<button class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-[#ffb95f]" style="font-variation-settings: 'FILL' 1;">
-<span class="material-symbols-outlined">bookmark</span>
-</button>
-<button class="bg-surface-container-high text-on-surface-variant px-6 py-2.5 rounded-lg text-sm font-bold hover:bg-surface-container-highest transition-all">
-                            Solve Now
-                        </button>
+<div class="flex items-center gap-6 mt-4 sm:mt-0">
+<button class="bg-surface-container-high text-on-surface-variant px-6 py-2 rounded-lg text-sm font-bold hover:bg-tertiary hover:text-on-tertiary transition-all whitespace-nowrap">Solve Now</button>
+</div>
+</div>
+<!-- Medium 4 -->
+<div class="bg-surface-container-low p-4 rounded-xl flex flex-col sm:flex-row items-center justify-between border border-white/5 hover:border-[#ffb95f]/20 transition-all group">
+<div class="flex items-center gap-6 flex-1 w-full">
+<span class="text-xs font-mono text-tertiary w-8 text-center bg-tertiary-container/10 py-1 rounded">11</span>
+<div class="flex-1">
+<h4 class="font-headline font-bold text-lg group-hover:text-tertiary transition-colors">Count Words in a Sentence</h4>
+<p class="text-slate-400 text-sm">Print the number of words in a sentence.</p>
+</div>
+</div>
+<div class="flex items-center gap-6 mt-4 sm:mt-0">
+<button class="bg-surface-container-high text-on-surface-variant px-6 py-2 rounded-lg text-sm font-bold hover:bg-tertiary hover:text-on-tertiary transition-all whitespace-nowrap">Solve Now</button>
+</div>
+</div>
+<!-- Medium 5 -->
+<div class="bg-surface-container-low p-4 rounded-xl flex flex-col sm:flex-row items-center justify-between border border-white/5 hover:border-[#ffb95f]/20 transition-all group">
+<div class="flex items-center gap-6 flex-1 w-full">
+<span class="text-xs font-mono text-tertiary w-8 text-center bg-tertiary-container/10 py-1 rounded">12</span>
+<div class="flex-1">
+<h4 class="font-headline font-bold text-lg group-hover:text-tertiary transition-colors">Second Largest Element in a List</h4>
+<p class="text-slate-400 text-sm">Print the second largest unique element.</p>
+</div>
+</div>
+<div class="flex items-center gap-6 mt-4 sm:mt-0">
+<button class="bg-surface-container-high text-on-surface-variant px-6 py-2 rounded-lg text-sm font-bold hover:bg-tertiary hover:text-on-tertiary transition-all whitespace-nowrap">Solve Now</button>
+</div>
+</div>
+</div>
+<!-- Hard Section -->
+<div class="space-y-4 pt-8">
+<h3 class="text-slate-500 text-xs font-bold uppercase tracking-[0.2em] mb-4">Master Challenges</h3>
+<!-- Hard 1 -->
+<div class="bg-surface-container-low p-4 rounded-xl flex flex-col sm:flex-row items-center justify-between border border-white/5 hover:border-error/20 transition-all group">
+<div class="flex items-center gap-6 flex-1 w-full">
+<span class="text-xs font-mono text-error w-8 text-center bg-error-container/10 py-1 rounded">13</span>
+<div class="flex-1">
+<h4 class="font-headline font-bold text-lg group-hover:text-error transition-colors">Anagram Check</h4>
+<p class="text-slate-400 text-sm">Check whether two strings are anagrams.</p>
+</div>
+</div>
+<div class="flex items-center gap-6 mt-4 sm:mt-0">
+<button class="bg-surface-container-high text-on-surface-variant px-6 py-2 rounded-lg text-sm font-bold hover:bg-error hover:text-on-error transition-all whitespace-nowrap">Solve Now</button>
+</div>
+</div>
+<!-- Hard 2 -->
+<div class="bg-surface-container-low p-4 rounded-xl flex flex-col sm:flex-row items-center justify-between border border-white/5 hover:border-error/20 transition-all group">
+<div class="flex items-center gap-6 flex-1 w-full">
+<span class="text-xs font-mono text-error w-8 text-center bg-error-container/10 py-1 rounded">14</span>
+<div class="flex-1">
+<h4 class="font-headline font-bold text-lg group-hover:text-error transition-colors">Longest Word in a Sentence</h4>
+<p class="text-slate-400 text-sm">Print the longest word in a sentence.</p>
+</div>
+</div>
+<div class="flex items-center gap-6 mt-4 sm:mt-0">
+<button class="bg-surface-container-high text-on-surface-variant px-6 py-2 rounded-lg text-sm font-bold hover:bg-error hover:text-on-error transition-all whitespace-nowrap">Solve Now</button>
+</div>
+</div>
+<!-- Hard 3 -->
+<div class="bg-surface-container-low p-4 rounded-xl flex flex-col sm:flex-row items-center justify-between border border-white/5 hover:border-error/20 transition-all group">
+<div class="flex items-center gap-6 flex-1 w-full">
+<span class="text-xs font-mono text-error w-8 text-center bg-error-container/10 py-1 rounded">15</span>
+<div class="flex-1">
+<h4 class="font-headline font-bold text-lg group-hover:text-error transition-colors">Remove Duplicates from a List</h4>
+<p class="text-slate-400 text-sm">Return a new list with duplicate elements removed.</p>
+</div>
+</div>
+<div class="flex items-center gap-6 mt-4 sm:mt-0">
+<button class="bg-surface-container-high text-on-surface-variant px-6 py-2 rounded-lg text-sm font-bold hover:bg-error hover:text-on-error transition-all whitespace-nowrap">Solve Now</button>
+</div>
 </div>
 </div>
 </div>
@@ -363,25 +443,25 @@
                             Recommended for Your Path
                         </h4>
 <div class="space-y-6">
-<div class="flex items-center justify-between p-4 bg-surface-container rounded-lg hover:bg-surface-container-high transition-colors">
+<div class="flex items-center justify-between p-4 bg-surface-container rounded-lg hover:bg-surface-container-high transition-colors cursor-pointer group">
 <div class="flex items-center gap-4">
-<div class="w-12 h-12 rounded-lg bg-surface-variant flex items-center justify-center font-mono text-[#c3c0ff]">01</div>
+<div class="w-12 h-12 rounded-lg bg-surface-variant flex items-center justify-center font-mono text-[#c3c0ff]">A1</div>
 <div>
-<p class="font-bold text-on-surface">Valid Anagram</p>
-<p class="text-xs text-slate-500">Hash Maps &amp; Strings</p>
+<p class="font-bold text-on-surface group-hover:text-primary transition-colors">Three Sum Optimization</p>
+<p class="text-xs text-slate-500">Advance Arrays • Two Pointer</p>
 </div>
 </div>
-<span class="material-symbols-outlined text-slate-600">arrow_forward</span>
+<span class="material-symbols-outlined text-slate-600 group-hover:translate-x-1 transition-transform">arrow_forward</span>
 </div>
-<div class="flex items-center justify-between p-4 bg-surface-container rounded-lg hover:bg-surface-container-high transition-colors">
+<div class="flex items-center justify-between p-4 bg-surface-container rounded-lg hover:bg-surface-container-high transition-colors cursor-pointer group">
 <div class="flex items-center gap-4">
-<div class="w-12 h-12 rounded-lg bg-surface-variant flex items-center justify-center font-mono text-[#c3c0ff]">02</div>
+<div class="w-12 h-12 rounded-lg bg-surface-variant flex items-center justify-center font-mono text-[#c3c0ff]">L1</div>
 <div>
-<p class="font-bold text-on-surface">Merge Sorted Lists</p>
-<p class="text-xs text-slate-500">Linked Lists</p>
+<p class="font-bold text-on-surface group-hover:text-primary transition-colors">Linked List Cycle II</p>
+<p class="text-xs text-slate-500">Hash Maps • Floyd's Algorithm</p>
 </div>
 </div>
-<span class="material-symbols-outlined text-slate-600">arrow_forward</span>
+<span class="material-symbols-outlined text-slate-600 group-hover:translate-x-1 transition-transform">arrow_forward</span>
 </div>
 </div>
 </div>
@@ -393,7 +473,7 @@
 </div>
 <h4 class="text-xl font-headline font-bold mb-4">Focus Suggestion</h4>
 <p class="text-on-surface-variant text-sm leading-relaxed mb-6">
-                            Based on your last 5 submissions in <span class="text-on-surface font-semibold">Arrays</span>, you have a 85% accuracy on Easy problems but struggle with <span class="text-on-surface font-semibold">Two-Pointer</span> optimization. We suggest trying "Three Sum" next.
+                            Based on your recent performance in <span class="text-on-surface font-semibold">Arrays</span>, you have high accuracy on basics but struggle with <span class="text-on-surface font-semibold">Two-Pointer</span> logic. We've adjusted your queue to focus on these patterns.
                         </p>
 <button class="w-full py-3 bg-white/5 hover:bg-white/10 text-on-surface text-sm font-bold rounded-lg border border-white/10 transition-all">
                             View Study Plan
@@ -403,11 +483,10 @@
 </div>
 </div>
 </main>
-<!-- FAB Overlay (Only for main practice action) -->
+<!-- FAB Overlay -->
 <button class="fixed bottom-8 right-8 w-16 h-16 rounded-full bg-gradient-to-br from-[#c3c0ff] to-[#4F46E5] flex items-center justify-center text-on-primary shadow-2xl shadow-[#4F46E5]/40 hover:scale-110 active:scale-95 transition-all z-50">
 <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">bolt</span>
 </button>
 <script src="session.js"></script>
 <script src="practice (1).js"></script>
 </body></html>
-
