@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Indigo Academy | Master Coding in Your Language</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;family=Fira+Code:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #13121b;
+        }
+        h1, h2, h3, .headline {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .code-font {
+            font-family: 'Fira Code', monospace;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-container": "#4f46e5",
+                        "on-primary-fixed-variant": "#3323cc",
+                        "surface-variant": "#35343e",
+                        "on-secondary-fixed": "#002113",
+                        "tertiary": "#ffb95f",
+                        "surface-container-low": "#1b1b24",
+                        "surface-container-high": "#2a2933",
+                        "inverse-primary": "#4d44e3",
+                        "surface-bright": "#393842",
+                        "inverse-on-surface": "#302f39",
+                        "inverse-surface": "#e4e1ee",
+                        "tertiary-fixed": "#ffddb8",
+                        "outline": "#918fa1",
+                        "error-container": "#93000a",
+                        "surface": "#13121b",
+                        "on-secondary": "#003824",
+                        "surface-dim": "#13121b",
+                        "secondary": "#4edea3",
+                        "on-primary-fixed": "#0f0069",
+                        "on-tertiary-container": "#ffd4a4",
+                        "surface-container-lowest": "#0e0d16",
+                        "on-secondary-fixed-variant": "#005236",
+                        "on-tertiary-fixed": "#2a1700",
+                        "on-surface-variant": "#c7c4d8",
+                        "primary": "#c3c0ff",
+                        "surface-container": "#1f1f28",
+                        "on-secondary-container": "#00311f",
+                        "on-error-container": "#ffdad6",
+                        "primary-fixed-dim": "#c3c0ff",
+                        "on-primary": "#1d00a5",
+                        "on-surface": "#e4e1ee",
+                        "on-error": "#690005",
+                        "secondary-container": "#00a572",
+                        "secondary-fixed": "#6ffbbe",
+                        "outline-variant": "#464555",
+                        "surface-container-highest": "#35343e",
+                        "secondary-fixed-dim": "#4edea3",
+                        "primary-fixed": "#e2dfff",
+                        "on-tertiary": "#472a00",
+                        "on-primary-container": "#dad7ff",
+                        "tertiary-container": "#885500",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "background": "#13121b",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "on-background": "#e4e1ee",
+                        "surface-tint": "#c3c0ff",
+                        "error": "#ffb4ab"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="text-on-surface selection:bg-primary/30">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full flex items-center justify-between px-6 py-3 bg-[#13121b]/80 backdrop-blur-xl z-50 shadow-[0_20px_40px_rgba(0,0,0,0.3)]">
+<div class="flex items-center gap-8">
+<span class="text-2xl font-black tracking-tighter bg-gradient-to-br from-[#c3c0ff] to-[#4F46E5] bg-clip-text text-transparent">Indigo Academy</span>
+<nav class="hidden md:flex gap-6 items-center">
+<a class="text-[#c3c0ff] font-bold font-['Plus_Jakarta_SANS'] font-medium hover:text-white transition-colors duration-300" href="#">Dashboard</a>
+<a class="text-slate-400 font-['Plus_Jakarta_SANS'] font-medium hover:text-white transition-colors duration-300" href="#">Practice</a>
+<a class="text-slate-400 font-['Plus_Jakarta_SANS'] font-medium hover:text-white transition-colors duration-300" href="#">Projects</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden md:flex items-center bg-surface-container-low px-4 py-2 rounded-full border border-outline-variant/20">
+<span class="material-symbols-outlined text-outline text-sm mr-2">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-48 text-on-surface-variant" placeholder="Search courses..." type="text"/>
+</div>
+<button class="material-symbols-outlined text-[#c3c0ff] hover:text-white transition-colors">notifications</button>
+<button class="material-symbols-outlined text-[#c3c0ff] hover:text-white transition-colors">workspace_premium</button>
+<div class="flex items-center gap-2 px-3 py-1 bg-surface-container-high rounded-full cursor-pointer hover:bg-surface-container-highest transition-all">
+<div class="w-8 h-8 rounded-full overflow-hidden">
+<img alt="Profile" data-alt="vibrant 3D avatar of a young student with glasses and a purple hoodie, soft studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmMXUYuM-PoakJoZlImJwpzC8qhGL57avPeAVrANenclTcFIpKZMus_oRBWoyaZRiRjjhBDBG6VkLoPAqCki9jZd6vzaCr_DQ5aHK9L2tiIDfg5b_jledwktN8uHPeQeMFW8xc-BSPXeak6NgNw56wIyeYBlEIkPSRuy6DB8YaF08AgyATYEVKBA9sFqbINW-1tpaWDgFKWJ2SUTC8xa8lChQe_N4CWBv-Xo3mly7BtTyG_5aoVeNGxl2a5WAkAQrKlt9UKwJWAikZ"/>
+</div>
+<span class="text-sm font-medium text-on-surface">Profile</span>
+</div>
+</div>
+<div class="absolute bottom-0 left-0 bg-gradient-to-b from-[#c3c0ff]/5 to-transparent h-[1px] w-full"></div>
+</header>
+<main class="pt-24 pb-20 px-6 max-w-7xl mx-auto overflow-x-hidden">
+<!-- Hero Section -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center py-12">
+<div class="lg:col-span-7 space-y-8">
+<div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-container/10 border border-primary/20 text-primary text-xs font-bold tracking-widest uppercase">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+                    Revolutionizing Tech Education
+                </div>
+<h1 class="text-5xl md:text-7xl font-extrabold leading-[1.1] tracking-tight">
+                    Master Coding in <br/>
+<span class="bg-gradient-to-r from-primary via-secondary to-tertiary bg-clip-text text-transparent">Your Language</span>
+</h1>
+<p class="text-on-surface-variant text-lg md:text-xl max-w-xl leading-relaxed">
+                    Break the language barrier in tech. Learn algorithms, data structures, and system design with AI-powered translations in Hindi, Tamil, Marathi, and more.
+                </p>
+<div class="flex flex-wrap gap-4 pt-4">
+<button class="px-8 py-4 bg-gradient-to-br from-primary to-primary-container text-on-primary font-bold rounded-xl scale-100 hover:scale-105 active:scale-95 transition-all shadow-[0_10px_30px_rgba(79,70,229,0.3)]" onclick="document.getElementById('signup-modal').classList.remove('hidden')">
+                        Get Started
+                    </button>
+<button class="px-8 py-4 bg-surface-container-high text-on-surface font-semibold rounded-xl border border-outline-variant/30 hover:bg-surface-container-highest transition-all">
+                        Explore Curriculum
+                    </button>
+</div>
+<div class="flex items-center gap-6 pt-4">
+<div class="flex -space-x-3">
+<img alt="Student" class="w-10 h-10 rounded-full border-2 border-surface" data-alt="profile photo of a smiling female engineer in a tech office setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAj-ByLlImWg3eJmL01b2R_dQ0OyAbG6k2RESeMxNbmVIsRg91Jumgfs1HyNOcIpOlKPdKlEN5nRjtcMljsRWSBLH825wyhohhKZaSNk2WTFbEd2d2jw8GnX-vQk9JIK3guIIIXHrxrvrz77v83eLwCyiUWDhJ0SEoFn9w5PjgfQTHGawQjF4gVe7SODlO9VZRA2aTKoEX8jn2JD-cZAvg-hG2uxhPXf8g9EQbLf7X8OoXmyOxdyRlwLKNCwfiN6yx0EiD9_r8wc-Wu"/>
+<img alt="Student" class="w-10 h-10 rounded-full border-2 border-surface" data-alt="profile photo of a young male developer wearing headphones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZK_egQ8i6Curq1VvwfM8umdPS2WLZxvW_r8P26JVpxZOChXxR_9wS7AHuIEFXzQFrTTQr1cm3WpiBduh-O9TK4ER_kbznzYInT1H-p2xEGuJkAdaCQQV6IQ0VnI_XlcYw1hRu6_GY3XptFvDH4N-Mg0jbnsSrPEkf8lUbLzaykcV1OvNa_VfBaXCdlcaxG17WkNdnDYhT5rFxdCL63N5tvbK4JTrL4gmfbA2MbDzL1PjPAWY3cJwkkN_p5II1UvbkYUaM0z58IYGR"/>
+<img alt="Student" class="w-10 h-10 rounded-full border-2 border-surface" data-alt="profile photo of a diverse computer science student looking confident" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAH85YRyFbElvx-IL49KP2HnrTcG4KgYoY-gwSfG9r0vv93cooegMndDadI7ryje2diH1woLXk91Mwzl4kDezftbaBHN066YDme8ZlQSHHR_A6Pc5blmP2RbCs7L6pMxZFyQs-dBvQ0m2h8e937N8QWQbErXDJrPiNqdLrSBYyV_3arTr6wDHb-ppwrZfWxRIJ8s8VhkGdCedISuwdmmlKmGKVj5BlP3I7ZW5Y-gx2NRxI-udEfxwjpIeo1yUJjt7kUgr7xL6dJkKxH"/>
+</div>
+<p class="text-sm text-on-surface-variant"><span class="text-on-surface font-bold">12k+</span> students learning in their native tongues</p>
+</div>
+</div>
+<!-- Hero Visuals (AI & Code Snips) -->
+<div class="lg:col-span-5 relative">
+<div class="relative z-10 bg-surface-container-lowest rounded-xl p-6 border border-outline-variant/20 shadow-2xl overflow-hidden">
+<!-- Glass AI Panel -->
+<div class="absolute -right-4 -top-4 w-48 h-48 bg-primary/20 blur-[80px] rounded-full"></div>
+<div class="space-y-4">
+<!-- English Snippet -->
+<div class="bg-surface-container-low rounded-lg p-4 border-l-4 border-primary">
+<div class="flex justify-between items-center mb-2">
+<span class="text-xs font-bold text-primary tracking-widest uppercase">English</span>
+<span class="material-symbols-outlined text-outline text-sm">content_copy</span>
+</div>
+<pre class="code-font text-sm text-on-surface-variant"><code><span class="text-tertiary">function</span> <span class="text-secondary">greet</span>() {
+  console.<span class="text-primary">log</span>(<span class="text-tertiary">"Hello World"</span>);
+}</code></pre>
+</div>
+<!-- Transition Arrow -->
+<div class="flex justify-center my-2">
+<div class="bg-surface-variant p-2 rounded-full">
+<span class="material-symbols-outlined text-primary">arrow_downward</span>
+</div>
+</div>
+<!-- Hindi Snippet -->
+<div class="bg-surface-container-low rounded-lg p-4 border-l-4 border-secondary">
+<div class="flex justify-between items-center mb-2">
+<span class="text-xs font-bold text-secondary tracking-widest uppercase">Hindi / हिंदी</span>
+<span class="material-symbols-outlined text-outline text-sm">translate</span>
+</div>
+<pre class="code-font text-sm text-on-surface-variant"><code><span class="text-tertiary">कार्य</span> <span class="text-secondary">नमस्ते</span>() {
+  तुलना.<span class="text-primary">लिखो</span>(<span class="text-tertiary">"नमस्ते दुनिया"</span>);
+}</code></pre>
+</div>
+</div>
+<!-- Floating AI Suggestion Card -->
+<div class="mt-6 bg-surface-variant/40 backdrop-blur-md rounded-xl p-4 border-l-4 border-primary relative overflow-hidden">
+<div class="flex items-start gap-3">
+<div class="bg-primary/20 p-2 rounded-lg">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">psychology</span>
+</div>
+<div>
+<h4 class="text-sm font-bold text-on-surface">AI Smart Explanation</h4>
+<p class="text-xs text-on-surface-variant mt-1 leading-relaxed">This function initiates a standard output stream. In Hindi, we use 'लिखो' to represent the logical action of writing to the console.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Background Decorative Elements -->
+<div class="absolute -bottom-10 -left-10 w-64 h-64 bg-secondary/10 blur-[100px] -z-0"></div>
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full border-2 border-dashed border-outline-variant/10 rounded-full -z-10 animate-pulse"></div>
+</div>
+</section>
+<!-- Features Bento Grid -->
+<section class="py-20">
+<h2 class="text-3xl font-extrabold mb-12 text-center">Built for the Modern Indian Scholar</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Large Feature -->
+<div class="md:col-span-2 bg-surface-container-low rounded-xl p-8 flex flex-col justify-between min-h-[320px] relative overflow-hidden group">
+<div class="relative z-10">
+<span class="material-symbols-outlined text-4xl text-primary mb-4">language</span>
+<h3 class="text-2xl font-bold mb-4">Native Language IDE</h3>
+<p class="text-on-surface-variant max-w-md">Our specialized editor allows you to write comments and logic in your mother tongue while maintaining syntax integrity. Supports 12+ Indian languages.</p>
+</div>
+<div class="absolute right-0 bottom-0 w-1/2 translate-y-1/4 translate-x-1/4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-[200px]">terminal</span>
+</div>
+</div>
+<!-- Small Feature 1 -->
+<div class="bg-surface-container-high rounded-xl p-8 border border-outline-variant/10">
+<span class="material-symbols-outlined text-4xl text-tertiary mb-4">school</span>
+<h3 class="text-xl font-bold mb-2">College Roadmap</h3>
+<p class="text-on-surface-variant text-sm">Personalized paths based on your current year and branch (CS, IT, ENTC).</p>
+</div>
+<!-- Small Feature 2 -->
+<div class="bg-surface-container-high rounded-xl p-8 border border-outline-variant/10">
+<span class="material-symbols-outlined text-4xl text-secondary mb-4">rocket_launch</span>
+<h3 class="text-xl font-bold mb-2">Placement Prep</h3>
+<p class="text-on-surface-variant text-sm">Mock interviews in English and Hindi to build confidence for global companies.</p>
+</div>
+<!-- Medium Feature -->
+<div class="md:col-span-2 bg-gradient-to-br from-surface-container-low to-surface-container-lowest rounded-xl p-8 border border-outline-variant/10 flex items-center gap-8">
+<div class="hidden sm:block w-32 h-32 bg-primary/20 rounded-2xl rotate-12 flex items-center justify-center">
+<span class="material-symbols-outlined text-6xl text-primary">groups</span>
+</div>
+<div>
+<h3 class="text-2xl font-bold mb-2">Campus Communities</h3>
+<p class="text-on-surface-variant">Join exclusive discord-style servers for your university to collaborate on local projects.</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Sign-up Modal -->
+<div class="hidden fixed inset-0 z-[100] flex items-center justify-center p-6" id="signup-modal">
+<!-- Backdrop -->
+<div class="absolute inset-0 bg-surface/90 backdrop-blur-sm" onclick="document.getElementById('signup-modal').classList.add('hidden')"></div>
+<!-- Modal Content -->
+<div class="relative bg-surface-container-lowest w-full max-w-2xl rounded-xl shadow-[0_0_100px_rgba(79,70,229,0.2)] overflow-hidden border border-outline-variant/30 flex flex-col md:flex-row">
+<!-- Modal Sidebar (Visual) -->
+<div class="hidden md:block w-1/3 bg-gradient-to-b from-primary-container to-surface-container-lowest p-8 relative">
+<div class="relative z-10 space-y-6">
+<div class="w-12 h-12 bg-white/10 backdrop-blur-md rounded-xl flex items-center justify-center">
+<span class="material-symbols-outlined text-white">login</span>
+</div>
+<h3 class="text-xl font-extrabold text-white">Join the Community</h3>
+<p class="text-primary-fixed-dim text-xs leading-relaxed">Sign up to unlock thousands of coding lessons tailored for your regional context.</p>
+</div>
+<div class="absolute inset-0 opacity-20 pointer-events-none">
+<img alt="Background" class="w-full h-full object-cover" data-alt="abstract digital matrix with neon blue code flowing vertically in dark cyberspace" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_BYQ_K7FSHXBxqsPC2d22KmLYS9UHXiQclbGQ-_C6N0MC1j58jfW0fRVp_6dIsD6P3TPYHjS4GIOKEpu7ZfY16AV478uvOPoV2k6zDcvF6ggdwr3wcxXZA447urK95co9BPlLUSVnRfGL7Yjf3oB2wQvVUy9KuIcxB8-3m8EaPV_xUEDCEkaNxkq-D-lKvK2ltBb5qzPuAgpOxXyGd2d31_UKBO0DbEoOa2enENiwf4gpW5vsvkoGEGcFMyXbcu05Q54qg_MUmrC0"/>
+</div>
+</div>
+<!-- Modal Form -->
+<div class="flex-1 p-8 md:p-10">
+<div class="flex justify-between items-center mb-6">
+<h2 class="text-2xl font-extrabold">Create Account</h2>
+<button class="material-symbols-outlined text-outline hover:text-white transition-colors" onclick="document.getElementById('signup-modal').classList.add('hidden')">close</button>
+</div>
+<div class="grid grid-cols-2 gap-4 mb-8">
+<button class="flex items-center justify-center gap-2 py-3 bg-surface-container-high rounded-xl hover:bg-surface-container-highest transition-all border border-outline-variant/20">
+<img alt="Google" class="w-4 h-4" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD5JpMPapgCqA2LsVSmYlWd-S0A98hSLyVSq4WCvRFEa1rKMNSYKIlEmRv7VTV39hmMH3xjpjPm2DIut_x_9jv7Bizk1bOt0ji2xMH4uqpPOQ1RfW9SeaP2M9KWqoxW5LfUlqXYm1jtm382gq9DraVg6vQElW_bdTILv8f-NADzBjvIXcziqiG-26uLXRFXxnM7JrXD19-cQ6qf-Ej42WqwiRaxfwwhDpRIVbjDct4KpveStEhNLhMGCow2dEzOMM3Mb5qqBYDlF8S2"/>
+<span class="text-xs font-bold">Google</span>
+</button>
+<button class="flex items-center justify-center gap-2 py-3 bg-surface-container-high rounded-xl hover:bg-surface-container-highest transition-all border border-outline-variant/20">
+<span class="material-symbols-outlined text-sm">mail</span>
+<span class="text-xs font-bold">College Email</span>
+</button>
+</div>
+<div class="relative flex items-center gap-4 mb-8">
+<div class="flex-1 h-[1px] bg-outline-variant/30"></div>
+<span class="text-[10px] font-bold text-outline uppercase tracking-widest">Profile Setup</span>
+<div class="flex-1 h-[1px] bg-outline-variant/30"></div>
+</div>
+<form class="space-y-4">
+<div>
+<label class="block text-xs font-bold text-outline mb-2 uppercase tracking-wide">Full Name</label>
+<input class="w-full bg-surface-container-low border-outline-variant/30 rounded-lg px-4 py-3 text-sm focus:ring-primary focus:border-primary" placeholder="e.g. Rahul Sharma" type="text"/>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="block text-xs font-bold text-outline mb-2 uppercase tracking-wide">Branch</label>
+<select class="w-full bg-surface-container-low border-outline-variant/30 rounded-lg px-4 py-3 text-sm focus:ring-primary focus:border-primary appearance-none">
+<option>CS (Computer Science)</option>
+<option>IT (Information Tech)</option>
+<option>ENTC (Electronics)</option>
+<option>Mechanical</option>
+<option>Other</option>
+</select>
+</div>
+<div>
+<label class="block text-xs font-bold text-outline mb-2 uppercase tracking-wide">Year</label>
+<select class="w-full bg-surface-container-low border-outline-variant/30 rounded-lg px-4 py-3 text-sm focus:ring-primary focus:border-primary appearance-none">
+<option>1st Year</option>
+<option>2nd Year</option>
+<option>3rd Year</option>
+<option>4th Year</option>
+</select>
+</div>
+</div>
+<div>
+<label class="block text-xs font-bold text-outline mb-2 uppercase tracking-wide">Preferred Language</label>
+<select class="w-full bg-surface-container-low border-outline-variant/30 rounded-lg px-4 py-3 text-sm focus:ring-primary focus:border-primary appearance-none">
+<option>Hindi (हिंदी)</option>
+<option>Tamil (தமிழ்)</option>
+<option>Marathi (मराठी)</option>
+<option>Telugu (తెలుగు)</option>
+<option>Bengali (বাংলা)</option>
+<option>English</option>
+</select>
+</div>
+<button class="w-full py-4 mt-4 bg-gradient-to-r from-primary to-primary-container text-on-primary font-extrabold rounded-xl hover:shadow-[0_10px_20px_rgba(79,70,229,0.3)] transition-all" type="submit">
+                        Complete Registration
+                    </button>
+</form>
+</div>
+</div>
+</div>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full bg-[#13121b]/95 backdrop-blur-xl flex justify-around items-center py-4 px-6 z-50">
+<button class="flex flex-col items-center gap-1 text-[#c3c0ff]">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="text-[10px] font-bold">Home</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-slate-400">
+<span class="material-symbols-outlined">terminal</span>
+<span class="text-[10px]">Practice</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-slate-400">
+<span class="material-symbols-outlined">account_tree</span>
+<span class="text-[10px]">Projects</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-slate-400">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[10px]">Profile</span>
+</button>
+</nav>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest border-t border-outline-variant/10 py-12 px-6">
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+<div class="space-y-4 text-center md:text-left">
+<span class="text-xl font-black tracking-tighter bg-gradient-to-br from-[#c3c0ff] to-[#4F46E5] bg-clip-text text-transparent">Indigo Academy</span>
+<p class="text-outline text-sm">Empowering the next billion developers in their native language.</p>
+</div>
+<div class="flex gap-8">
+<a class="text-slate-400 hover:text-white text-sm transition-colors" href="#">Privacy Policy</a>
+<a class="text-slate-400 hover:text-white text-sm transition-colors" href="#">Terms of Service</a>
+<a class="text-slate-400 hover:text-white text-sm transition-colors" href="#">Contact</a>
+</div>
+<div class="flex gap-4">
+<button class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center hover:bg-primary/20 transition-all">
+<span class="material-symbols-outlined text-sm">share</span>
+</button>
+<button class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center hover:bg-primary/20 transition-all">
+<span class="material-symbols-outlined text-sm">forum</span>
+</button>
+</div>
+</div>
+<div class="text-center mt-12 text-[10px] text-outline uppercase tracking-widest">
+            © 2024 Indigo Academy. All Rights Reserved.
+        </div>
+</footer>
+</body></html>

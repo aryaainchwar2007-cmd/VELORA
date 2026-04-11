@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Profile &amp; Achievements | Indigo Academy</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+</head><body class="bg-surface text-on-surface font-body selection:bg-primary/30"><id id="tailwind-config">
+<script>
+            tailwind.config = {
+                darkMode: "class",
+                theme: {
+                    extend: {
+                        "colors": {
+                            "primary-container": "#4f46e5",
+                            "on-primary-fixed-variant": "#3323cc",
+                            "surface-variant": "#35343e",
+                            "on-secondary-fixed": "#002113",
+                            "tertiary": "#ffb95f",
+                            "surface-container-low": "#1b1b24",
+                            "surface-container-high": "#2a2933",
+                            "inverse-primary": "#4d44e3",
+                            "surface-bright": "#393842",
+                            "inverse-on-surface": "#302f39",
+                            "inverse-surface": "#e4e1ee",
+                            "tertiary-fixed": "#ffddb8",
+                            "outline": "#918fa1",
+                            "error-container": "#93000a",
+                            "surface": "#13121b",
+                            "on-secondary": "#003824",
+                            "surface-dim": "#13121b",
+                            "secondary": "#4edea3",
+                            "on-primary-fixed": "#0f0069",
+                            "on-tertiary-container": "#ffd4a4",
+                            "surface-container-lowest": "#0e0d16",
+                            "on-secondary-fixed-variant": "#005236",
+                            "on-tertiary-fixed": "#2a1700",
+                            "on-surface-variant": "#c7c4d8",
+                            "primary": "#c3c0ff",
+                            "surface-container": "#1f1f28",
+                            "on-secondary-container": "#00311f",
+                            "on-error-container": "#ffdad6",
+                            "primary-fixed-dim": "#c3c0ff",
+                            "on-primary": "#1d00a5",
+                            "on-surface": "#e4e1ee",
+                            "on-error": "#690005",
+                            "secondary-container": "#00a572",
+                            "secondary-fixed": "#6ffbbe",
+                            "outline-variant": "#464555",
+                            "surface-container-highest": "#35343e",
+                            "secondary-fixed-dim": "#4edea3",
+                            "primary-fixed": "#e2dfff",
+                            "on-tertiary": "#472a00",
+                            "on-primary-container": "#dad7ff",
+                            "tertiary-container": "#885500",
+                            "tertiary-fixed-dim": "#ffb95f",
+                            "background": "#13121b",
+                            "on-tertiary-fixed-variant": "#653e00",
+                            "on-background": "#e4e1ee",
+                            "surface-tint": "#c3c0ff",
+                            "error": "#ffb4ab"
+                        },
+                        "borderRadius": {
+                            "DEFAULT": "0.25rem",
+                            "lg": "0.5rem",
+                            "xl": "0.75rem",
+                            "full": "9999px"
+                        },
+                        "fontFamily": {
+                            "headline": ["Plus Jakarta Sans"],
+                            "body": ["Inter"],
+                            "label": ["Inter"]
+                        }
+                    },
+                }
+            }
+        </script>
+</id>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(53, 52, 62, 0.4);
+            backdrop-filter: blur(20px);
+        }
+        .text-gradient {
+            background: linear-gradient(135deg, #c3c0ff 0%, #4F46E5 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #13121b; }
+        ::-webkit-scrollbar-thumb { background: #35343e; border-radius: 10px; }
+    </style>
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full flex items-center justify-between px-6 py-3 bg-[#13121b]/80 backdrop-blur-xl z-50 shadow-[0_20px_40px_rgba(0,0,0,0.3)]">
+<div class="flex items-center gap-8">
+<span class="text-2xl font-black tracking-tighter bg-gradient-to-br from-[#c3c0ff] to-[#4F46E5] bg-clip-text text-transparent font-headline">Indigo Academy</span>
+<div class="hidden md:flex items-center gap-6">
+<a class="text-slate-400 font-['Plus_Jakarta_SANS'] font-medium hover:text-white transition-colors duration-300" href="#">Dashboard</a>
+<a class="text-slate-400 font-['Plus_Jakarta_SANS'] font-medium hover:text-white transition-colors duration-300" href="#">Practice</a>
+<a class="text-[#c3c0ff] font-bold font-['Plus_Jakarta_SANS']" href="#">Profile</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-[#c3c0ff] scale-95 active:scale-90 transition-transform"><span class="material-symbols-outlined">notifications</span></button>
+<button class="text-[#c3c0ff] scale-95 active:scale-90 transition-transform"><span class="material-symbols-outlined">workspace_premium</span></button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-primary/20">
+<img alt="Profile" class="w-full h-full object-cover" data-alt="close-up portrait of a young professional student with a friendly expression and stylish glasses in soft cinematic lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuANg21LXqOIHKST0KTrXok1ldQBRZTPoXE5q9NxjNOsb94Ic064L2Jk486318V2A1htLd6Nx-gNXZp5V2hmbku8WAtNR_yIE_Dvn6JSzmgMXOrCEGwRBpBnHXDF9JASFXxeWrcjjOZ6vqHIPbpno5cPmxJVPtFXKpdcCANHuS-Y5S_gpRAItHchYiCnIZANkHimecDIfqkv_RRYU0fx46v1pay5c2vAvvdHn55hmxSrCOcu2CxDntKRmGFI7tLQyo16aBtXEv6oZlOJ"/>
+</div>
+</div>
+<div class="absolute bottom-0 left-0 bg-gradient-to-b from-[#c3c0ff]/5 to-transparent h-[1px] w-full"></div>
+</nav>
+<!-- SideNavBar (Hidden on small screens) -->
+<aside class="hidden md:flex h-screen w-64 fixed left-0 top-0 z-40 flex-col bg-[#13121b] border-r border-[#c3c0ff]/10 pt-20">
+<div class="px-6 py-8 flex flex-col gap-1">
+<div class="flex items-center gap-3 mb-6">
+<img alt="Student Avatar" class="w-10 h-10 rounded-xl" data-alt="professional headshot avatar of a young digital native student with soft purple ambient lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAviw0rC0ah4Yy_0KY-qMS_Ddj8jbu1mDTDxGYeLYOSyb9Fmy84GimfsTwSuzsKT1l84YAa5cwcvd_U0Tx_-Br6tSBEqktYYf9S8I9UVGg6hQFfpQD6j3gZM2M7mGdHGTv9Eb1DIskRweW9cVq1sSIhaLWYV8KgsUdtjV0hUAqlhtqGtucMtB9WYTSgwlTnyuDTlbST7-OsjwPQolPUN6uDHwi0T6-CotNA3xNScloQ6ByY38kM2lq9Vn_8h7jQCJBzTJGoKnCDT4Ap"/>
+<div>
+<p class="text-on-surface font-headline font-bold text-sm">Luminescent Scholar</p>
+<p class="text-slate-500 text-xs">Level 12 Developer</p>
+</div>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 text-slate-500 px-4 py-3 font-['Plus_Jakarta_SANS'] text-sm tracking-wide hover:bg-white/5 hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined">dashboard</span> Dashboard
+                </a>
+<a class="flex items-center gap-3 text-slate-500 px-4 py-3 font-['Plus_Jakarta_SANS'] text-sm tracking-wide hover:bg-white/5 hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined">terminal</span> Practice
+                </a>
+<a class="flex items-center gap-3 text-slate-500 px-4 py-3 font-['Plus_Jakarta_SANS'] text-sm tracking-wide hover:bg-white/5 hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined">account_tree</span> Projects
+                </a>
+<a class="flex items-center gap-3 bg-gradient-to-r from-[#4F46E5]/20 to-transparent text-[#c3c0ff] border-l-4 border-[#4F46E5] px-4 py-3 font-['Plus_Jakarta_SANS'] text-sm tracking-wide translate-x-1 transition-transform" href="#">
+<span class="material-symbols-outlined">person</span> Profile
+                </a>
+</nav>
+</div>
+<div class="mt-auto p-6 border-t border-outline-variant/10">
+<button class="w-full py-3 px-4 rounded-xl bg-gradient-to-br from-primary to-primary-container text-on-primary font-bold text-sm mb-6 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">mic</span> Voice Help
+            </button>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 text-slate-500 px-4 py-2 text-xs hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">settings</span> Settings
+                </a>
+<a class="flex items-center gap-3 text-slate-500 px-4 py-2 text-xs hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">help</span> Support
+                </a>
+</nav>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="md:ml-64 pt-24 pb-12 px-6 lg:px-12">
+<div class="max-w-7xl mx-auto space-y-8">
+<!-- Bento Layout Container -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<!-- Profile Header Card -->
+<section class="lg:col-span-8 bg-surface-container-low rounded-2xl p-8 relative overflow-hidden">
+<div class="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -mr-32 -mt-32"></div>
+<div class="relative z-10 flex flex-col md:flex-row items-center md:items-start gap-8">
+<div class="relative">
+<div class="w-32 h-32 rounded-3xl overflow-hidden ring-4 ring-primary-container/30">
+<img alt="Profile Large" class="w-full h-full object-cover" data-alt="Detailed portrait of a college student in a modern tech environment with soft bokeh background and cool blue and purple lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBkK2PhUNByQmSOWUN-DGDNOuCvmKOt3-vkGV9Y8lzrupt0KeGN3xuRIsfu3YoN-FtS0uek2DrLipRGsmXp93LmCQRxEs-K4G1nT7qhtc_ZprXwkziiXiPSXy5pui8AZnbw_E5fUGctIHl6lWfrUoYEjSeCc92iOyD2VchPrWTo3yq7JuAdgsB94Ks5fs9Dr0I1nqS43WRUPHw8OG8OUgrLvcnCu50opjHcXMaXCrrtFKEuQJIGxa1h8VruQ3On-W-mpyH49KUkeMjI"/>
+</div>
+<div class="absolute -bottom-2 -right-2 bg-secondary-container text-on-secondary px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">verified</span> Pro
+                            </div>
+</div>
+<div class="flex-1 text-center md:text-left">
+<h1 class="text-4xl font-headline font-extrabold text-on-surface mb-2 tracking-tight">Arjun Mehta</h1>
+<div class="flex flex-wrap justify-center md:justify-start gap-4 mb-6">
+<span class="text-primary-fixed-dim bg-primary/10 px-3 py-1 rounded-lg text-sm font-medium">Class of 2025</span>
+<span class="text-slate-400 bg-surface-variant/50 px-3 py-1 rounded-lg text-sm">B.Tech Computer Science</span>
+</div>
+<div class="flex flex-wrap justify-center md:justify-start gap-3">
+<div class="flex items-center gap-2 bg-surface-container-highest px-4 py-2 rounded-xl">
+<span class="text-xs text-slate-500 uppercase tracking-widest font-bold">Proficiency</span>
+<span class="text-sm font-semibold text-secondary">Hindi: Expert</span>
+</div>
+<div class="flex items-center gap-2 bg-surface-container-highest px-4 py-2 rounded-xl">
+<span class="text-xs text-slate-500 uppercase tracking-widest font-bold">Global Rank</span>
+<span class="text-sm font-semibold text-tertiary">#1,204</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Leaderboard Widget -->
+<section class="lg:col-span-4 bg-surface-container-low rounded-2xl p-6 flex flex-col">
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-headline font-bold text-lg">Weekly Leaderboard</h3>
+<span class="text-xs text-primary font-bold">View All</span>
+</div>
+<div class="space-y-4 flex-1">
+<div class="flex items-center gap-4 p-3 bg-primary/5 rounded-xl border-l-4 border-primary">
+<span class="text-primary font-bold w-4 text-center">4</span>
+<img alt="User" class="w-8 h-8 rounded-lg" data-alt="avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9w3SoYSZD7pyeItlxZagP6eQHpelRT_WQr0SEBwa3t6w1Eb5mQqChPsqRYPAkB-qgLPRZhkewRk833JoXxTTf_U-txzLFs07HvxMbs9Ajh5_GkGpv1-U8jX6Vsut_6P_HGxU8wLoYsWRRQswyapcUO28udRchwN1Y74DUBa7myadwthp_uCo-elUW0ENPrZOnPfoo-xsHBq0VqQ3w8GAYNXQrDW-foT2xsyOqfnNb_QMxHBMh_vmboMU7mvbB_VK8btTQ54Fp0Z58"/>
+<span class="font-medium text-sm flex-1">You</span>
+<span class="text-primary font-bold text-sm">2,450 XP</span>
+</div>
+<div class="flex items-center gap-4 p-3 hover:bg-white/5 transition-colors rounded-xl">
+<span class="text-slate-500 font-bold w-4 text-center">1</span>
+<img alt="Peer" class="w-8 h-8 rounded-lg" data-alt="headshot of a smiling female student" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDalkzZoW_3Dw8SN99FD3K468njQjCIHPwmU97CLPuDpAe22ZBNDe6evfMBU1fnHs6DpqeOCPP-Pd_jJb5P6CwrgoHDeyL2OTVwVL6hETQdYJxatMvU677JgeYreVeFF4YpW1Ct07T_5buB17SAlXpMNRLdSCQw0kR2QXa-CrwS3jl-OnShrZ6h1jBb6ybtSTyb1bRhb9Bn0fZ8i1q7a9ieRHnH-wbjWLJOjf16se-h1sag5hsHJrFB3AYBL-7oTJSFq6SDjVuWbnc7"/>
+<span class="font-medium text-sm flex-1">Sanya V.</span>
+<span class="text-slate-400 text-sm font-medium">2,890 XP</span>
+</div>
+<div class="flex items-center gap-4 p-3 hover:bg-white/5 transition-colors rounded-xl">
+<span class="text-slate-500 font-bold w-4 text-center">2</span>
+<img alt="Peer" class="w-8 h-8 rounded-lg" data-alt="headshot of a young male student" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCbbJ2elwmU7pUKEYxTNEHHFZGCKwzmWkJbSBzeE4uwNxtgDpJhQbPcJOinJhRoZIOHl6WAs0_-BXSBX2k8wAoglKXXwFzV8DoOVyicmy85_m9Rkv7tL4ZnNpIZJQJAr8VLnH6ZOzS0dAo-WXy6kEKZhjhDRrhh94Aq1uhO3DRLUk14SVu7y_Bs1WyHZTTJHl3-iHebol6hAZR4BWkHsQgNNsxfFIaHj4b4TX-akxCpkvoUw-jFX5s3hGxueb5x2gj5PHrMTsK1H1Tr"/>
+<span class="font-medium text-sm flex-1">Rohan K.</span>
+<span class="text-slate-400 text-sm font-medium">2,710 XP</span>
+</div>
+<div class="flex items-center gap-4 p-3 hover:bg-white/5 transition-colors rounded-xl">
+<span class="text-slate-500 font-bold w-4 text-center">3</span>
+<img alt="Peer" class="w-8 h-8 rounded-lg" data-alt="headshot of a smiling student with glasses" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAX4tqgUM9rgv9kmoRRW-spI53KH2q6j3OaFjWDtkMz_dPiz_lfIDt-FccfbNp9lLcyQxcNvXiV1JeaCqPUEzcDJzLzR0foO3YxNH4SnnAqV7tIyydF-Y0qE8pHhBfoMXE4FfKFEN0cg5A4N6aa-Tg1zq2Bk8YYc8DzhF71jjvDlgRFqsiXxuMzU42OefD72jRPcWcEyhSg-gw9Gby3_xqaixoK2EFPA_WgonIDEzv-ecvoD2ZUpFuTq3kzHRcjV8UxM_-U8sCABuqF"/>
+<span class="font-medium text-sm flex-1">Isha P.</span>
+<span class="text-slate-400 text-sm font-medium">2,600 XP</span>
+</div>
+</div>
+</section>
+<!-- Activity Heatmap -->
+<section class="lg:col-span-12 bg-surface-container-low rounded-2xl p-8">
+<div class="flex items-center justify-between mb-8">
+<div>
+<h3 class="font-headline font-bold text-xl mb-1">Learning Momentum</h3>
+<p class="text-slate-500 text-sm">458 contributions in the last year</p>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-[10px] text-slate-500">Less</span>
+<div class="flex gap-1">
+<div class="w-3 h-3 rounded-[2px] bg-surface-container-highest"></div>
+<div class="w-3 h-3 rounded-[2px] bg-primary/20"></div>
+<div class="w-3 h-3 rounded-[2px] bg-primary/40"></div>
+<div class="w-3 h-3 rounded-[2px] bg-primary/70"></div>
+<div class="w-3 h-3 rounded-[2px] bg-primary"></div>
+</div>
+<span class="text-[10px] text-slate-500">More</span>
+</div>
+</div>
+<div class="overflow-x-auto pb-2">
+<div class="grid grid-flow-col grid-rows-7 gap-1 min-w-[800px]">
+<!-- Generating a mock heatmap using JS-like repetition logic in HTML -->
+<!-- This is a visual representation using Tailwind -->
+<div class="w-3 h-3 rounded-[2px] bg-surface-container-highest"></div>
+<div class="w-3 h-3 rounded-[2px] bg-primary/20"></div>
+<div class="w-3 h-3 rounded-[2px] bg-primary/40"></div>
+<div class="w-3 h-3 rounded-[2px] bg-surface-container-highest"></div>
+<div class="w-3 h-3 rounded-[2px] bg-primary/20"></div>
+<div class="w-3 h-3 rounded-[2px] bg-surface-container-highest"></div>
+<div class="w-3 h-3 rounded-[2px] bg-primary/60"></div>
+<!-- Repeats of varying intensities -->
+<div class="w-3 h-3 rounded-[2px] bg-primary/10"></div><div class="w-3 h-3 rounded-[2px] bg-primary/40"></div><div class="w-3 h-3 rounded-[2px] bg-primary/20"></div><div class="w-3 h-3 rounded-[2px] bg-primary/80"></div><div class="w-3 h-3 rounded-[2px] bg-surface-container-highest"></div><div class="w-3 h-3 rounded-[2px] bg-primary/40"></div><div class="w-3 h-3 rounded-[2px] bg-primary/20"></div>
+<div class="w-3 h-3 rounded-[2px] bg-primary/10"></div><div class="w-3 h-3 rounded-[2px] bg-primary/60"></div><div class="w-3 h-3 rounded-[2px] bg-primary/20"></div><div class="w-3 h-3 rounded-[2px] bg-primary/40"></div><div class="w-3 h-3 rounded-[2px] bg-primary/20"></div><div class="w-3 h-3 rounded-[2px] bg-primary/90"></div><div class="w-3 h-3 rounded-[2px] bg-primary/40"></div>
+<div class="w-3 h-3 rounded-[2px] bg-surface-container-highest"></div><div class="w-3 h-3 rounded-[2px] bg-primary/10"></div><div class="w-3 h-3 rounded-[2px] bg-primary/30"></div><div class="w-3 h-3 rounded-[2px] bg-surface-container-highest"></div><div class="w-3 h-3 rounded-[2px] bg-primary/10"></div><div class="w-3 h-3 rounded-[2px] bg-primary/20"></div><div class="w-3 h-3 rounded-[2px] bg-primary/10"></div>
+<div class="w-3 h-3 rounded-[2px] bg-primary/40"></div><div class="w-3 h-3 rounded-[2px] bg-primary/80"></div><div class="w-3 h-3 rounded-[2px] bg-primary/20"></div><div class="w-3 h-3 rounded-[2px] bg-primary/40"></div><div class="w-3 h-3 rounded-[2px] bg-primary/20"></div><div class="w-3 h-3 rounded-[2px] bg-primary/100"></div><div class="w-3 h-3 rounded-[2px] bg-primary/60"></div>
+<!-- ... continued mock pattern -->
+<div class="w-3 h-3 rounded-[2px] bg-primary/10"></div><div class="w-3 h-3 rounded-[2px] bg-primary/40"></div><div class="w-3 h-3 rounded-[2px] bg-primary/20"></div><div class="w-3 h-3 rounded-[2px] bg-primary/80"></div><div class="w-3 h-3 rounded-[2px] bg-surface-container-highest"></div><div class="w-3 h-3 rounded-[2px] bg-primary/40"></div><div class="w-3 h-3 rounded-[2px] bg-primary/20"></div>
+<div class="w-3 h-3 rounded-[2px] bg-primary/10"></div><div class="w-3 h-3 rounded-[2px] bg-primary/60"></div><div class="w-3 h-3 rounded-[2px] bg-primary/20"></div><div class="w-3 h-3 rounded-[2px] bg-primary/40"></div><div class="w-3 h-3 rounded-[2px] bg-primary/20"></div><div class="w-3 h-3 rounded-[2px] bg-primary/90"></div><div class="w-3 h-3 rounded-[2px] bg-primary/40"></div>
+<div class="w-3 h-3 rounded-[2px] bg-surface-container-highest"></div><div class="w-3 h-3 rounded-[2px] bg-primary/10"></div><div class="w-3 h-3 rounded-[2px] bg-primary/30"></div><div class="w-3 h-3 rounded-[2px] bg-surface-container-highest"></div><div class="w-3 h-3 rounded-[2px] bg-primary/10"></div><div class="w-3 h-3 rounded-[2px] bg-primary/20"></div><div class="w-3 h-3 rounded-[2px] bg-primary/10"></div>
+<div class="w-3 h-3 rounded-[2px] bg-primary/40"></div><div class="w-3 h-3 rounded-[2px] bg-primary/80"></div><div class="w-3 h-3 rounded-[2px] bg-primary/20"></div><div class="w-3 h-3 rounded-[2px] bg-primary/40"></div><div class="w-3 h-3 rounded-[2px] bg-primary/20"></div><div class="w-3 h-3 rounded-[2px] bg-primary/100"></div><div class="w-3 h-3 rounded-[2px] bg-primary/60"></div>
+<div class="w-3 h-3 rounded-[2px] bg-primary/10"></div><div class="w-3 h-3 rounded-[2px] bg-primary/40"></div><div class="w-3 h-3 rounded-[2px] bg-primary/20"></div><div class="w-3 h-3 rounded-[2px] bg-primary/80"></div><div class="w-3 h-3 rounded-[2px] bg-surface-container-highest"></div><div class="w-3 h-3 rounded-[2px] bg-primary/40"></div><div class="w-3 h-3 rounded-[2px] bg-primary/20"></div>
+<div class="w-3 h-3 rounded-[2px] bg-primary/10"></div><div class="w-3 h-3 rounded-[2px] bg-primary/60"></div><div class="w-3 h-3 rounded-[2px] bg-primary/20"></div><div class="w-3 h-3 rounded-[2px] bg-primary/40"></div><div class="w-3 h-3 rounded-[2px] bg-primary/20"></div><div class="w-3 h-3 rounded-[2px] bg-primary/90"></div><div class="w-3 h-3 rounded-[2px] bg-primary/40"></div>
+<div class="w-3 h-3 rounded-[2px] bg-surface-container-highest"></div><div class="w-3 h-3 rounded-[2px] bg-primary/10"></div><div class="w-3 h-3 rounded-[2px] bg-primary/30"></div><div class="w-3 h-3 rounded-[2px] bg-surface-container-highest"></div><div class="w-3 h-3 rounded-[2px] bg-primary/10"></div><div class="w-3 h-3 rounded-[2px] bg-primary/20"></div><div class="w-3 h-3 rounded-[2px] bg-primary/10"></div>
+<div class="w-3 h-3 rounded-[2px] bg-primary/40"></div><div class="w-3 h-3 rounded-[2px] bg-primary/80"></div><div class="w-3 h-3 rounded-[2px] bg-primary/20"></div><div class="w-3 h-3 rounded-[2px] bg-primary/40"></div><div class="w-3 h-3 rounded-[2px] bg-primary/20"></div><div class="w-3 h-3 rounded-[2px] bg-primary/100"></div><div class="w-3 h-3 rounded-[2px] bg-primary/60"></div>
+<!-- ... further columns to fill width -->
+</div>
+</div>
+</section>
+<!-- Badge Wall -->
+<section class="lg:col-span-5 bg-surface-container-low rounded-2xl p-8">
+<h3 class="font-headline font-bold text-xl mb-8">Badge Wall</h3>
+<div class="grid grid-cols-2 gap-6">
+<div class="flex flex-col items-center text-center p-4 bg-surface-container-high rounded-2xl border border-outline-variant/10 group">
+<div class="w-16 h-16 mb-4 flex items-center justify-center rounded-full bg-secondary-container/20 text-secondary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1;">terminal</span>
+</div>
+<p class="text-sm font-bold text-on-surface">Beginner Coder</p>
+<p class="text-[10px] text-slate-500 mt-1 uppercase tracking-widest">Unlocked Feb '24</p>
+</div>
+<div class="flex flex-col items-center text-center p-4 bg-surface-container-high rounded-2xl border border-outline-variant/10 group">
+<div class="w-16 h-16 mb-4 flex items-center justify-center rounded-full bg-tertiary-container/20 text-tertiary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1;">psychology_alt</span>
+</div>
+<p class="text-sm font-bold text-on-surface">AI Explorer</p>
+<p class="text-[10px] text-slate-500 mt-1 uppercase tracking-widest">Unlocked Mar '24</p>
+</div>
+<div class="flex flex-col items-center text-center p-4 bg-surface-container-high rounded-2xl border border-outline-variant/10 group">
+<div class="w-16 h-16 mb-4 flex items-center justify-center rounded-full bg-primary-container/20 text-primary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1;">rocket_launch</span>
+</div>
+<p class="text-sm font-bold text-on-surface">Hackathon Ready</p>
+<p class="text-[10px] text-slate-500 mt-1 uppercase tracking-widest">Unlocked May '24</p>
+</div>
+<div class="flex flex-col items-center justify-center text-center p-4 bg-surface-container-highest/20 border-2 border-dashed border-outline-variant/30 rounded-2xl opacity-50">
+<span class="material-symbols-outlined text-3xl text-slate-600 mb-2">lock</span>
+<p class="text-xs font-medium text-slate-500">Master Architect</p>
+</div>
+</div>
+</section>
+<!-- Certificates Section -->
+<section class="lg:col-span-7 bg-surface-container-low rounded-2xl p-8">
+<div class="flex items-center justify-between mb-8">
+<h3 class="font-headline font-bold text-xl">Certificates</h3>
+<button class="text-xs text-primary font-bold px-3 py-1 bg-primary/10 rounded-lg">Download All (ZIP)</button>
+</div>
+<div class="space-y-4">
+<div class="flex items-center gap-4 p-4 bg-surface-container-high rounded-xl hover:bg-surface-container-highest transition-colors group">
+<div class="w-12 h-12 rounded-lg bg-surface-container-highest flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-3xl">article</span>
+</div>
+<div class="flex-1">
+<h4 class="text-sm font-bold text-on-surface">Advanced Data Structures</h4>
+<p class="text-xs text-slate-500">Completed June 12, 2024</p>
+</div>
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-slate-400 hover:text-primary hover:bg-primary/10 transition-all">
+<span class="material-symbols-outlined">download</span>
+</button>
+</div>
+<div class="flex items-center gap-4 p-4 bg-surface-container-high rounded-xl hover:bg-surface-container-highest transition-colors group">
+<div class="w-12 h-12 rounded-lg bg-surface-container-highest flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-3xl">article</span>
+</div>
+<div class="flex-1">
+<h4 class="text-sm font-bold text-on-surface">Neural Networks Fundamentals</h4>
+<p class="text-xs text-slate-500">Completed April 05, 2024</p>
+</div>
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-slate-400 hover:text-primary hover:bg-primary/10 transition-all">
+<span class="material-symbols-outlined">download</span>
+</button>
+</div>
+<div class="flex items-center gap-4 p-4 bg-surface-container-high rounded-xl hover:bg-surface-container-highest transition-colors group">
+<div class="w-12 h-12 rounded-lg bg-surface-container-highest flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-3xl">article</span>
+</div>
+<div class="flex-1">
+<h4 class="text-sm font-bold text-on-surface">Cloud Architecture: AWS Basics</h4>
+<p class="text-xs text-slate-500">Completed March 22, 2024</p>
+</div>
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-slate-400 hover:text-primary hover:bg-primary/10 transition-all">
+<span class="material-symbols-outlined">download</span>
+</button>
+</div>
+</div>
+</section>
+</div>
+</div>
+</main>
+<!-- Mobile Navigation Bar -->
+<div class="md:hidden fixed bottom-0 left-0 w-full bg-surface-container-high/90 backdrop-blur-xl flex justify-around items-center py-4 px-6 border-t border-outline-variant/10 z-50">
+<a class="flex flex-col items-center gap-1 text-slate-400" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-[10px] font-medium">Dashboard</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-400" href="#">
+<span class="material-symbols-outlined">terminal</span>
+<span class="text-[10px] font-medium">Practice</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-primary" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person</span>
+<span class="text-[10px] font-bold">Profile</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-400" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-[10px] font-medium">Settings</span>
+</a>
+</div>
+</body></html>

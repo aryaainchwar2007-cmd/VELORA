@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Indigo Academy - Student Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;family=Fira+Code:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #13121b;
+            color: #e4e1ee;
+        }
+        h1, h2, h3, .font-headline {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .glass-card {
+            background: rgba(53, 52, 62, 0.4);
+            backdrop-filter: blur(20px);
+        }
+        .indigo-gradient {
+            background: linear-gradient(135deg, #c3c0ff 0%, #4f46e5 100%);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary-container": "#4f46e5",
+                        "on-primary-fixed-variant": "#3323cc",
+                        "surface-variant": "#35343e",
+                        "on-secondary-fixed": "#002113",
+                        "tertiary": "#ffb95f",
+                        "surface-container-low": "#1b1b24",
+                        "surface-container-high": "#2a2933",
+                        "inverse-primary": "#4d44e3",
+                        "surface-bright": "#393842",
+                        "inverse-on-surface": "#302f39",
+                        "inverse-surface": "#e4e1ee",
+                        "tertiary-fixed": "#ffddb8",
+                        "outline": "#918fa1",
+                        "error-container": "#93000a",
+                        "surface": "#13121b",
+                        "on-secondary": "#003824",
+                        "surface-dim": "#13121b",
+                        "secondary": "#4edea3",
+                        "on-primary-fixed": "#0f0069",
+                        "on-tertiary-container": "#ffd4a4",
+                        "surface-container-lowest": "#0e0d16",
+                        "on-secondary-fixed-variant": "#005236",
+                        "on-tertiary-fixed": "#2a1700",
+                        "on-surface-variant": "#c7c4d8",
+                        "primary": "#c3c0ff",
+                        "surface-container": "#1f1f28",
+                        "on-secondary-container": "#00311f",
+                        "on-error-container": "#ffdad6",
+                        "primary-fixed-dim": "#c3c0ff",
+                        "on-primary": "#1d00a5",
+                        "on-surface": "#e4e1ee",
+                        "on-error": "#690005",
+                        "secondary-container": "#00a572",
+                        "secondary-fixed": "#6ffbbe",
+                        "outline-variant": "#464555",
+                        "surface-container-highest": "#35343e",
+                        "secondary-fixed-dim": "#4edea3",
+                        "primary-fixed": "#e2dfff",
+                        "on-tertiary": "#472a00",
+                        "on-primary-container": "#dad7ff",
+                        "tertiary-container": "#885500",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "background": "#13121b",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "on-background": "#e4e1ee",
+                        "surface-tint": "#c3c0ff",
+                        "error": "#ffb4ab"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    fontFamily: {
+                        "headline": ["Plus Jakarta Sans"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="overflow-x-hidden">
+<!-- TopNavBar (Shared Component Identity) -->
+<header class="fixed top-0 w-full flex items-center justify-between px-6 py-3 bg-[#13121b]/80 backdrop-blur-xl z-50 shadow-[0_20px_40px_rgba(0,0,0,0.3)]">
+<div class="flex items-center gap-8">
+<span class="text-2xl font-black tracking-tighter bg-gradient-to-br from-[#c3c0ff] to-[#4F46E5] bg-clip-text text-transparent">Indigo Academy</span>
+<div class="hidden md:flex items-center bg-surface-container-lowest px-4 py-2 rounded-full border-none">
+<span class="material-symbols-outlined text-slate-400 mr-2" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-64 placeholder:text-slate-500" placeholder="Search curriculum..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-4 text-[#c3c0ff]">
+<span class="material-symbols-outlined hover:text-white transition-colors duration-300 cursor-pointer" data-icon="notifications">notifications</span>
+<span class="material-symbols-outlined hover:text-white transition-colors duration-300 cursor-pointer" data-icon="workspace_premium">workspace_premium</span>
+</div>
+<div class="flex items-center gap-2 pl-4 border-l border-outline-variant/20">
+<span class="text-sm font-medium">Profile</span>
+<img class="w-8 h-8 rounded-full" data-alt="close-up portrait of a young computer science student wearing glasses in soft studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAovGc8fKdYNKuMSb7rpo8kh8JKrjZWUX70J_3sg-IN7Fkl4jy1k_wxyP5xh-Dev2D4IX7KzjSh6wVuoIxsAQgdo8UF_LtWNYbWh1HFMZkNn_9lWWQn0t8hQsZ3WNo1A1LCXIUXNXvxQYXwkFkvWSsMaQWO51U7to6PElA7guoK-dvf7auTtnA4QU5VsHnA6T5xDtJcXEikKaykTBC96a7T-41ogKZ4l2Nug5y33cPCjoZ6GdKzSN7t3cBnElSMpxt_FnAbQsmpnJJK"/>
+</div>
+</div>
+<div class="absolute bottom-0 left-0 bg-gradient-to-b from-[#c3c0ff]/5 to-transparent h-[1px] w-full"></div>
+</header>
+<!-- SideNavBar (Shared Component Identity) -->
+<nav class="h-screen w-64 fixed left-0 top-0 z-40 flex flex-col bg-[#13121b] border-r border-[#c3c0ff]/10 pt-20">
+<div class="px-6 py-4 flex flex-col items-center">
+<div class="relative">
+<img alt="Student Avatar" class="w-16 h-16 rounded-full ring-4 ring-primary-container/20" data-alt="minimalist avatar profile picture of a tech enthusiast with modern aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2rh7BRrua086KgYKg_DJYM1lbA6_0WZ3meJUAxeZxDH-ycQP2cEjAW4ZgR-W6E82xL2IUle5ya7sEPDgd6ZYNjWajTygRGim08UuHoZ56udDS62vMrBzo1wgwNiyP2YNiiD36Y4j6wNhXVPyoJZBxgYpzMrANXxhQz16PxGs2y3hfSQPBrauwqN7oq5AamTf667Kgfos7Ass7AdO52w7HktCxndHCIHl9-In2cUu88jZdsvoCOSn1Y64pYVurHVUq3AP34khc6q4y"/>
+<div class="absolute bottom-0 right-0 w-4 h-4 bg-secondary rounded-full border-2 border-surface"></div>
+</div>
+<h3 class="mt-4 font-headline font-bold text-[#e4e1ee]">Luminescent Scholar</h3>
+<p class="text-xs text-slate-500 tracking-wide">Level 12 Developer</p>
+</div>
+<div class="mt-8 space-y-2">
+<a class="flex items-center gap-3 bg-gradient-to-r from-[#4F46E5]/20 to-transparent text-[#c3c0ff] border-l-4 border-[#4F46E5] px-4 py-3 font-['Plus_Jakarta_SANS'] text-sm tracking-wide transition-all translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-3 text-slate-500 px-4 py-3 hover:bg-white/5 hover:text-white transition-all font-['Plus_Jakarta_SANS'] text-sm tracking-wide" href="#">
+<span class="material-symbols-outlined" data-icon="terminal">terminal</span>
+<span>Practice</span>
+</a>
+<a class="flex items-center gap-3 text-slate-500 px-4 py-3 hover:bg-white/5 hover:text-white transition-all font-['Plus_Jakarta_SANS'] text-sm tracking-wide" href="#">
+<span class="material-symbols-outlined" data-icon="account_tree">account_tree</span>
+<span>Projects</span>
+</a>
+<a class="flex items-center gap-3 text-slate-500 px-4 py-3 hover:bg-white/5 hover:text-white transition-all font-['Plus_Jakarta_SANS'] text-sm tracking-wide" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span>Profile</span>
+</a>
+</div>
+<div class="mt-auto pb-10 space-y-2">
+<button class="mx-6 w-52 flex items-center justify-center gap-2 py-3 rounded-xl indigo-gradient text-on-primary text-sm font-bold shadow-lg hover:opacity-90 active:scale-95 transition-all">
+<span class="material-symbols-outlined" data-icon="keyboard_voice">keyboard_voice</span>
+                Voice Help
+            </button>
+<div class="mt-6 border-t border-outline-variant/10 pt-4">
+<a class="flex items-center gap-3 text-slate-500 px-6 py-2 hover:text-white transition-all text-sm" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+<a class="flex items-center gap-3 text-slate-500 px-6 py-2 hover:text-white transition-all text-sm" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span>Support</span>
+</a>
+</div>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="ml-64 pt-24 px-8 pb-12 min-h-screen">
+<header class="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<h1 class="text-4xl font-black font-headline tracking-tight text-on-surface">Evening, Luminescent Scholar</h1>
+<p class="text-slate-400 mt-2">You're 2 coding challenges away from hitting your weekly milestone.</p>
+</div>
+<div class="flex items-center gap-4 bg-surface-container-high p-4 rounded-xl shadow-inner">
+<div class="flex items-center gap-2">
+<div class="w-10 h-10 rounded-lg flex items-center justify-center bg-tertiary-container/30 text-tertiary">
+<span class="material-symbols-outlined" data-icon="local_fire_department" data-weight="fill" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+</div>
+<div>
+<p class="text-[10px] uppercase font-bold text-slate-500">Streak</p>
+<p class="text-lg font-headline font-bold text-on-surface">5 Days</p>
+</div>
+</div>
+<div class="w-[1px] h-10 bg-outline-variant/20 mx-2"></div>
+<div class="flex items-center gap-2">
+<div class="w-10 h-10 rounded-lg flex items-center justify-center bg-primary-container/30 text-primary">
+<span class="material-symbols-outlined" data-icon="token" data-weight="fill" style="font-variation-settings: 'FILL' 1;">token</span>
+</div>
+<div>
+<p class="text-[10px] uppercase font-bold text-slate-500">Points</p>
+<p class="text-lg font-headline font-bold text-on-surface">1,200</p>
+</div>
+</div>
+<div class="w-[1px] h-10 bg-outline-variant/20 mx-2"></div>
+<div class="flex items-center gap-2">
+<div class="w-10 h-10 rounded-lg flex items-center justify-center bg-secondary-container/30 text-secondary">
+<span class="material-symbols-outlined" data-icon="military_tech" data-weight="fill" style="font-variation-settings: 'FILL' 1;">military_tech</span>
+</div>
+<div>
+<p class="text-[10px] uppercase font-bold text-slate-500">Badges</p>
+<p class="text-lg font-headline font-bold text-on-surface">8 Earned</p>
+</div>
+</div>
+</div>
+</header>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-12 gap-6">
+<!-- Main Action Grid -->
+<section class="col-span-12 lg:col-span-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="col-span-1 md:col-span-2 group relative overflow-hidden rounded-xl bg-surface-container-lowest p-8 flex flex-col justify-between min-h-[240px]">
+<div class="z-10">
+<h2 class="text-3xl font-black font-headline text-on-surface mb-2">Start Coding</h2>
+<p class="text-slate-400 max-w-[240px]">Pick up exactly where you left off in <span class="text-primary font-bold">Data Structures</span>.</p>
+</div>
+<button class="z-10 w-fit mt-6 px-6 py-3 indigo-gradient text-on-primary font-bold rounded-lg shadow-xl group-hover:scale-105 transition-transform">
+                        Continue Lesson
+                    </button>
+<!-- Background Illustration-like element -->
+<div class="absolute right-[-20px] bottom-[-20px] opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-[200px]" data-icon="code_blocks">code_blocks</span>
+</div>
+</div>
+<div class="col-span-1 group relative overflow-hidden rounded-xl bg-surface-container-high p-6 flex flex-col items-center justify-center text-center">
+<div class="w-16 h-16 rounded-full bg-secondary/10 flex items-center justify-center mb-4 text-secondary">
+<span class="material-symbols-outlined text-4xl" data-icon="swords">swords</span>
+</div>
+<h3 class="text-xl font-bold font-headline mb-1">Practice Arena</h3>
+<p class="text-xs text-slate-400 mb-6">Daily algorithmic challenges</p>
+<button class="text-sm font-bold text-secondary flex items-center gap-2 group-hover:translate-x-1 transition-transform">
+                        Join Room <span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+<div class="col-span-1 group relative overflow-hidden rounded-xl bg-surface-container-high p-6 flex flex-col items-center justify-center text-center">
+<div class="w-16 h-16 rounded-full bg-tertiary/10 flex items-center justify-center mb-4 text-tertiary">
+<span class="material-symbols-outlined text-4xl" data-icon="hub">hub</span>
+</div>
+<h3 class="text-xl font-bold font-headline mb-1">Project Hub</h3>
+<p class="text-xs text-slate-400 mb-6">Build real-world portfolios</p>
+<button class="text-sm font-bold text-tertiary flex items-center gap-2 group-hover:translate-x-1 transition-transform">
+                        Explore Repos <span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+<!-- Activity Feed -->
+<div class="col-span-1 md:col-span-2 rounded-xl bg-surface-container-low p-6">
+<div class="flex items-center justify-between mb-6">
+<h3 class="text-lg font-bold font-headline">Recent Activity</h3>
+<span class="text-xs text-slate-500">Last 24 Hours</span>
+</div>
+<div class="space-y-4">
+<div class="flex items-center gap-4 group">
+<div class="w-2 h-2 rounded-full bg-secondary group-hover:scale-150 transition-transform"></div>
+<div class="flex-1">
+<p class="text-sm font-medium">Completed <span class="text-secondary">Bubble Sort</span> visualization</p>
+<p class="text-[10px] text-slate-500 uppercase">Practice Arena • 2 hours ago</p>
+</div>
+<span class="text-xs font-mono text-slate-400">+150 XP</span>
+</div>
+<div class="flex items-center gap-4 group">
+<div class="w-2 h-2 rounded-full bg-primary group-hover:scale-150 transition-transform"></div>
+<div class="flex-1">
+<p class="text-sm font-medium">Unlocked <span class="text-primary">"The Architect"</span> Badge</p>
+<p class="text-[10px] text-slate-500 uppercase">Achievements • 5 hours ago</p>
+</div>
+<span class="text-xs font-mono text-slate-400">+500 XP</span>
+</div>
+<div class="flex items-center gap-4 group">
+<div class="w-2 h-2 rounded-full bg-tertiary group-hover:scale-150 transition-transform"></div>
+<div class="flex-1">
+<p class="text-sm font-medium">Refined <span class="text-tertiary">Personal Website</span> styling</p>
+<p class="text-[10px] text-slate-500 uppercase">Project Hub • Yesterday</p>
+</div>
+<span class="text-xs font-mono text-slate-400">+80 XP</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Progress & AI Hub -->
+<aside class="col-span-12 lg:col-span-4 space-y-6">
+<!-- Progress Hub -->
+<div class="rounded-xl bg-surface-container p-6 shadow-xl relative overflow-hidden">
+<div class="flex items-center justify-between mb-6">
+<h3 class="text-lg font-bold font-headline">Progress Hub</h3>
+<span class="material-symbols-outlined text-slate-500 cursor-pointer" data-icon="more_horiz">more_horiz</span>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="flex flex-col items-center p-4 bg-surface-container-low rounded-xl">
+<div class="relative w-24 h-24 flex items-center justify-center mb-3">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-surface-container-high" cx="48" cy="48" fill="transparent" r="40" stroke="currentColor" stroke-width="8"></circle>
+<circle class="text-primary" cx="48" cy="48" fill="transparent" r="40" stroke="currentColor" stroke-dasharray="251.2" stroke-dashoffset="62.8" stroke-width="8"></circle>
+</svg>
+<span class="absolute text-lg font-bold font-headline">75%</span>
+</div>
+<p class="text-xs font-bold text-slate-300">C Programming</p>
+</div>
+<div class="flex flex-col items-center p-4 bg-surface-container-low rounded-xl">
+<div class="relative w-24 h-24 flex items-center justify-center mb-3">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-surface-container-high" cx="48" cy="48" fill="transparent" r="40" stroke="currentColor" stroke-width="8"></circle>
+<circle class="text-secondary" cx="48" cy="48" fill="transparent" r="40" stroke="currentColor" stroke-dasharray="251.2" stroke-dashoffset="150.7" stroke-width="8"></circle>
+</svg>
+<span class="absolute text-lg font-bold font-headline">40%</span>
+</div>
+<p class="text-xs font-bold text-slate-300">Python Basics</p>
+</div>
+</div>
+</div>
+<!-- AI Recommended -->
+<div class="rounded-xl glass-card border-l-4 border-primary p-6 relative overflow-hidden">
+<div class="flex items-center gap-2 mb-4 text-primary">
+<span class="material-symbols-outlined" data-icon="smart_toy">smart_toy</span>
+<span class="text-xs font-bold uppercase tracking-widest">AI Recommendation</span>
+</div>
+<div class="flex gap-4">
+<div class="relative w-24 h-24 flex-shrink-0 rounded-lg overflow-hidden bg-surface-container-highest">
+<img class="w-full h-full object-cover opacity-60" data-alt="close-up of complex digital network structure with blue glowing nodes and lines in dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQYmxjJlCAvsgF5oNO2NxuOWT664rfuZTdNBTtZbmemEZS7n4Qn8JhaUcAbR7QGPX6GM6EFJmEIeb2jNAogk80sqT574FSAMTH-U3Ig78SDrqOWq8SujF4v_AEvGivYlTD4aUCSedtqFDo2gForWldRbRGL5zYO5V48p5cWRadqQUbPRJRZKDxgA1E7P2pbIa9S64qLldl3mpDDnjapOGk-jGnMEf9xXI2ICZ_E1XHtzelkYPxbfE1XjOb60vCCqB83YtaPKwSCemu"/>
+<div class="absolute inset-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-3xl" data-icon="play_circle">play_circle</span>
+</div>
+</div>
+<div class="flex-1">
+<h4 class="text-sm font-bold font-headline leading-tight mb-2">Solve Linked List in Hindi</h4>
+<p class="text-[10px] text-slate-400 mb-3">Based on your recent struggles with data structures.</p>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 bg-surface-container-highest text-[9px] rounded-full text-slate-300">12 min</span>
+<span class="px-2 py-0.5 bg-surface-container-highest text-[9px] rounded-full text-slate-300">Video</span>
+</div>
+</div>
+</div>
+<!-- Decorative Glow -->
+<div class="absolute -right-10 -bottom-10 w-32 h-32 bg-primary/10 blur-[40px] rounded-full"></div>
+</div>
+<!-- Quick Stats Mini Card -->
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-surface-container-low p-4 rounded-xl flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary" data-icon="school">school</span>
+<div>
+<p class="text-[10px] text-slate-500 font-bold uppercase">Rank</p>
+<p class="text-sm font-headline font-bold">Top 5%</p>
+</div>
+</div>
+<div class="bg-surface-container-low p-4 rounded-xl flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary" data-icon="timer">timer</span>
+<div>
+<p class="text-[10px] text-slate-500 font-bold uppercase">Time</p>
+<p class="text-sm font-headline font-bold">42h This Mo.</p>
+</div>
+</div>
+</div>
+</aside>
+</div>
+</main>
+<!-- Contextual FAB (Only for Dashboard/Home) -->
+<button class="fixed bottom-8 right-8 w-16 h-16 rounded-full indigo-gradient text-on-primary shadow-2xl flex items-center justify-center hover:scale-110 active:scale-90 transition-all group z-50">
+<span class="material-symbols-outlined text-3xl group-hover:rotate-12 transition-transform" data-icon="rocket_launch">rocket_launch</span>
+</button>
+</body></html>

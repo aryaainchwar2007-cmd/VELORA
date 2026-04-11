@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Project Hub | Indigo Academy</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;family=Fira+Code&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #13121b;
+        }
+        .font-headline { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(53, 52, 62, 0.4);
+            backdrop-filter: blur(20px);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "primary-container": "#4f46e5",
+                      "on-primary-fixed-variant": "#3323cc",
+                      "surface-variant": "#35343e",
+                      "on-secondary-fixed": "#002113",
+                      "tertiary": "#ffb95f",
+                      "surface-container-low": "#1b1b24",
+                      "surface-container-high": "#2a2933",
+                      "inverse-primary": "#4d44e3",
+                      "surface-bright": "#393842",
+                      "inverse-on-surface": "#302f39",
+                      "inverse-surface": "#e4e1ee",
+                      "tertiary-fixed": "#ffddb8",
+                      "outline": "#918fa1",
+                      "error-container": "#93000a",
+                      "surface": "#13121b",
+                      "on-secondary": "#003824",
+                      "surface-dim": "#13121b",
+                      "secondary": "#4edea3",
+                      "on-primary-fixed": "#0f0069",
+                      "on-tertiary-container": "#ffd4a4",
+                      "surface-container-lowest": "#0e0d16",
+                      "on-secondary-fixed-variant": "#005236",
+                      "on-tertiary-fixed": "#2a1700",
+                      "on-surface-variant": "#c7c4d8",
+                      "primary": "#c3c0ff",
+                      "surface-container": "#1f1f28",
+                      "on-secondary-container": "#00311f",
+                      "on-error-container": "#ffdad6",
+                      "primary-fixed-dim": "#c3c0ff",
+                      "on-primary": "#1d00a5",
+                      "on-surface": "#e4e1ee",
+                      "on-error": "#690005",
+                      "secondary-container": "#00a572",
+                      "secondary-fixed": "#6ffbbe",
+                      "outline-variant": "#464555",
+                      "surface-container-highest": "#35343e",
+                      "secondary-fixed-dim": "#4edea3",
+                      "primary-fixed": "#e2dfff",
+                      "on-tertiary": "#472a00",
+                      "on-primary-container": "#dad7ff",
+                      "tertiary-container": "#885500",
+                      "tertiary-fixed-dim": "#ffb95f",
+                      "background": "#13121b",
+                      "on-tertiary-fixed-variant": "#653e00",
+                      "on-background": "#e4e1ee",
+                      "surface-tint": "#c3c0ff",
+                      "error": "#ffb4ab"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "fontFamily": {
+                      "headline": ["Plus Jakarta Sans"],
+                      "body": ["Inter"],
+                      "label": ["Inter"]
+              }
+            },
+          }
+        }
+      </script>
+</head>
+<body class="bg-surface text-on-surface antialiased">
+<!-- SideNavBar (Authority: JSON) -->
+<aside class="hidden md:flex h-screen w-64 fixed left-0 top-0 z-40 flex-col bg-[#13121b] border-r border-[#c3c0ff]/10 font-['Plus_Jakarta_SANS'] text-sm tracking-wide">
+<!-- Header Profile -->
+<div class="p-6 flex items-center space-x-3">
+<div class="h-10 w-10 rounded-full overflow-hidden bg-surface-container-high">
+<img alt="Student Avatar" class="w-full h-full object-cover" data-alt="close-up profile photo of a young tech-savvy student with neon rim lighting and a focused expression" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBTyu6rximVzs7itWWP4epS3py2zyKROBLriOtTmSPsnjHqxOlPVIqOSGzeXmAg2s2j5ITCglZK_K5MFgoTGszLhECJwTRs7Revngb8H45FakqFbMNB61xS29TeOXt1CQYW7iS3D8CzPlT3IiJpDpx0YdQxC1a_C6AMs8qiIQACLSGkJdmsuWmDYb1vqkMeKT0UmT2LdNwQIUUEZG6R7shUmGs-Xl6afkQhUSM-gd2LPH7MBxI_BDFoBZECLoAZXa_DIfPG4Fl1udAk"/>
+</div>
+<div>
+<p class="text-on-surface font-bold">Luminescent Scholar</p>
+<p class="text-slate-500 text-xs">Level 12 Developer</p>
+</div>
+</div>
+<!-- Navigation Tabs -->
+<nav class="flex-1 px-2 space-y-1">
+<a class="flex items-center text-slate-500 px-4 py-3 hover:bg-white/5 hover:text-white transition-all group" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center text-slate-500 px-4 py-3 hover:bg-white/5 hover:text-white transition-all group" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="terminal">terminal</span>
+<span>Practice</span>
+</a>
+<!-- ACTIVE TAB: Projects -->
+<a class="flex items-center bg-gradient-to-r from-[#4F46E5]/20 to-transparent text-[#c3c0ff] border-l-4 border-[#4F46E5] px-4 py-3 transition-transform" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="account_tree">account_tree</span>
+<span>Projects</span>
+</a>
+<a class="flex items-center text-slate-500 px-4 py-3 hover:bg-white/5 hover:text-white transition-all group" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="person">person</span>
+<span>Profile</span>
+</a>
+</nav>
+<!-- CTA & Footer -->
+<div class="p-4 space-y-4">
+<button class="w-full py-3 px-4 bg-gradient-to-br from-[#c3c0ff] to-[#4F46E5] text-white rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg active:scale-95 transition-transform">
+<span class="material-symbols-outlined" data-icon="record_voice_over">record_voice_over</span>
+                Voice Help
+            </button>
+<div class="pt-4 border-t border-outline-variant/20">
+<a class="flex items-center text-slate-500 px-4 py-2 hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+<a class="flex items-center text-slate-500 px-4 py-2 hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="help">help</span>
+<span>Support</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- TopNavBar (Authority: JSON) -->
+<header class="fixed top-0 w-full z-50 flex items-center justify-between px-6 py-3 bg-[#13121b]/80 backdrop-blur-xl md:ml-64 md:w-[calc(100%-16rem)]">
+<div class="flex items-center gap-8">
+<span class="text-2xl font-black tracking-tighter bg-gradient-to-br from-[#c3c0ff] to-[#4F46E5] bg-clip-text text-transparent">Indigo Academy</span>
+<!-- Search Bar (on_left per JSON) -->
+<div class="hidden lg:flex items-center bg-surface-container-low rounded-full px-4 py-1.5 w-64 text-slate-400">
+<span class="material-symbols-outlined text-sm mr-2" data-icon="search">search</span>
+<span class="text-xs font-['Inter']">Search projects...</span>
+</div>
+</div>
+<div class="flex items-center gap-4 text-[#c3c0ff]">
+<span class="material-symbols-outlined cursor-pointer hover:text-white transition-colors" data-icon="notifications">notifications</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-white transition-colors" data-icon="workspace_premium">workspace_premium</span>
+<div class="flex items-center gap-2 ml-2 pl-4 border-l border-outline-variant/30">
+<span class="text-xs font-medium text-slate-400">Profile</span>
+<div class="h-8 w-8 rounded-full bg-primary-container/20 border border-primary/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-sm" data-icon="person">person</span>
+</div>
+</div>
+</div>
+<div class="absolute bottom-0 left-0 bg-gradient-to-b from-[#c3c0ff]/5 to-transparent h-[1px] w-full"></div>
+</header>
+<!-- Main Canvas -->
+<main class="md:ml-64 pt-24 px-6 pb-12 min-h-screen">
+<div class="max-w-7xl mx-auto">
+<!-- Header Section with Link GitHub -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+<div class="space-y-2">
+<h1 class="text-5xl font-headline font-extrabold tracking-tight text-on-surface">Project Hub</h1>
+<p class="text-slate-400 max-w-md">Manage your technical portfolio, track collaborative milestones, and explore AI-suggested learning paths.</p>
+</div>
+<button class="flex items-center gap-3 px-6 py-3 bg-surface-container-high hover:bg-surface-container-highest rounded-xl text-on-surface font-semibold transition-all group border border-outline-variant/10">
+<img alt="GitHub Logo" class="w-5 h-5 opacity-70 group-hover:opacity-100" data-alt="minimalist white github logo on dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0EIdXUg9qEWJT02MRvhBko1ffAgXCd2ygmwkWofofDwb0-IetyuRVtIvwc9CBcx71TTL_1eELZeO5TcDK0JtqlqkKegCNuR1Dev3z97MkgutOR_AxCzzw7EQySn4Hci86X5dZ7hi9MjswQieGKO70ABmTtFXrmE0LU0pvwOx2Tz4DpzcaXSFtGT52TLDHdzrF9qhasftUwy-eRJoI1amNGYLlZkZWzE75DiTuztNQt1Z3DPSPtTSomBJlB4efYdK8d2wrNsnAqM5n"/>
+                    Link GitHub
+                    <span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<!-- AI Idea Generator Widget (Bento Wide) -->
+<section class="lg:col-span-12 glass-panel p-8 rounded-2xl border-l-4 border-primary relative overflow-hidden">
+<div class="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -mr-20 -mt-20"></div>
+<div class="relative z-10 flex flex-col md:flex-row items-center gap-8">
+<div class="flex-1 space-y-4">
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+<span class="text-sm font-bold tracking-widest uppercase">AI Recommendation</span>
+</div>
+<h2 class="text-2xl font-headline font-bold text-on-surface">Based on your CS 2nd year status, how about building a...</h2>
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/10">
+<p class="text-xl font-body text-on-surface leading-relaxed">
+<span class="text-primary font-bold">Distributed File System</span> with Raft Consensus. You've excelled in Operating Systems; this would solidify your distributed computing knowledge.
+                                </p>
+</div>
+</div>
+<div class="flex flex-col gap-3 w-full md:w-auto">
+<button class="px-8 py-4 bg-gradient-to-br from-primary to-primary-container text-white rounded-xl font-bold shadow-xl active:scale-95 transition-transform">Initialize Project</button>
+<button class="px-8 py-4 bg-surface-variant/40 hover:bg-surface-variant text-on-surface rounded-xl font-bold transition-colors">See Other Ideas</button>
+</div>
+</div>
+</section>
+<!-- Ongoing Projects (Bento Left) -->
+<section class="lg:col-span-8 space-y-6">
+<div class="flex items-center justify-between">
+<h3 class="text-xl font-headline font-bold">Ongoing Projects</h3>
+<span class="text-primary text-sm font-semibold cursor-pointer hover:underline">View All</span>
+</div>
+<!-- Project Card 1 -->
+<div class="bg-surface-container-low p-6 rounded-xl space-y-6 hover:bg-surface-container-high transition-colors group">
+<div class="flex justify-between items-start">
+<div class="space-y-1">
+<h4 class="text-lg font-bold group-hover:text-primary transition-colors">Kernel-Level Memory Manager</h4>
+<p class="text-sm text-slate-400">Low-level C implementations for paging and segmentation.</p>
+</div>
+<span class="px-3 py-1 bg-secondary-container/20 text-secondary text-xs font-bold rounded-full border border-secondary/20 uppercase tracking-tighter">Active</span>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-medium text-slate-400">
+<span>Progress</span>
+<span>65%</span>
+</div>
+<div class="h-2 w-full bg-surface-container-lowest rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-primary to-secondary w-[65%]"></div>
+</div>
+</div>
+<div class="flex items-center justify-between pt-2">
+<div class="flex -space-x-2">
+<img alt="Collaborator" class="w-8 h-8 rounded-full border-2 border-surface-container-low" data-alt="circular avatar portrait of a developer with glasses in a tech office" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA2dpTxqT-TCZomtzn8j7BV6UjQu2OgHSQS4FqdqLh5WQ3XXxTi288azdDpOY_Io3nBE_8EOtpwkA2yHSb2N_v7HK16JGp8RLn3ihj-8lejHota7LJ4SCLijmBZ1tb51CtuEtGH8vI7s9t1Up_lHJ-7QUUVS7YdtqBUPK4MzjZSIe6oDDlqVsR7Feunrnfgaa-PoIutLDTtWCGfi8hej-szWdjEGeLaGqS2z4q2E8TTPwTe7dojplNhoY8Ll2AS3OSK1Md5Q_kIIAj2"/>
+<img alt="Collaborator" class="w-8 h-8 rounded-full border-2 border-surface-container-low" data-alt="circular avatar portrait of a creative designer with bright background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQMOnKGhwEqVjXl-q0sS4o2bgNnWk4XPWJk_sCacM9Vtz4C0pUgKPjNt45ZjkqjfgbxRkP7N6Elei9O1YJmsMWJ57wG0Hjv3P_1LfzXkOExbqB0yngasakY1HbIZeBzoGBroQv-_dpYxERNsaUOof2nBms6fXbhlF88_2uKYHV4tBIpWnvofpQyBC6BumMi6w-sXxxcEjKi5PY42FfdZOQn_1r2xbtawHFWTkDIyM_H8gRpbCqoxoePcGfmb2aM7Thi_IuRri2EXFM"/>
+<div class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center text-[10px] font-bold border-2 border-surface-container-low text-slate-400">+3</div>
+</div>
+<div class="flex gap-4 text-slate-500">
+<span class="flex items-center gap-1 text-xs"><span class="material-symbols-outlined text-sm" data-icon="commit">commit</span> 142</span>
+<span class="flex items-center gap-1 text-xs"><span class="material-symbols-outlined text-sm" data-icon="chat_bubble">chat_bubble</span> 28</span>
+</div>
+</div>
+</div>
+<!-- Project Card 2 -->
+<div class="bg-surface-container-low p-6 rounded-xl space-y-6 hover:bg-surface-container-high transition-colors group">
+<div class="flex justify-between items-start">
+<div class="space-y-1">
+<h4 class="text-lg font-bold group-hover:text-primary transition-colors">Neural Style Transfer API</h4>
+<p class="text-sm text-slate-400">Python-based REST API for artistic image filtering using PyTorch.</p>
+</div>
+<span class="px-3 py-1 bg-secondary-container/20 text-secondary text-xs font-bold rounded-full border border-secondary/20 uppercase tracking-tighter">Active</span>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-medium text-slate-400">
+<span>Progress</span>
+<span>32%</span>
+</div>
+<div class="h-2 w-full bg-surface-container-lowest rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-primary to-secondary w-[32%]"></div>
+</div>
+</div>
+<div class="flex items-center justify-between pt-2">
+<div class="flex -space-x-2">
+<img alt="Collaborator" class="w-8 h-8 rounded-full border-2 border-surface-container-low" data-alt="close-up avatar of a developer in a workspace with warm lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCa4-_PmDZS8UvvYia9gUe3GklqqIhYvDSwgYpBPArJhXQoknHNsfCUI-vK2OuvnwJY3tJJoXncBigsBFI3C3pscOd5qZQ8ofaztYdHv7oCo3-mi9-f-hISgOM8irEGNBFnJ2SfDPjwdGd5hsscA47IP41li1-MUkm4rTMIPVBfD9T14T4OTB1z97Bd9hTQcLq9R2FixSQUx1Gd76aHg4LrAPnFO2400wPYfRp-GJmj2bceTmt7CDG8IMBfkBIoCRxXyQG94-tKuiVv"/>
+<div class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center text-[10px] font-bold border-2 border-surface-container-low text-slate-400">+1</div>
+</div>
+<div class="flex gap-4 text-slate-500">
+<span class="flex items-center gap-1 text-xs"><span class="material-symbols-outlined text-sm" data-icon="commit">commit</span> 45</span>
+<span class="flex items-center gap-1 text-xs"><span class="material-symbols-outlined text-sm" data-icon="chat_bubble">chat_bubble</span> 12</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Completed Projects & Stats (Bento Right) -->
+<section class="lg:col-span-4 space-y-6">
+<h3 class="text-xl font-headline font-bold">Completed</h3>
+<div class="space-y-4">
+<!-- Completed Item 1 -->
+<div class="flex items-center gap-4 p-4 rounded-xl bg-surface-container-lowest border-l-2 border-secondary">
+<div class="h-12 w-12 rounded-lg bg-surface-container-high flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined" data-icon="check_circle">check_circle</span>
+</div>
+<div class="flex-1">
+<p class="text-sm font-bold">React Portfolio v2</p>
+<p class="text-xs text-slate-500">Published 2 weeks ago</p>
+</div>
+<span class="material-symbols-outlined text-slate-600" data-icon="open_in_new">open_in_new</span>
+</div>
+<!-- Completed Item 2 -->
+<div class="flex items-center gap-4 p-4 rounded-xl bg-surface-container-lowest border-l-2 border-secondary">
+<div class="h-12 w-12 rounded-lg bg-surface-container-high flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined" data-icon="check_circle">check_circle</span>
+</div>
+<div class="flex-1">
+<p class="text-sm font-bold">Graph Theory Sandbox</p>
+<p class="text-xs text-slate-500">Published 1 month ago</p>
+</div>
+<span class="material-symbols-outlined text-slate-600" data-icon="open_in_new">open_in_new</span>
+</div>
+</div>
+<!-- Gamification Card -->
+<div class="p-6 rounded-2xl bg-gradient-to-br from-tertiary-container/30 to-transparent border border-tertiary/10 mt-8">
+<div class="flex items-center gap-2 text-tertiary mb-4">
+<span class="material-symbols-outlined" data-icon="military_tech" data-weight="fill" style="font-variation-settings: 'FILL' 1;">military_tech</span>
+<span class="text-xs font-bold tracking-widest uppercase">Project Streak</span>
+</div>
+<p class="text-3xl font-headline font-black text-tertiary">14 Days</p>
+<p class="text-xs text-slate-400 mt-1">Keep pushing code to maintain your rhythm. 2 days until next badge.</p>
+<div class="mt-4 grid grid-cols-7 gap-1">
+<div class="h-1.5 bg-tertiary rounded-full"></div>
+<div class="h-1.5 bg-tertiary rounded-full"></div>
+<div class="h-1.5 bg-tertiary rounded-full"></div>
+<div class="h-1.5 bg-tertiary rounded-full"></div>
+<div class="h-1.5 bg-tertiary rounded-full"></div>
+<div class="h-1.5 bg-tertiary rounded-full"></div>
+<div class="h-1.5 bg-tertiary/20 rounded-full"></div>
+</div>
+</div>
+</section>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Authority: JSON - Responsive Pivot) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full bg-surface-container-highest border-t border-outline-variant/10 flex items-center justify-around py-3 z-50">
+<a class="flex flex-col items-center text-slate-400" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-[10px] mt-1">Dashboard</span>
+</a>
+<a class="flex flex-col items-center text-slate-400" href="#">
+<span class="material-symbols-outlined" data-icon="terminal">terminal</span>
+<span class="text-[10px] mt-1">Practice</span>
+</a>
+<a class="flex flex-col items-center text-[#c3c0ff] font-bold" href="#">
+<span class="material-symbols-outlined" data-icon="account_tree">account_tree</span>
+<span class="text-[10px] mt-1">Projects</span>
+</a>
+<a class="flex flex-col items-center text-slate-400" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="text-[10px] mt-1">Profile</span>
+</a>
+</nav>
+</body></html>
