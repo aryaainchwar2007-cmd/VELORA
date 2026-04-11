@@ -259,9 +259,18 @@ result = calculate_fibonacci(n_terms)
 <div class="relative group">
 <div class="absolute inset-0 bg-primary/10 blur-xl opacity-0 group-focus-within:opacity-100 transition-opacity"></div>
 <div class="relative flex items-center bg-surface-container-high rounded-2xl p-2 pr-3">
-<input class="flex-1 bg-transparent border-none focus:ring-0 text-sm px-4 text-on-surface placeholder-outline-variant" placeholder="Ask your AI Mentor anything..." type="text"/>
+<input class="flex-1 bg-transparent border-none focus:ring-0 text-sm px-4 text-on-surface placeholder-outline-variant" id="aiMentorInput" placeholder="Ask your AI Mentor anything..." type="text"/>
 <div class="flex items-center gap-2">
-<button class="w-10 h-10 flex items-center justify-center rounded-xl hover:bg-white/5 text-primary transition-all active:scale-90">
+<select class="bg-surface-container rounded-lg border border-outline-variant/30 px-2 py-1 text-xs text-on-surface" id="voiceLangSelect">
+<option value="en-IN">English</option>
+<option value="hi-IN">Hindi</option>
+<option value="mr-IN">Marathi</option>
+<option value="ta-IN">Tamil</option>
+<option value="te-IN">Telugu</option>
+<option value="kn-IN">Kannada</option>
+<option value="ml-IN">Malayalam</option>
+</select>
+<button class="w-10 h-10 flex items-center justify-center rounded-xl hover:bg-white/5 text-primary transition-all active:scale-90" id="voiceMicBtn" title="Start voice input">
 <span class="material-symbols-outlined">mic</span>
 </button>
 <button class="w-10 h-10 flex items-center justify-center rounded-xl bg-primary text-on-primary transition-all active:scale-90 hover:shadow-lg hover:shadow-primary/30">
@@ -269,6 +278,10 @@ result = calculate_fibonacci(n_terms)
 </button>
 </div>
 </div>
+</div>
+<div class="flex items-center gap-2 mt-2 px-2">
+<span class="text-[10px] text-outline" id="voiceStatus">Voice input: idle</span>
+<span class="text-[10px] text-secondary hidden" id="detectedLanguageBadge"></span>
 </div>
 <div class="flex justify-center gap-6 mt-4">
 <button class="text-[10px] font-bold text-outline-variant hover:text-primary transition-colors flex items-center gap-1">
@@ -284,11 +297,186 @@ result = calculate_fibonacci(n_terms)
 </section>
 </div>
 </main>
-<!-- Floating Voice Help Button -->
-<button class="fixed bottom-8 right-8 z-50 flex items-center gap-3 pl-6 pr-4 py-4 bg-[#13121b] border border-primary/20 text-white rounded-full shadow-2xl hover:bg-surface-container-high transition-all active:scale-95 group">
+<button class="fixed bottom-8 right-8 z-50 flex items-center gap-3 pl-6 pr-4 py-4 bg-[#13121b] border border-primary/20 text-white rounded-full shadow-2xl hover:bg-surface-container-high transition-all active:scale-95 group" id="voiceHelpBtn">
 <span class="text-sm font-bold tracking-widest text-[#c3c0ff]">Voice Help</span>
 <div class="w-10 h-10 flex items-center justify-center bg-gradient-to-br from-primary to-primary-container rounded-full group-hover:shadow-[0_0_20px_rgba(195,192,255,0.4)] transition-all">
 <span class="material-symbols-outlined text-on-primary" style="font-variation-settings: 'FILL' 1;">mic_external_on</span>
 </div>
 </button>
+<script>
+(() => {
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const inputEl = document.getElementById("aiMentorInput");
+  const micBtn = document.getElementById("voiceMicBtn");
+  const helpBtn = document.getElementById("voiceHelpBtn");
+  const langSelect = document.getElementById("voiceLangSelect");
+  const statusEl = document.getElementById("voiceStatus");
+  const languageBadge = document.getElementById("detectedLanguageBadge");
+
+  const LANG_LABELS = {
+    "en-IN": "English",
+    "hi-IN": "Hindi",
+    "mr-IN": "Marathi",
+    "ta-IN": "Tamil",
+    "te-IN": "Telugu",
+    "kn-IN": "Kannada",
+    "ml-IN": "Malayalam"
+  };
+  let listening = false;
+  let stopRequested = false;
+  let activeRecognition = null;
+
+  function detectLanguageFromText(text) {
+    if (!text) return null;
+    if (/[\u0B80-\u0BFF]/.test(text)) return "ta-IN"; // Tamil block
+    if (/[\u0C00-\u0C7F]/.test(text)) return "te-IN"; // Telugu block
+    if (/[\u0C80-\u0CFF]/.test(text)) return "kn-IN"; // Kannada block
+    if (/[\u0D00-\u0D7F]/.test(text)) return "ml-IN"; // Malayalam block
+    if (/[\u0900-\u097F]/.test(text)) {
+      // Devanagari can be Hindi or Marathi, so use lightweight word cues.
+      const normalized = text.toLowerCase();
+      const marathiHints = /(आहे|आहेत|मला|तुला|तुम्ही|काय|नाही|आणि|होय|मी)\b/;
+      const hindiHints = /(है|हूँ|हैं|मैं|आप|क्यों|नहीं|और|क्या)\b/;
+      if (marathiHints.test(normalized) && !hindiHints.test(normalized)) return "mr-IN";
+      return "hi-IN";
+    }
+    return "en-IN";
+  }
+
+  function updateLanguageBadge(langCode) {
+    if (!langCode) {
+      languageBadge.classList.add("hidden");
+      languageBadge.textContent = "";
+      return;
+    }
+    const label = LANG_LABELS[langCode] || langCode;
+    languageBadge.textContent = "Detected: " + label;
+    languageBadge.classList.remove("hidden");
+  }
+
+  function setStatus(text) {
+    statusEl.textContent = text;
+  }
+
+  function setButtonVisualState(isListening) {
+    listening = isListening;
+    micBtn.classList.toggle("text-error", isListening);
+    micBtn.title = isListening ? "Stop voice input" : "Start voice input";
+  }
+
+  async function ensureMicPermission() {
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      throw new Error("This browser does not support microphone access.");
+    }
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    stream.getTracks().forEach((t) => t.stop());
+  }
+
+  function recognizeOnce(lang, timeoutMs = 4500) {
+    return new Promise((resolve) => {
+      const rec = new SpeechRecognition();
+      let settled = false;
+      let text = "";
+      let confidence = 0;
+      let timer = null;
+
+      const finish = (result) => {
+        if (settled) return;
+        settled = true;
+        if (timer) window.clearTimeout(timer);
+        activeRecognition = null;
+        resolve(result);
+      };
+
+      rec.lang = lang;
+      rec.continuous = false;
+      rec.interimResults = false;
+      rec.maxAlternatives = 1;
+      activeRecognition = rec;
+
+      rec.onresult = (event) => {
+        const segments = [];
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          const alt = event.results[i][0];
+          if (event.results[i].isFinal && alt?.transcript) {
+            segments.push(alt.transcript.trim());
+            if (typeof alt.confidence === "number") {
+              confidence = Math.max(confidence, alt.confidence);
+            }
+          }
+        }
+        text = segments.join(" ").trim();
+      };
+
+      rec.onerror = () => finish({ lang, text: "", confidence: 0 });
+      rec.onend = () => finish({ lang, text, confidence });
+
+      try {
+        rec.start();
+      } catch (_) {
+        finish({ lang, text: "", confidence: 0 });
+        return;
+      }
+
+      timer = window.setTimeout(() => {
+        try {
+          rec.stop();
+        } catch (_) {}
+      }, timeoutMs);
+    });
+  }
+
+  async function startListening() {
+    if (listening) {
+      stopRequested = true;
+      if (activeRecognition) {
+        try {
+          activeRecognition.stop();
+        } catch (_) {}
+      }
+      setStatus("Stopping...");
+      return;
+    }
+
+    try {
+      await ensureMicPermission();
+      stopRequested = false;
+      setButtonVisualState(true);
+      updateLanguageBadge(null);
+
+      const selected = langSelect.value;
+      setStatus("Listening (" + (LANG_LABELS[selected] || selected) + ")...");
+      const result = await recognizeOnce(selected, 6000);
+      if (!stopRequested && result.text) {
+        inputEl.value = result.text;
+        updateLanguageBadge(selected);
+        setStatus("Voice captured");
+      } else if (!stopRequested) {
+        setStatus("No speech detected, try again");
+      }
+    } catch (err) {
+      setStatus("Mic permission blocked. Please allow microphone access.");
+    } finally {
+      setButtonVisualState(false);
+    }
+  }
+
+  if (!SpeechRecognition) {
+    setStatus("Voice input not supported. Use latest Chrome/Edge.");
+    micBtn.disabled = true;
+    helpBtn.disabled = true;
+    return;
+  }
+
+  const isSecure = window.isSecureContext || location.hostname === "localhost" || location.hostname === "127.0.0.1";
+  if (!isSecure) {
+    setStatus("Voice needs secure context. Open via http://localhost.");
+  }
+
+  micBtn.addEventListener("click", startListening);
+  if (helpBtn) {
+    helpBtn.addEventListener("click", startListening);
+  }
+})();
+</script>
 </body></html>
