@@ -3,6 +3,72 @@
 // ============================================================
 
 // ── Voice input (already in HTML inline – centralised here) ──
+
+// ── Editable Code Editor with Clear & Line Numbers ──────────
+(function () {
+  const editor = document.getElementById('codeEditor');
+  const lineNumbers = document.getElementById('lineNumbers');
+
+  // Default starter code
+  const defaultCode = `def calculate_fibonacci(n):
+    # Fibonacci sequence generator
+    sequence = [0, 1]
+
+    while len(sequence) < n:
+        next_val = sequence[-1] + sequence[-2]
+        sequence.append(next_val)
+
+    return sequence
+
+n_terms = 10
+result = calculate_fibonacci(n_terms)
+print(f"The first {n_terms} terms: {result}")`;
+
+  // Load saved code or default
+  editor.value = localStorage.getItem('editorCode') || defaultCode;
+
+  // Update line numbers
+  function updateLineNumbers() {
+    const lines = editor.value.split('\n').length;
+    lineNumbers.innerHTML = Array.from({ length: lines }, (_, i) => i + 1).join('<br/>');
+  }
+
+  // Auto-save + update line numbers on every keystroke
+  editor.addEventListener('input', () => {
+    updateLineNumbers();
+    localStorage.setItem('editorCode', editor.value);
+  });
+
+  // Tab key inserts 4 spaces instead of switching focus
+  editor.addEventListener('keydown', e => {
+    if (e.key === 'Tab') {
+      e.preventDefault();
+      const start = editor.selectionStart;
+      const end = editor.selectionEnd;
+      editor.value = editor.value.substring(0, start) + '    ' + editor.value.substring(end);
+      editor.selectionStart = editor.selectionEnd = start + 4;
+      updateLineNumbers();
+    }
+  });
+
+  updateLineNumbers(); // Initial render
+
+  // ── Clear Button (add one in toolbar or call clearCode() from console) ──
+  window.clearCode = function () {
+    editor.value = '';
+    localStorage.removeItem('editorCode');
+    updateLineNumbers();
+    editor.focus();
+  };
+
+  // ── Reset to default code ──
+  window.resetCode = function () {
+    editor.value = defaultCode;
+    localStorage.setItem('editorCode', defaultCode);
+    updateLineNumbers();
+    editor.focus();
+  };
+})();
 (() => {
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
   const inputEl   = document.getElementById('aiMentorInput');
