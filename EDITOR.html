@@ -1,4 +1,155 @@
+<<<<<<< HEAD
 <!-- ONLY EDITOR TOOLBAR UPDATED -->
+=======
+﻿<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Indigo Academy | AI Coding Editor</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;family=Fira+Code:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-container": "#4f46e5",
+                        "on-primary-fixed-variant": "#3323cc",
+                        "surface-variant": "#35343e",
+                        "on-secondary-fixed": "#002113",
+                        "tertiary": "#ffb95f",
+                        "surface-container-low": "#1b1b24",
+                        "surface-container-high": "#2a2933",
+                        "inverse-primary": "#4d44e3",
+                        "surface-bright": "#393842",
+                        "inverse-on-surface": "#302f39",
+                        "inverse-surface": "#e4e1ee",
+                        "tertiary-fixed": "#ffddb8",
+                        "outline": "#918fa1",
+                        "error-container": "#93000a",
+                        "surface": "#13121b",
+                        "on-secondary": "#003824",
+                        "surface-dim": "#13121b",
+                        "secondary": "#4edea3",
+                        "on-primary-fixed": "#0f0069",
+                        "on-tertiary-container": "#ffd4a4",
+                        "surface-container-lowest": "#0e0d16",
+                        "on-secondary-fixed-variant": "#005236",
+                        "on-tertiary-fixed": "#2a1700",
+                        "on-surface-variant": "#c7c4d8",
+                        "primary": "#c3c0ff",
+                        "surface-container": "#1f1f28",
+                        "on-secondary-container": "#00311f",
+                        "on-error-container": "#ffdad6",
+                        "primary-fixed-dim": "#c3c0ff",
+                        "on-primary": "#1d00a5",
+                        "on-surface": "#e4e1ee",
+                        "on-error": "#690005",
+                        "secondary-container": "#00a572",
+                        "secondary-fixed": "#6ffbbe",
+                        "outline-variant": "#464555",
+                        "surface-container-highest": "#35343e",
+                        "secondary-fixed-dim": "#4edea3",
+                        "primary-fixed": "#e2dfff",
+                        "on-tertiary": "#472a00",
+                        "on-primary-container": "#dad7ff",
+                        "tertiary-container": "#885500",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "background": "#13121b",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "on-background": "#e4e1ee",
+                        "surface-tint": "#c3c0ff",
+                        "error": "#ffb4ab"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Plus Jakarta Sans"],
+                        "body": ["Inter"],
+                        "label": ["Inter"],
+                        "mono": ["Fira Code"]
+                    }
+                },
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3 { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .code-font { font-family: 'Fira Code', monospace; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #35343e; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface overflow-hidden h-screen">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full flex items-center justify-between px-6 py-3 bg-[#13121b]/80 backdrop-blur-xl z-50 shadow-[0_20px_40px_rgba(0,0,0,0.3)]">
+<div class="flex items-center gap-8">
+<span class="text-2xl font-black tracking-tighter bg-gradient-to-br from-[#c3c0ff] to-[#4F46E5] bg-clip-text text-transparent">Indigo Academy</span>
+<div class="hidden md:flex items-center gap-6">
+<nav class="flex gap-4 font-['Plus_Jakarta_SANS'] font-medium">
+<a class="text-slate-400 hover:text-white transition-colors duration-300" href="#">Dashboard</a>
+<a class="text-[#c3c0ff] font-bold" href="#">Practice</a>
+<a class="text-slate-400 hover:text-white transition-colors duration-300" href="#">Projects</a>
+</nav>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2 bg-surface-container-low px-3 py-1.5 rounded-full">
+<span class="material-symbols-outlined text-tertiary text-sm" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+<span class="text-xs font-bold text-tertiary tracking-wider">LEVEL 12</span>
+</div>
+<div class="flex gap-2">
+<button class="p-2 text-[#c3c0ff] hover:text-white transition-colors duration-300 active:scale-90">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden bg-primary-container">
+<img class="w-full h-full object-cover" data-alt="close-up portrait of a young student with a friendly expression and short dark hair" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCxJsWwad8hXd6ZJyBeSQKfhUu5D__6o-vTESHHtet7hAHSIe9O6KC4O8pK9tByi6BIdPM26kOWyPFTGgbjXDS0NfwJDi80eSK-pEeeqkWlwDSunTqx3yvajkYZcnlXIup-OYqZjOOJsXBxAmkBUKSpc1izKGSa-K5C94Ni6CDlGFVky3dGvQSymnT8xGAp9jzX3vzVPBo3N0kVF2kqsFiYxB7YTtAVwajH18wTDOz_MREDeNW9kH_waTwuzaMOQyzs6gYmKGenjk5t"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Separation Line -->
+<div class="fixed top-[56px] left-0 bg-gradient-to-b from-[#c3c0ff]/5 to-transparent h-[1px] w-full z-50"></div>
+<main class="flex h-full pt-[57px]">
+<!-- SideNav (Minimized / Icon Only Context) -->
+<aside class="hidden lg:flex flex-col w-20 bg-[#13121b] border-r border-[#c3c0ff]/10 items-center py-6 gap-8">
+<div class="p-3 bg-gradient-to-r from-[#4F46E5]/20 to-transparent text-[#c3c0ff] border-l-4 border-[#4F46E5] transition-transform">
+<span class="material-symbols-outlined">terminal</span>
+</div>
+<div class="p-3 text-slate-500 hover:bg-white/5 hover:text-white transition-all cursor-pointer">
+<span class="material-symbols-outlined">dashboard</span>
+</div>
+<div class="p-3 text-slate-500 hover:bg-white/5 hover:text-white transition-all cursor-pointer">
+<span class="material-symbols-outlined">account_tree</span>
+</div>
+<div class="p-3 text-slate-500 hover:bg-white/5 hover:text-white transition-all cursor-pointer">
+<span class="material-symbols-outlined">person</span>
+</div>
+<div class="mt-auto flex flex-col gap-4">
+<div class="p-3 text-slate-500 hover:bg-white/5 hover:text-white transition-all cursor-pointer">
+<span class="material-symbols-outlined">settings</span>
+</div>
+</div>
+</aside>
+<!-- Main Workspace -->
+<div class="flex-1 flex flex-col md:flex-row overflow-hidden">
+<!-- Code Editor Section -->
+<section class="flex-[1.5] flex flex-col bg-surface-container-lowest">
+<!-- Editor Toolbar -->
+>>>>>>> dccb36c6665f32ce5d96d2fd2fe5f7000dd1f75f
 <div class="h-14 flex items-center justify-between px-6 bg-surface-container-low">
 <div class="flex items-center gap-4">
 <div class="flex bg-surface-container-high rounded-lg p-1">
@@ -11,6 +162,7 @@
 <div class="flex items-center gap-3">
 <button id="runBtn" class="flex items-center gap-2 px-5 py-2 bg-gradient-to-br from-secondary-container to-[#008159] text-white rounded-lg text-sm font-bold">
 <span class="material-symbols-outlined text-sm">play_arrow</span>
+<<<<<<< HEAD
 Run Code
 </button>
 
@@ -71,3 +223,327 @@ runBtn.onclick = () => {
   alert("Code running! Check console.");
 };
 </script>
+=======
+                            Run Code
+                        </button>
+                        <button onclick="clearCode()"
+  class="flex items-center gap-2 px-4 py-2 bg-surface-container-high text-on-surface-variant rounded-lg text-sm font-bold hover:text-white transition-all active:scale-95">
+  <span class="material-symbols-outlined text-sm">delete</span>
+  Clear
+</button>
+</div>
+</div>
+<!-- Editor Canvas -->
+<div class="flex flex-1">
+  <!-- Line numbers -->
+  <div id="lineNumbers" class="w-10 text-outline-variant text-right pr-4 select-none leading-relaxed pt-0">
+    1
+  </div>
+  <!-- Editable code area -->
+  <textarea
+    id="codeEditor"
+    spellcheck="false"
+    autocomplete="off"
+    class="flex-1 bg-transparent text-on-surface code-font text-sm leading-relaxed resize-none outline-none border-none whitespace-pre"
+    style="min-height: 100%; tab-size: 4;"
+    placeholder="Write your code here..."
+  ></textarea>
+</div>
+<!-- Teach Me Popup -->
+<div class="absolute bottom-10 left-10 max-w-xs bg-surface-variant/90 backdrop-blur-xl p-5 rounded-xl border-l-4 border-primary shadow-2xl z-20">
+<div class="flex items-start justify-between mb-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-lg">lightbulb</span>
+<span class="font-bold text-sm tracking-tight text-on-surface">Teach Me: Variables</span>
+</div>
+<button class="text-outline hover:text-white transition-colors">
+<span class="material-symbols-outlined text-sm">close</span>
+</button>
+</div>
+<p class="text-xs text-on-surface-variant leading-relaxed mb-4">
+                            Think of a <span class="text-primary font-bold">Variable</span> like a box with a label. ðŸ“¦ <br/><br/>
+                            You put information (data) inside it so you can use it later by just calling its name!
+                        </p>
+<div class="flex gap-2">
+<button class="text-[10px] uppercase tracking-widest font-bold px-3 py-1.5 bg-primary/10 text-primary rounded-full">Step 1/3</button>
+<button class="text-[10px] uppercase tracking-widest font-bold px-3 py-1.5 bg-white/5 text-white rounded-full ml-auto">Next</button>
+</div>
+</div>
+</div>
+</section>
+<!-- AI Mentor Section -->
+<section class="flex-1 flex flex-col bg-surface border-l border-[#c3c0ff]/10">
+<!-- AI Header -->
+<div class="h-14 flex items-center px-6 bg-surface-container">
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-secondary"></div>
+<h2 class="text-sm font-bold text-white tracking-wide">AI Mentor</h2>
+</div>
+</div>
+<!-- Chat Messages -->
+<div class="flex-1 overflow-y-auto p-6 space-y-6">
+<!-- User Message -->
+<div class="flex flex-col items-end gap-2">
+<div class="bg-surface-container-high px-4 py-3 rounded-2xl rounded-tr-none max-w-[85%]">
+<p class="text-sm text-on-surface">Explain line 5 logic in this code.</p>
+</div>
+</div>
+<!-- AI Response (Hinglish) -->
+<div class="flex items-start gap-3 max-w-[90%]">
+<div class="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-primary-container flex items-center justify-center shrink-0 shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-on-primary text-sm" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+</div>
+<div class="flex flex-col gap-2">
+<div class="bg-surface-variant/40 backdrop-blur-md px-4 py-3 rounded-2xl rounded-tl-none border-l-2 border-primary">
+<p class="text-sm text-on-surface leading-relaxed">
+                                    à¤œà¤°à¥‚à¤°! Line 5 à¤®à¥‡à¤‚ <code class="bg-surface-container px-1 rounded text-primary">sequence[-1]</code> à¤•à¤¾ à¤®à¤¤à¤²à¤¬ à¤¹à¥ˆ list à¤•à¤¾ <span class="text-secondary font-medium">akhri element</span> (last item). 
+                                    <br/><br/>
+                                    Python allows negative indexing, so:
+                                    </p><ul class="mt-2 space-y-1 list-disc list-inside text-on-surface-variant">
+<li><span class="text-on-surface">[-1]</span>: Last item</li>
+<li><span class="text-on-surface">[-2]</span>: Second last item</li>
+</ul>
+                                    In dono ko add karke hum naya Fibonacci number create kar rahe hain. Simple, haina? ðŸ˜Š
+                                <p></p>
+</div>
+<span class="text-[10px] text-outline px-2">Just now â€¢ AI Assistant</span>
+</div>
+</div>
+<!-- AI Suggestion Card -->
+<div class="mx-auto w-full max-w-sm p-[1px] bg-gradient-to-br from-primary/30 to-transparent rounded-xl mt-4">
+<div class="bg-surface-container-lowest/80 backdrop-blur-xl p-4 rounded-xl flex items-center gap-4">
+<span class="material-symbols-outlined text-tertiary">bolt</span>
+<div class="flex-1">
+<p class="text-xs font-bold text-on-surface mb-0.5">Quick Optimization</p>
+<p class="text-[10px] text-on-surface-variant">Try using a generator for large N!</p>
+</div>
+<button class="material-symbols-outlined text-outline hover:text-white transition-colors">chevron_right</button>
+</div>
+</div>
+</div>
+<!-- Input Area -->
+<div class="p-6 pt-0">
+<div class="relative group">
+<div class="absolute inset-0 bg-primary/10 blur-xl opacity-0 group-focus-within:opacity-100 transition-opacity"></div>
+<div class="relative flex items-center bg-surface-container-high rounded-2xl p-2 pr-3">
+<input class="flex-1 bg-transparent border-none focus:ring-0 text-sm px-4 text-on-surface placeholder-outline-variant" id="aiMentorInput" placeholder="Ask your AI Mentor anything..." type="text"/>
+<div class="flex items-center gap-2">
+<select class="bg-surface-container rounded-lg border border-outline-variant/30 px-2 py-1 text-xs text-on-surface" id="voiceLangSelect">
+<option value="en-IN">English</option>
+<option value="hi-IN">Hindi</option>
+<option value="mr-IN">Marathi</option>
+<option value="ta-IN">Tamil</option>
+<option value="te-IN">Telugu</option>
+<option value="kn-IN">Kannada</option>
+<option value="ml-IN">Malayalam</option>
+</select>
+<button class="w-10 h-10 flex items-center justify-center rounded-xl hover:bg-white/5 text-primary transition-all active:scale-90" id="voiceMicBtn" title="Start voice input">
+<span class="material-symbols-outlined">mic</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-xl bg-primary text-on-primary transition-all active:scale-90 hover:shadow-lg hover:shadow-primary/30">
+<span class="material-symbols-outlined">send</span>
+</button>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-2 mt-2 px-2">
+<span class="text-[10px] text-outline" id="voiceStatus">Voice input: idle</span>
+<span class="text-[10px] text-secondary hidden" id="detectedLanguageBadge"></span>
+</div>
+<div class="flex justify-center gap-6 mt-4">
+<button class="text-[10px] font-bold text-outline-variant hover:text-primary transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">history</span>
+                            CHAT HISTORY
+                        </button>
+<button class="text-[10px] font-bold text-outline-variant hover:text-primary transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">auto_awesome</span>
+                            REFRESH AI
+                        </button>
+</div>
+</div>
+</section>
+</div>
+</main>
+
+<script>
+(() => {
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const inputEl = document.getElementById("aiMentorInput");
+  const micBtn = document.getElementById("voiceMicBtn");
+  const helpBtn = document.getElementById("voiceHelpBtn");
+  const langSelect = document.getElementById("voiceLangSelect");
+  const statusEl = document.getElementById("voiceStatus");
+  const languageBadge = document.getElementById("detectedLanguageBadge");
+
+  const LANG_LABELS = {
+    "en-IN": "English",
+    "hi-IN": "Hindi",
+    "mr-IN": "Marathi",
+    "ta-IN": "Tamil",
+    "te-IN": "Telugu",
+    "kn-IN": "Kannada",
+    "ml-IN": "Malayalam"
+  };
+  let listening = false;
+  let stopRequested = false;
+  let activeRecognition = null;
+
+  function detectLanguageFromText(text) {
+    if (!text) return null;
+    if (/[\u0B80-\u0BFF]/.test(text)) return "ta-IN"; // Tamil block
+    if (/[\u0C00-\u0C7F]/.test(text)) return "te-IN"; // Telugu block
+    if (/[\u0C80-\u0CFF]/.test(text)) return "kn-IN"; // Kannada block
+    if (/[\u0D00-\u0D7F]/.test(text)) return "ml-IN"; // Malayalam block
+    if (/[\u0900-\u097F]/.test(text)) {
+      // Devanagari can be Hindi or Marathi, so use lightweight word cues.
+      const normalized = text.toLowerCase();
+      const marathiHints = /(à¤†à¤¹à¥‡|à¤†à¤¹à¥‡à¤¤|à¤®à¤²à¤¾|à¤¤à¥à¤²à¤¾|à¤¤à¥à¤®à¥à¤¹à¥€|à¤•à¤¾à¤¯|à¤¨à¤¾à¤¹à¥€|à¤†à¤£à¤¿|à¤¹à¥‹à¤¯|à¤®à¥€)\b/;
+      const hindiHints = /(à¤¹à¥ˆ|à¤¹à¥‚à¤|à¤¹à¥ˆà¤‚|à¤®à¥ˆà¤‚|à¤†à¤ª|à¤•à¥à¤¯à¥‹à¤‚|à¤¨à¤¹à¥€à¤‚|à¤”à¤°|à¤•à¥à¤¯à¤¾)\b/;
+      if (marathiHints.test(normalized) && !hindiHints.test(normalized)) return "mr-IN";
+      return "hi-IN";
+    }
+    return "en-IN";
+  }
+
+  function updateLanguageBadge(langCode) {
+    if (!langCode) {
+      languageBadge.classList.add("hidden");
+      languageBadge.textContent = "";
+      return;
+    }
+    const label = LANG_LABELS[langCode] || langCode;
+    languageBadge.textContent = "Detected: " + label;
+    languageBadge.classList.remove("hidden");
+  }
+
+  function setStatus(text) {
+    statusEl.textContent = text;
+  }
+
+  function setButtonVisualState(isListening) {
+    listening = isListening;
+    micBtn.classList.toggle("text-error", isListening);
+    micBtn.title = isListening ? "Stop voice input" : "Start voice input";
+  }
+
+  async function ensureMicPermission() {
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      throw new Error("This browser does not support microphone access.");
+    }
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    stream.getTracks().forEach((t) => t.stop());
+  }
+
+  function recognizeOnce(lang, timeoutMs = 4500) {
+    return new Promise((resolve) => {
+      const rec = new SpeechRecognition();
+      let settled = false;
+      let text = "";
+      let confidence = 0;
+      let timer = null;
+
+      const finish = (result) => {
+        if (settled) return;
+        settled = true;
+        if (timer) window.clearTimeout(timer);
+        activeRecognition = null;
+        resolve(result);
+      };
+
+      rec.lang = lang;
+      rec.continuous = false;
+      rec.interimResults = false;
+      rec.maxAlternatives = 1;
+      activeRecognition = rec;
+
+      rec.onresult = (event) => {
+        const segments = [];
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          const alt = event.results[i][0];
+          if (event.results[i].isFinal && alt?.transcript) {
+            segments.push(alt.transcript.trim());
+            if (typeof alt.confidence === "number") {
+              confidence = Math.max(confidence, alt.confidence);
+            }
+          }
+        }
+        text = segments.join(" ").trim();
+      };
+
+      rec.onerror = () => finish({ lang, text: "", confidence: 0 });
+      rec.onend = () => finish({ lang, text, confidence });
+
+      try {
+        rec.start();
+      } catch (_) {
+        finish({ lang, text: "", confidence: 0 });
+        return;
+      }
+
+      timer = window.setTimeout(() => {
+        try {
+          rec.stop();
+        } catch (_) {}
+      }, timeoutMs);
+    });
+  }
+
+  async function startListening() {
+    if (listening) {
+      stopRequested = true;
+      if (activeRecognition) {
+        try {
+          activeRecognition.stop();
+        } catch (_) {}
+      }
+      setStatus("Stopping...");
+      return;
+    }
+
+    try {
+      await ensureMicPermission();
+      stopRequested = false;
+      setButtonVisualState(true);
+      updateLanguageBadge(null);
+
+      const selected = langSelect.value;
+      setStatus("Listening (" + (LANG_LABELS[selected] || selected) + ")...");
+      const result = await recognizeOnce(selected, 6000);
+      if (!stopRequested && result.text) {
+        inputEl.value = result.text;
+        updateLanguageBadge(selected);
+        setStatus("Voice captured");
+      } else if (!stopRequested) {
+        setStatus("No speech detected, try again");
+      }
+    } catch (err) {
+      setStatus("Mic permission blocked. Please allow microphone access.");
+    } finally {
+      setButtonVisualState(false);
+    }
+  }
+
+  if (!SpeechRecognition) {
+    setStatus("Voice input not supported. Use latest Chrome/Edge.");
+    micBtn.disabled = true;
+    helpBtn.disabled = true;
+    return;
+  }
+
+  const isSecure = window.isSecureContext || location.hostname === "localhost" || location.hostname === "127.0.0.1";
+  if (!isSecure) {
+    setStatus("Voice needs secure context. Open via http://localhost.");
+  }
+
+  micBtn.addEventListener("click", startListening);
+  if (helpBtn) {
+    helpBtn.addEventListener("click", startListening);
+  }
+})();
+</script>
+<script src="session.js"></script>
+<script src="editor (1).js"></script>
+</body></html>
+
+
+>>>>>>> dccb36c6665f32ce5d96d2fd2fe5f7000dd1f75f

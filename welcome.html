@@ -106,7 +106,7 @@
 </div>
 <button class="material-symbols-outlined text-[#c3c0ff] hover:text-white transition-colors">notifications</button>
 <button class="material-symbols-outlined text-[#c3c0ff] hover:text-white transition-colors">workspace_premium</button>
-<div class="flex items-center gap-2 px-3 py-1 bg-surface-container-high rounded-full cursor-pointer hover:bg-surface-container-highest transition-all">
+<div class="flex items-center gap-2 px-3 py-1 bg-surface-container-high rounded-full cursor-pointer hover:bg-surface-container-highest transition-all" data-route="profile" title="Go to Profile">
 <div class="w-8 h-8 rounded-full overflow-hidden">
 <img alt="Profile" data-alt="vibrant 3D avatar of a young student with glasses and a purple hoodie, soft studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmMXUYuM-PoakJoZlImJwpzC8qhGL57avPeAVrANenclTcFIpKZMus_oRBWoyaZRiRjjhBDBG6VkLoPAqCki9jZd6vzaCr_DQ5aHK9L2tiIDfg5b_jledwktN8uHPeQeMFW8xc-BSPXeak6NgNw56wIyeYBlEIkPSRuy6DB8YaF08AgyATYEVKBA9sFqbINW-1tpaWDgFKWJ2SUTC8xa8lChQe_N4CWBv-Xo3mly7BtTyG_5aoVeNGxl2a5WAkAQrKlt9UKwJWAikZ"/>
 </div>
@@ -278,41 +278,52 @@
 <span class="text-[10px] font-bold text-outline uppercase tracking-widest">Profile Setup</span>
 <div class="flex-1 h-[1px] bg-outline-variant/30"></div>
 </div>
-<form class="space-y-4">
+<form class="space-y-4" id="signup-form">
 <div>
 <label class="block text-xs font-bold text-outline mb-2 uppercase tracking-wide">Full Name</label>
-<input class="w-full bg-surface-container-low border-outline-variant/30 rounded-lg px-4 py-3 text-sm focus:ring-primary focus:border-primary" placeholder="e.g. Rahul Sharma" type="text"/>
+<input class="w-full bg-surface-container-low border-outline-variant/30 rounded-lg px-4 py-3 text-sm focus:ring-primary focus:border-primary" id="full_name" placeholder="e.g. Rahul Sharma" required type="text"/>
 </div>
 <div>
 <label class="block text-xs font-bold text-outline mb-2 uppercase tracking-wide">Email</label>
+<<<<<<< HEAD
 <input class="w-full bg-surface-container-low border-outline-variant/30 rounded-lg px-4 py-3 text-sm focus:ring-primary focus:border-primary" placeholder="e.g. rsharma@gmail.com" type="text"/>
 </div>
 <div>
 <label class="block text-xs font-bold text-outline mb-2 uppercase tracking-wide">Password</label>
 <input class="w-full bg-surface-container-low border-outline-variant/30 rounded-lg px-4 py-3 text-sm focus:ring-primary focus:border-primary" placeholder="e.g. Rahul@2367" type="text"/>
+=======
+<input class="w-full bg-surface-container-low border-outline-variant/30 rounded-lg px-4 py-3 text-sm focus:ring-primary focus:border-primary" id="email" placeholder="e.g. rsharma@gmail.com" required type="email"/>
+</div>
+<div>
+<label class="block text-xs font-bold text-outline mb-2 uppercase tracking-wide">Password</label>
+<input class="w-full bg-surface-container-low border-outline-variant/30 rounded-lg px-4 py-3 text-sm focus:ring-primary focus:border-primary" id="password" minlength="8" placeholder="Minimum 8 characters" required type="password"/>
+>>>>>>> dccb36c6665f32ce5d96d2fd2fe5f7000dd1f75f
 </div>
 
 <div class="grid grid-cols-2 gap-4">
 <div>
 <label class="block text-xs font-bold text-outline mb-2 uppercase tracking-wide">Branch</label>
-<select class="w-full bg-surface-container-low border-outline-variant/30 rounded-lg px-4 py-3 text-sm focus:ring-primary focus:border-primary appearance-none">
-<option>CS (Computer Science)</option>
-<option>IT (Information Tech)</option>
-<option>ENTC (Electronics)</option>
-<option>Mechanical</option>
-<option>Other</option>
+<select class="w-full bg-surface-container-low border-outline-variant/30 rounded-lg px-4 py-3 text-sm focus:ring-primary focus:border-primary appearance-none" id="branch" required>
+<option value="CS">CS (Computer Science)</option>
+<option value="IT">IT (Information Tech)</option>
+<option value="ENTC">ENTC (Electronics)</option>
+<option value="Mechanical">Mechanical</option>
 </select>
 </div>
 <div>
 <label class="block text-xs font-bold text-outline mb-2 uppercase tracking-wide">Year</label>
-<select class="w-full bg-surface-container-low border-outline-variant/30 rounded-lg px-4 py-3 text-sm focus:ring-primary focus:border-primary appearance-none">
-<option>1st Year</option>
-<option>2nd Year</option>
-<option>3rd Year</option>
-<option>4th Year</option>
+<select class="w-full bg-surface-container-low border-outline-variant/30 rounded-lg px-4 py-3 text-sm focus:ring-primary focus:border-primary appearance-none" id="year" required>
+<option value="1st">1st Year</option>
+<option value="2nd">2nd Year</option>
+<option value="3rd">3rd Year</option>
+<option value="4th">4th Year</option>
 </select>
 </div>
 </div>
+<<<<<<< HEAD
+=======
+<p class="text-[12px] text-error mt-1 hidden" id="signup-error"></p>
+>>>>>>> dccb36c6665f32ce5d96d2fd2fe5f7000dd1f75f
 <button class="w-full py-4 mt-4 bg-gradient-to-r from-primary to-primary-container text-on-primary font-extrabold rounded-xl hover:shadow-[0_10px_20px_rgba(79,70,229,0.3)] transition-all" type="submit">
                         Complete Registration
                     </button>
@@ -364,5 +375,105 @@
             © 2024 Indigo Academy. All Rights Reserved.
         </div>
 </footer>
+<<<<<<< HEAD
 <script src="velora.js"></script>
 </body></html>
+=======
+<script src="session.js"></script>
+<script>
+  (function () {
+    const API_BASE_URL = "http://127.0.0.1:8000";
+    const AUTH_STORE_KEY = "velora_auth";
+    const form = document.getElementById("signup-form");
+    const errorEl = document.getElementById("signup-error");
+    const submitBtn = form ? form.querySelector('button[type="submit"]') : null;
+
+    if (!form) return;
+
+    function setError(message) {
+      if (!errorEl) return;
+      if (!message) {
+        errorEl.textContent = "";
+        errorEl.classList.add("hidden");
+        return;
+      }
+      errorEl.textContent = message;
+      errorEl.classList.remove("hidden");
+    }
+
+    function buildUsername(email) {
+      const base = (email.split("@")[0] || "user").replace(/[^a-z0-9]/gi, "").toLowerCase() || "user";
+      const suffix = String(Math.floor(Math.random() * 9000) + 1000);
+      return (base + suffix).slice(0, 50);
+    }
+
+    async function tryLogin(email, password) {
+      const response = await fetch(API_BASE_URL + "/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ identifier: email, password }),
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.detail || "Login failed.");
+      }
+      return data;
+    }
+
+    form.addEventListener("submit", async function (event) {
+      event.preventDefault();
+      setError("");
+
+      const fullName = document.getElementById("full_name").value.trim();
+      const email = document.getElementById("email").value.trim().toLowerCase();
+      const password = document.getElementById("password").value;
+      const branch = document.getElementById("branch").value;
+      const year = document.getElementById("year").value;
+
+      if (!fullName || !email || !password || !branch || !year) {
+        setError("Please fill all required fields.");
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Creating account...";
+
+      try {
+        const signupPayload = {
+          email: email,
+          full_name: fullName,
+          username: buildUsername(email),
+          password: password,
+          branch: branch,
+          year: year
+        };
+
+        let authData = null;
+        let signupResponse = await fetch(API_BASE_URL + "/auth/signup", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(signupPayload)
+        });
+
+        let signupData = await signupResponse.json();
+        if (signupResponse.ok) {
+          authData = signupData;
+        } else if (signupResponse.status === 409) {
+          authData = await tryLogin(email, password);
+        } else {
+          throw new Error(signupData.detail || "Signup failed.");
+        }
+
+        localStorage.setItem(AUTH_STORE_KEY, JSON.stringify(authData));
+        window.location.href = "dashboard.html";
+      } catch (error) {
+        setError(error.message || "Could not connect to server.");
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Complete Registration";
+      }
+    });
+  })();
+</script>
+</body></html>
+>>>>>>> dccb36c6665f32ce5d96d2fd2fe5f7000dd1f75f
