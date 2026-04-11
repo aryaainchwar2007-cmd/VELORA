@@ -1,15 +1,29 @@
-// ============================================================
-// editor.js — Indigo Academy AI Coding Editor
+﻿// ============================================================
+// editor (1).js — Indigo Academy AI Coding Editor
 // ============================================================
 
-// ── Voice input (already in HTML inline – centralised here) ──
-
-// ── Editable Code Editor with Clear & Line Numbers ──────────
 (function () {
   const editor = document.getElementById('codeEditor');
   const lineNumbers = document.getElementById('lineNumbers');
+  const outputEl = document.getElementById('codeOutput');
+  const runBtn = document.getElementById('runCodeBtn');
+  const chatInput = document.getElementById('aiMentorInput');
+  const chatContainer = document.querySelector('.flex-1.overflow-y-auto.p-6.space-y-6');
+  const sendBtn = chatInput?.closest('.relative')?.querySelector('button:last-child');
+  const langSelect = document.getElementById('voiceLangSelect');
+  const refreshAiBtn = Array.from(document.querySelectorAll('button')).find((b) =>
+    (b.textContent || '').toUpperCase().includes('REFRESH AI')
+  );
+  const chatHistoryBtn = Array.from(document.querySelectorAll('button')).find((b) =>
+    (b.textContent || '').toUpperCase().includes('CHAT HISTORY')
+  );
+  const AUTH_STORE_KEY = 'velora_auth';
+  const CHAT_SESSION_KEY = 'velora_chat_session_id';
+  const API_BASE_URL = 'http://127.0.0.1:8000';
+  let chatSessionId = sessionStorage.getItem(CHAT_SESSION_KEY) || null;
 
-  // Default starter code
+  if (!editor || !lineNumbers) return;
+
   const defaultCode = `def calculate_fibonacci(n):
     # Fibonacci sequence generator
     sequence = [0, 1]
@@ -24,23 +38,41 @@ n_terms = 10
 result = calculate_fibonacci(n_terms)
 print(f"The first {n_terms} terms: {result}")`;
 
-  // Load saved code or default
   editor.value = localStorage.getItem('editorCode') || defaultCode;
 
-  // Update line numbers
   function updateLineNumbers() {
     const lines = editor.value.split('\n').length;
     lineNumbers.innerHTML = Array.from({ length: lines }, (_, i) => i + 1).join('<br/>');
   }
 
-  // Auto-save + update line numbers on every keystroke
+  function setOutput(message, isError = false) {
+    if (!outputEl) return;
+    outputEl.textContent = message;
+    outputEl.classList.toggle('text-error', isError);
+    outputEl.classList.toggle('text-on-surface', !isError);
+  }
+
+  function simplifyAiExplanation(text) {
+    if (!text) return 'No AI explanation available.';
+    const lines = String(text).split('\n');
+    const blocked = [/^\s*Mistake\s*:/i, /^\s*Fix\s*:/i, /^\s*Improved\s*Code\s*:/i, /^\s*Working\s*Code\s*:/i];
+    const kept = [];
+    for (const line of lines) {
+      if (blocked.some((r) => r.test(line))) {
+        break;
+      }
+      kept.push(line);
+    }
+    const cleaned = kept.join('\n').trim();
+    return cleaned || 'No AI explanation available.';
+  }
+
   editor.addEventListener('input', () => {
     updateLineNumbers();
     localStorage.setItem('editorCode', editor.value);
   });
 
-  // Tab key inserts 4 spaces instead of switching focus
-  editor.addEventListener('keydown', e => {
+  editor.addEventListener('keydown', (e) => {
     if (e.key === 'Tab') {
       e.preventDefault();
       const start = editor.selectionStart;
@@ -48,197 +80,347 @@ print(f"The first {n_terms} terms: {result}")`;
       editor.value = editor.value.substring(0, start) + '    ' + editor.value.substring(end);
       editor.selectionStart = editor.selectionEnd = start + 4;
       updateLineNumbers();
+      localStorage.setItem('editorCode', editor.value);
+    }
+
+    if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+      e.preventDefault();
+      runCode();
     }
   });
 
-  updateLineNumbers(); // Initial render
+  editor.addEventListener('scroll', () => {
+    lineNumbers.scrollTop = editor.scrollTop;
+  });
 
-  // ── Clear Button (add one in toolbar or call clearCode() from console) ──
   window.clearCode = function () {
     editor.value = '';
     localStorage.removeItem('editorCode');
     updateLineNumbers();
+    setOutput('Run code to see output.');
     editor.focus();
   };
 
-  // ── Reset to default code ──
   window.resetCode = function () {
     editor.value = defaultCode;
     localStorage.setItem('editorCode', defaultCode);
     updateLineNumbers();
+    setOutput('Run code to see output.');
     editor.focus();
   };
-})();
-(() => {
-  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-  const inputEl   = document.getElementById('aiMentorInput');
-  const micBtn    = document.getElementById('voiceMicBtn');
-  const langSel   = document.getElementById('voiceLangSelect');
-  const statusEl  = document.getElementById('voiceStatus');
-  const badge     = document.getElementById('detectedLanguageBadge');
 
-  if (!SpeechRecognition) {
-    if (statusEl) statusEl.textContent = 'Voice input not supported. Use latest Chrome/Edge.';
-    if (micBtn)  micBtn.disabled = true;
-    return;
-  }
-
-  const LANG_LABELS = {
-    'en-IN': 'English', 'hi-IN': 'Hindi', 'mr-IN': 'Marathi',
-    'ta-IN': 'Tamil',   'te-IN': 'Telugu','kn-IN': 'Kannada',
-    'ml-IN': 'Malayalam'
-  };
-
-  let listening = false, stopReq = false, activeRec = null;
-
-  const setStatus = t => { if (statusEl) statusEl.textContent = t; };
-  const showBadge = lang => {
-    if (!badge) return;
-    if (!lang) { badge.classList.add('hidden'); return; }
-    badge.textContent = 'Detected: ' + (LANG_LABELS[lang] || lang);
-    badge.classList.remove('hidden');
-  };
-  const setMic = on => {
-    listening = on;
-    if (!micBtn) return;
-    micBtn.classList.toggle('text-error', on);
-    micBtn.title = on ? 'Stop voice input' : 'Start voice input';
-  };
-
-  function recogniseOnce(lang, ms = 4500) {
-    return new Promise(res => {
-      const rec = new SpeechRecognition();
-      let done = false, text = '', conf = 0, timer = null;
-      const finish = r => { if (done) return; done = true; clearTimeout(timer); activeRec = null; res(r); };
-      rec.lang = lang; rec.continuous = false; rec.interimResults = false; rec.maxAlternatives = 1;
-      activeRec = rec;
-      rec.onresult = ev => {
-        const segs = [];
-        for (let i = ev.resultIndex; i < ev.results.length; i++) {
-          const alt = ev.results[i][0];
-          if (ev.results[i].isFinal && alt?.transcript) { segs.push(alt.transcript.trim()); conf = Math.max(conf, alt.confidence || 0); }
-        }
-        text = segs.join(' ').trim();
-      };
-      rec.onerror = () => finish({ lang, text: '', confidence: 0 });
-      rec.onend   = () => finish({ lang, text, confidence: conf });
-      try { rec.start(); } catch { finish({ lang, text: '', confidence: 0 }); return; }
-      timer = setTimeout(() => { try { rec.stop(); } catch {} }, ms);
-    });
-  }
-
-  async function startListening() {
-    if (listening) {
-      stopReq = true;
-      try { activeRec?.stop(); } catch {}
-      setStatus('Stopping…');
+  async function runCode() {
+    const code = editor.value.trim();
+    if (!code) {
+      setOutput('Editor is empty. Please write code first.', true);
       return;
     }
+
+    if (runBtn) {
+      runBtn.disabled = true;
+      runBtn.classList.add('opacity-70');
+    }
+    setOutput('Running code...');
+
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      stream.getTracks().forEach(t => t.stop());
-      stopReq = false; setMic(true); showBadge(null);
-      const lang = langSel?.value || 'en-IN';
-      setStatus('Listening (' + (LANG_LABELS[lang] || lang) + ')…');
-      const res = await recogniseOnce(lang, 6000);
-      if (!stopReq && res.text) {
-        if (inputEl) inputEl.value = res.text;
-        showBadge(lang);
-        setStatus('Voice captured');
-      } else if (!stopReq) {
-        setStatus('No speech detected, try again');
+      const response = await fetch('http://127.0.0.1:8000/run-code', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code, language_id: 71 }),
+      });
+
+      const data = await response.json();
+      if (!response.ok) {
+        const detail = typeof data.detail === 'string' ? data.detail : JSON.stringify(data.detail);
+        throw new Error(detail || 'Run request failed.');
       }
-    } catch {
-      setStatus('Mic permission blocked. Please allow microphone access.');
-    } finally { setMic(false); }
+
+      if (data.error) {
+        const evalResp = await fetch('http://127.0.0.1:8000/evaluate-code', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ code, language_id: 71 }),
+        });
+
+        const evalData = await evalResp.json();
+        if (!evalResp.ok) {
+          const evalDetail = typeof evalData.detail === 'string' ? evalData.detail : JSON.stringify(evalData.detail);
+          throw new Error(evalDetail || 'AI evaluation failed.');
+        }
+
+        const aiExplanation = simplifyAiExplanation(evalData.ai_explanation);
+        const pretty = [
+          'Execution Error (AI Analysis)',
+          '-----------------------------',
+          evalData.error ? `Error: ${evalData.error}` : 'Error: Unknown',
+          '',
+          aiExplanation,
+        ].join('\n');
+        setOutput(pretty, true);
+      } else if (typeof data.output === 'string' && data.output.length) {
+        setOutput(data.output);
+      } else {
+        setOutput('(No output)');
+      }
+    } catch (err) {
+      setOutput(`Could not run code: ${err.message || err}`, true);
+    } finally {
+      if (runBtn) {
+        runBtn.disabled = false;
+        runBtn.classList.remove('opacity-70');
+      }
+    }
   }
 
-  micBtn?.addEventListener('click', startListening);
-})();
+  runBtn?.addEventListener('click', runCode);
 
-// ── Language tab switcher (Python / C++) ─────────────────────
-document.querySelectorAll('.flex.bg-surface-container-high button').forEach(btn => {
-  btn.addEventListener('click', function () {
-    this.closest('.flex').querySelectorAll('button').forEach(b => {
-      b.classList.remove('bg-primary-container', 'text-on-primary-container');
-      b.classList.add('text-on-surface-variant');
+  function getAccessToken() {
+    try {
+      const raw = localStorage.getItem(AUTH_STORE_KEY);
+      if (!raw) return null;
+      const data = JSON.parse(raw);
+      return data?.token?.access_token || null;
+    } catch (_) {
+      return null;
+    }
+  }
+
+  async function authFetch(path, options = {}) {
+    const token = getAccessToken();
+    if (!token) {
+      throw new Error('Login required. Please sign in again from welcome page.');
+    }
+    const headers = { ...(options.headers || {}), Authorization: `Bearer ${token}` };
+    const response = await fetch(`${API_BASE_URL}${path}`, { ...options, headers });
+    if (response.status === 401) {
+      localStorage.removeItem(AUTH_STORE_KEY);
+      sessionStorage.removeItem(CHAT_SESSION_KEY);
+      chatSessionId = null;
+      setTimeout(() => {
+        window.location.href = 'welcome.html';
+      }, 500);
+      throw new Error('Session expired. Please login again.');
+    }
+    return response;
+  }
+
+  async function startChatSession() {
+    const response = await authFetch('/chat/session/start', { method: 'POST' });
+    const data = await response.json();
+    if (!response.ok) {
+      const detail = typeof data.detail === 'string' ? data.detail : JSON.stringify(data.detail);
+      throw new Error(detail || 'Could not start chat session.');
+    }
+    chatSessionId = data.session_id;
+    sessionStorage.setItem(CHAT_SESSION_KEY, chatSessionId);
+    if (chatContainer) chatContainer.innerHTML = '';
+  }
+
+  async function loadChatHistory() {
+    if (!chatSessionId) return;
+    const response = await authFetch(`/chat/history?session_id=${encodeURIComponent(chatSessionId)}`);
+    const data = await response.json();
+    if (!response.ok) {
+      const detail = typeof data.detail === 'string' ? data.detail : JSON.stringify(data.detail);
+      throw new Error(detail || 'Could not load chat history.');
+    }
+    if (chatContainer) chatContainer.innerHTML = '';
+    (data.messages || []).forEach((m) => {
+      if (m.role === 'user') appendUserMessage(m.content || '');
+      if (m.role === 'assistant') appendBotMessage(m.content || '');
     });
-    this.classList.add('bg-primary-container', 'text-on-primary-container');
-    this.classList.remove('text-on-surface-variant');
-  });
-});
-
-// ── Run Code button ───────────────────────────────────────────
-document.querySelector('button span.material-symbols-outlined')?.closest('button')?.
-  addEventListener('click', () => {
-    // Placeholder – replace with actual code execution API call
-    alert('Code execution is not wired in this demo.\nConnect your backend runner here.');
-  });
-
-// ── Teach Me popup close ──────────────────────────────────────
-document.querySelector('.absolute.bottom-10 button')?.addEventListener('click', function () {
-  this.closest('.absolute').style.display = 'none';
-});
-
-// ── Teach Me "Next" step ─────────────────────────────────────
-(function () {
-  let step = 1;
-  const steps = [
-    { title: 'Teach Me: Variables', body: 'Think of a <span class="text-primary font-bold">Variable</span> like a box with a label. 📦<br/><br/>You put information (data) inside it so you can use it later by just calling its name!' },
-    { title: 'Teach Me: Types',     body: 'Variables can hold different <span class="text-primary font-bold">Types</span> of data — numbers, text, or true/false values. Python figures out the type automatically!' },
-    { title: 'Teach Me: Scope',     body: 'A variable created inside a function is only <span class="text-primary font-bold">visible</span> inside that function. Outside, it\'s invisible — just like a secret 🤫' },
-  ];
-  const popup = document.querySelector('.absolute.bottom-10');
-  const nextBtn  = popup?.querySelector('button:last-child');
-  const stepBtn  = popup?.querySelector('button:first-child');
-  const bodyEl   = popup?.querySelector('p');
-  const titleEl  = popup?.querySelector('span.font-bold');
-
-  nextBtn?.addEventListener('click', () => {
-    step = (step % steps.length) + 1;
-    const s = steps[step - 1];
-    if (titleEl) titleEl.textContent = s.title;
-    if (bodyEl)  bodyEl.innerHTML   = s.body;
-    if (stepBtn) stepBtn.textContent = `Step ${step}/${steps.length}`;
-  });
-})();
-
-// ── AI Mentor chat send ───────────────────────────────────────
-(function () {
-  const input   = document.getElementById('aiMentorInput');
-  const sendBtn = input?.closest('div')?.querySelector('button:last-child');
-  const chatEl  = document.querySelector('.flex-1.overflow-y-auto.p-6.space-y-6');
-
-  function appendMessage(text, isUser = true) {
-    if (!chatEl) return;
-    const div = document.createElement('div');
-    div.className = isUser ? 'flex flex-col items-end gap-2' : 'flex items-start gap-3 max-w-[90%]';
-    div.innerHTML = isUser
-      ? `<div class="bg-surface-container-high px-4 py-3 rounded-2xl rounded-tr-none max-w-[85%]"><p class="text-sm text-on-surface">${text}</p></div>`
-      : `<div class="flex flex-col gap-2"><div class="bg-surface-variant/40 backdrop-blur-md px-4 py-3 rounded-2xl rounded-tl-none border-l-2 border-primary"><p class="text-sm text-on-surface leading-relaxed">${text}</p></div></div>`;
-    chatEl.appendChild(div);
-    chatEl.scrollTop = chatEl.scrollHeight;
   }
 
-  async function sendMessage() {
-    const q = input?.value?.trim();
-    if (!q) return;
-    input.value = '';
-    appendMessage(q, true);
-    // Placeholder AI response — connect to /v1/messages here
-    setTimeout(() => appendMessage('AI Mentor is thinking… (connect to Anthropic API)', false), 600);
+  async function endChatSession() {
+    if (!chatSessionId) return;
+    try {
+      await authFetch(`/chat/session/end?session_id=${encodeURIComponent(chatSessionId)}`, { method: 'POST', keepalive: true });
+    } catch (_) {}
+    sessionStorage.removeItem(CHAT_SESSION_KEY);
+    chatSessionId = null;
   }
 
-  sendBtn?.addEventListener('click', sendMessage);
-  input?.addEventListener('keydown', e => { if (e.key === 'Enter') sendMessage(); });
-})();
+  function selectedChatLanguage() {
+    const code = langSelect?.value || 'en-IN';
+    const map = {
+      'en-IN': 'English',
+      'hi-IN': 'Hindi',
+      'mr-IN': 'Marathi',
+      'ta-IN': 'Tamil',
+      'te-IN': 'Telugu',
+      'kn-IN': 'Kannada',
+      'ml-IN': 'Malayalam',
+    };
+    return map[code] || 'English';
+  }
 
-// ── Nav link routing ──────────────────────────────────────────
-document.querySelectorAll('header nav a, aside a').forEach(link => {
-  link.addEventListener('click', e => {
-    e.preventDefault();
-    const map = { 'Dashboard': 'dashboard.html', 'Practice': 'practice.html', 'Projects': 'project.html' };
-    const t = link.textContent.trim();
-    if (map[t]) window.location.href = map[t];
+  function appendUserMessage(text) {
+    if (!chatContainer) return;
+    const wrapper = document.createElement('div');
+    wrapper.className = 'flex flex-col items-end gap-2';
+    wrapper.innerHTML = `
+      <div class="bg-surface-container-high px-4 py-3 rounded-2xl rounded-tr-none max-w-[85%]">
+        <p class="text-sm text-on-surface"></p>
+      </div>
+    `;
+    wrapper.querySelector('p').textContent = text;
+    chatContainer.appendChild(wrapper);
+    chatContainer.scrollTop = chatContainer.scrollHeight;
+  }
+
+  function appendBotMessage(text) {
+    if (!chatContainer) return;
+    const wrapper = document.createElement('div');
+    wrapper.className = 'flex items-start gap-3 max-w-[90%]';
+    wrapper.innerHTML = `
+      <div class="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-primary-container flex items-center justify-center shrink-0 shadow-lg shadow-primary/20">
+        <span class="material-symbols-outlined text-on-primary text-sm" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+      </div>
+      <div class="flex flex-col gap-2">
+        <div class="bg-surface-variant/40 backdrop-blur-md px-4 py-3 rounded-2xl rounded-tl-none border-l-2 border-primary">
+          <p class="text-sm text-on-surface leading-relaxed whitespace-pre-wrap"></p>
+        </div>
+        <span class="text-[10px] text-outline px-2">Just now • Code Sage</span>
+      </div>
+    `;
+    wrapper.querySelector('p').textContent = text;
+    chatContainer.appendChild(wrapper);
+    chatContainer.scrollTop = chatContainer.scrollHeight;
+  }
+
+  async function sendChat() {
+    const message = (chatInput?.value || '').trim();
+    if (!message) return;
+
+    try {
+      if (!chatSessionId) {
+        await startChatSession();
+      }
+
+      appendUserMessage(message);
+      chatInput.value = '';
+
+      const typingId = 'typing-' + Date.now();
+      appendBotMessage('Typing...');
+      const typingEl = chatContainer?.lastElementChild;
+      if (typingEl) typingEl.id = typingId;
+
+      const response = await authFetch('/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          message,
+          language: selectedChatLanguage(),
+          session_id: chatSessionId,
+        }),
+      });
+
+      const data = await response.json();
+      if (!response.ok) {
+        const detail = typeof data.detail === 'string' ? data.detail : JSON.stringify(data.detail);
+        throw new Error(detail || 'Chat request failed.');
+      }
+
+      const typingNode = document.getElementById(typingId);
+      if (typingNode) typingNode.remove();
+      appendBotMessage(data.reply || 'No response from assistant.');
+    } catch (err) {
+      const typingNode = chatContainer?.querySelector('[id^="typing-"]');
+      if (typingNode) typingNode.remove();
+      appendBotMessage(`Chat error: ${err.message || err}`);
+    }
+  }
+
+  sendBtn?.addEventListener('click', sendChat);
+  chatInput?.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      sendChat();
+    }
   });
-});
+
+  refreshAiBtn?.addEventListener('click', async () => {
+    await endChatSession();
+    await startChatSession();
+  });
+  chatHistoryBtn?.addEventListener('click', async () => {
+    try {
+      await loadChatHistory();
+    } catch (e) {
+      appendBotMessage(`History error: ${e.message || e}`);
+    }
+  });
+
+  window.addEventListener('beforeunload', () => {
+    endChatSession();
+  });
+
+  // Teach Me popup close + next
+  const teachMePopup = document.querySelector('.absolute.bottom-10.left-10');
+  if (teachMePopup) {
+    const closeBtn = teachMePopup.querySelector('button');
+    const nextBtn = teachMePopup.querySelector('button:last-child');
+    const stepBtn = teachMePopup.querySelector('button:first-of-type');
+    const titleEl = teachMePopup.querySelector('.font-bold.text-sm');
+    const bodyEl = teachMePopup.querySelector('p.text-xs');
+
+    closeBtn?.addEventListener('click', () => {
+      teachMePopup.style.display = 'none';
+    });
+
+    let step = 1;
+    const steps = [
+      {
+        title: 'Teach Me: Variables',
+        body: 'Think of a <span class="text-primary font-bold">Variable</span> like a box with a label. <br><br>You put information (data) inside it so you can use it later by just calling its name!',
+      },
+      {
+        title: 'Teach Me: Functions',
+        body: 'A <span class="text-primary font-bold">Function</span> is a reusable block of code. <br><br>You define once and call it whenever you need the same logic.',
+      },
+      {
+        title: 'Teach Me: Loops',
+        body: '<span class="text-primary font-bold">Loops</span> repeat actions automatically. <br><br>Use them when you want to process many values with less code.',
+      },
+    ];
+
+    nextBtn?.addEventListener('click', () => {
+      step = step >= steps.length ? 1 : step + 1;
+      const item = steps[step - 1];
+      if (titleEl) titleEl.textContent = item.title;
+      if (bodyEl) bodyEl.innerHTML = item.body;
+      if (stepBtn) stepBtn.textContent = `Step ${step}/${steps.length}`;
+    });
+  }
+
+  // optional language tab visual switch
+  document.querySelectorAll('.flex.bg-surface-container-high button').forEach((btn) => {
+    btn.addEventListener('click', function () {
+      this.closest('.flex').querySelectorAll('button').forEach((b) => {
+        b.classList.remove('bg-primary-container', 'text-on-primary-container');
+        b.classList.add('text-on-surface-variant');
+      });
+      this.classList.add('bg-primary-container', 'text-on-primary-container');
+      this.classList.remove('text-on-surface-variant');
+    });
+  });
+
+  updateLineNumbers();
+  setOutput('Run code to see output.');
+
+  (async () => {
+    try {
+      if (!chatSessionId) {
+        await startChatSession();
+      } else {
+        await loadChatHistory();
+      }
+    } catch (e) {
+      try {
+        await startChatSession();
+      } catch (inner) {
+        appendBotMessage(`Chat session error: ${inner.message || inner}`);
+      }
+    }
+  })();
+})();
