@@ -1,8 +1,8 @@
-// ============================================================
-// dashboard.js — Indigo Academy Student Dashboard
+﻿// ============================================================
+// dashboard.js â€” Indigo Academy Student Dashboard
 // ============================================================
 
-// ── Navigation routing ───────────────────────────────────────
+// â”€â”€ Navigation routing â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 document.querySelectorAll('nav a, aside a').forEach(link => {
   link.addEventListener('click', e => {
     e.preventDefault();
@@ -17,7 +17,7 @@ document.querySelectorAll('nav a, aside a').forEach(link => {
   });
 });
 
-// ── Greeting (time-aware) ────────────────────────────────────
+// â”€â”€ Greeting (time-aware) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 (function updateGreeting() {
   const h1 = document.querySelector('main > header h1');
   if (!h1) return;
@@ -26,12 +26,16 @@ document.querySelectorAll('nav a, aside a').forEach(link => {
   h1.textContent = h1.textContent.replace(/^(Morning|Afternoon|Evening)/, period);
 })();
 
-// ── Continue Lesson button ────────────────────────────────────
-document.querySelector('button.indigo-gradient')?.addEventListener('click', () => {
-  window.location.href = 'EDITOR.html';
+// â”€â”€ Continue Lesson button â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+document.querySelectorAll('button').forEach((btn) => {
+  if ((btn.textContent || '').trim() === 'Continue Lesson') {
+    btn.addEventListener('click', () => {
+      window.location.href = 'course.html';
+    });
+  }
 });
 
-// ── Practice Arena card ───────────────────────────────────────
+// â”€â”€ Practice Arena card â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 document.querySelectorAll('button').forEach(btn => {
   if (btn.textContent.trim() === 'Join Room') {
     btn.addEventListener('click', () => (window.location.href = 'practice.html'));
@@ -41,12 +45,12 @@ document.querySelectorAll('button').forEach(btn => {
   }
 });
 
-// ── FAB (rocket) scroll-to-top / quick action ────────────────
+// â”€â”€ FAB (rocket) scroll-to-top / quick action â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 document.querySelector('button.fixed.bottom-8')?.addEventListener('click', () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
-// ── Search input ──────────────────────────────────────────────
+// â”€â”€ Search input â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const searchInput = document.querySelector('input[placeholder="Search curriculum..."]');
 searchInput?.addEventListener('keydown', e => {
   if (e.key === 'Enter' && searchInput.value.trim()) {
@@ -54,12 +58,12 @@ searchInput?.addEventListener('keydown', e => {
   }
 });
 
-// ── Notifications bell ────────────────────────────────────────
+// â”€â”€ Notifications bell â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 document.querySelector('[data-icon="notifications"]')?.addEventListener('click', () => {
   alert('No new notifications.');
 });
 
-// ── Progress ring animation (CSS stroke-dashoffset on load) ──
+// â”€â”€ Progress ring animation (CSS stroke-dashoffset on load) â”€â”€
 document.querySelectorAll('circle.text-primary, circle.text-secondary').forEach(circle => {
   const original = circle.getAttribute('stroke-dashoffset');
   circle.setAttribute('stroke-dashoffset', '251.2'); // start at 0 %
@@ -69,7 +73,7 @@ document.querySelectorAll('circle.text-primary, circle.text-secondary').forEach(
   });
 });
 
-// ── Teach Me popup close (EDITOR page reuses this component) ─
+// â”€â”€ Teach Me popup close (EDITOR page reuses this component) â”€
 // (kept here in case dashboard embeds it)
 document.querySelectorAll('button span.material-symbols-outlined').forEach(btn => {
   if (btn.textContent === 'close') {
@@ -78,3 +82,4 @@ document.querySelectorAll('button span.material-symbols-outlined').forEach(btn =
     });
   }
 });
+

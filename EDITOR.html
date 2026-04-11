@@ -155,6 +155,11 @@
 <span class="text-xs text-outline font-medium tracking-widest uppercase">main.py</span>
 </div>
 <div class="flex items-center gap-3">
+<button id="teachMeToggleBtn"
+  class="w-10 h-10 flex items-center justify-center bg-surface-container-high text-on-surface-variant rounded-lg hover:text-white transition-all active:scale-95"
+  title="Toggle Teach Me">
+  <span class="material-symbols-outlined text-sm">lightbulb</span>
+</button>
 <button class="flex items-center gap-2 px-5 py-2 bg-gradient-to-br from-secondary-container to-[#008159] text-white rounded-lg text-sm font-bold shadow-lg hover:shadow-secondary-container/20 transition-all active:scale-95" id="runCodeBtn">
 <span class="material-symbols-outlined text-sm">play_arrow</span>
                             Run Code
@@ -199,17 +204,27 @@
 <span class="material-symbols-outlined text-primary text-lg">lightbulb</span>
 <span class="font-bold text-sm tracking-tight text-on-surface">Teach Me: Variables</span>
 </div>
-<button class="text-outline hover:text-white transition-colors">
+<button class="text-outline hover:text-white transition-colors" id="teachMeCloseBtn">
 <span class="material-symbols-outlined text-sm">close</span>
 </button>
 </div>
-<p class="text-xs text-on-surface-variant leading-relaxed mb-4">
+<p class="text-xs text-on-surface-variant leading-relaxed mb-4 max-h-52 overflow-y-auto pr-1" id="teachMeBody">
                             Think of a <span class="text-primary font-bold">Variable</span> like a box with a label. ðŸ“¦ <br/><br/>
                             You put information (data) inside it so you can use it later by just calling its name!
                         </p>
 <div class="flex gap-2">
-<button class="text-[10px] uppercase tracking-widest font-bold px-3 py-1.5 bg-primary/10 text-primary rounded-full">Step 1/3</button>
-<button class="text-[10px] uppercase tracking-widest font-bold px-3 py-1.5 bg-white/5 text-white rounded-full ml-auto">Next</button>
+<select class="bg-surface-container rounded-lg border border-outline-variant/30 px-2 py-1 text-[10px] text-on-surface" id="teachMeLangSelect">
+<option value="ENGLISH">English</option>
+<option value="HINDI">Hindi</option>
+<option value="MARATHI">Marathi</option>
+<option value="TAMIL">Tamil</option>
+<option value="TELUGU">Telugu</option>
+<option value="KANNADA">Kannada</option>
+<option value="MALAYALAM">Malayalam</option>
+</select>
+<button class="text-[10px] uppercase tracking-widest font-bold px-3 py-1.5 bg-primary/10 text-primary rounded-full" id="teachMeStepBtn">Step 1/3</button>
+<button class="text-[10px] uppercase tracking-widest font-bold px-3 py-1.5 bg-white/5 text-white rounded-full" id="teachMePrevBtn">Previous</button>
+<button class="text-[10px] uppercase tracking-widest font-bold px-3 py-1.5 bg-white/5 text-white rounded-full ml-auto" id="teachMeNextBtn">Next</button>
 </div>
 </div>
 </div>

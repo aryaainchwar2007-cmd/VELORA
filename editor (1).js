@@ -7,6 +7,7 @@
   const lineNumbers = document.getElementById('lineNumbers');
   const outputEl = document.getElementById('codeOutput');
   const runBtn = document.getElementById('runCodeBtn');
+  const teachMeToggleBtn = document.getElementById('teachMeToggleBtn');
   const chatInput = document.getElementById('aiMentorInput');
   const chatContainer = document.querySelector('.flex-1.overflow-y-auto.p-6.space-y-6');
   const sendBtn = chatInput?.closest('.relative')?.querySelector('button:last-child');
@@ -20,6 +21,7 @@
   const AUTH_STORE_KEY = 'velora_auth';
   const CHAT_SESSION_KEY = 'velora_chat_session_id';
   const API_BASE_URL = 'http://127.0.0.1:8000';
+  const LESSON_DEFAULT_COURSE = 'python-foundations';
   let chatSessionId = sessionStorage.getItem(CHAT_SESSION_KEY) || null;
 
   if (!editor || !lineNumbers) return;
@@ -65,6 +67,70 @@ print(f"The first {n_terms} terms: {result}")`;
     }
     const cleaned = kept.join('\n').trim();
     return cleaned || 'No AI explanation available.';
+  }
+
+  function getLessonSelectionFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    const course = (params.get('course') || LESSON_DEFAULT_COURSE).trim();
+    const lessonNum = Number(params.get('lesson') || '1');
+    const lesson = Number.isFinite(lessonNum) && lessonNum > 0 ? lessonNum : 1;
+    return { course, lesson };
+  }
+
+  function chunkLessonContent(text, maxChunkLength = 420) {
+    const lines = String(text || '')
+      .split(/\n+/)
+      .map((line) => line.trim())
+      .filter(Boolean);
+
+    if (!lines.length) return ['No lesson content available.'];
+
+    const chunks = [];
+    let current = '';
+    const splitLongLine = (line) => {
+      const parts = [];
+      let rest = line;
+      while (rest.length > maxChunkLength) {
+        parts.push(rest.slice(0, maxChunkLength));
+        rest = rest.slice(maxChunkLength);
+      }
+      if (rest.length) parts.push(rest);
+      return parts;
+    };
+
+    for (const line of lines) {
+      for (const piece of splitLongLine(line)) {
+        const candidate = current ? `${current}\n\n${piece}` : piece;
+        if (candidate.length > maxChunkLength && current) {
+          chunks.push(current);
+          current = piece;
+        } else {
+          current = candidate;
+        }
+      }
+    }
+    if (current) chunks.push(current);
+    return chunks;
+  }
+
+  function parseLessonByLanguage(content) {
+    const supported = ['ENGLISH', 'HINDI', 'MARATHI', 'TAMIL', 'TELUGU', 'KANNADA', 'MALAYALAM'];
+    const sections = Object.fromEntries(supported.map((lang) => [lang, '']));
+    const lines = String(content || '').split('\n');
+    let currentLang = 'ENGLISH';
+
+    for (const rawLine of lines) {
+      const line = rawLine || '';
+      const normalized = line.toUpperCase().replace(/[^A-Z ]/g, ' ').replace(/\s+/g, ' ').trim();
+      const matched = supported.find((lang) => normalized === lang || normalized.endsWith(` ${lang}`) || normalized.startsWith(`${lang} `));
+      if (matched) {
+        currentLang = matched;
+        continue;
+      }
+      sections[currentLang] = (sections[currentLang] ? `${sections[currentLang]}\n` : '') + line;
+    }
+
+    return sections;
   }
 
   editor.addEventListener('input', () => {
@@ -355,41 +421,92 @@ print(f"The first {n_terms} terms: {result}")`;
     endChatSession();
   });
 
-  // Teach Me popup close + next
+  // Teach Me popup driven by selected lesson content
   const teachMePopup = document.querySelector('.absolute.bottom-10.left-10');
   if (teachMePopup) {
-    const closeBtn = teachMePopup.querySelector('button');
-    const nextBtn = teachMePopup.querySelector('button:last-child');
-    const stepBtn = teachMePopup.querySelector('button:first-of-type');
+    const closeBtn = document.getElementById('teachMeCloseBtn') || teachMePopup.querySelector('.flex.items-start.justify-between.mb-3 button');
+    const stepBtn = document.getElementById('teachMeStepBtn');
+    const prevBtn = document.getElementById('teachMePrevBtn');
+    const nextBtn = document.getElementById('teachMeNextBtn');
+    const languageSelect = document.getElementById('teachMeLangSelect');
     const titleEl = teachMePopup.querySelector('.font-bold.text-sm');
-    const bodyEl = teachMePopup.querySelector('p.text-xs');
+    const bodyEl = document.getElementById('teachMeBody') || teachMePopup.querySelector('p.text-xs');
+    let teachIndex = 0;
+    let teachPages = [];
+    let teachTitle = 'Lesson';
+    let lessonLanguageSections = {};
+    let selectedTeachLanguage = 'ENGLISH';
+
+    function setTeachMeVisible(visible) {
+      teachMePopup.style.display = visible ? '' : 'none';
+    }
 
     closeBtn?.addEventListener('click', () => {
-      teachMePopup.style.display = 'none';
+      setTeachMeVisible(false);
+    });
+    teachMeToggleBtn?.addEventListener('click', () => {
+      const hidden = getComputedStyle(teachMePopup).display === 'none';
+      setTeachMeVisible(hidden);
     });
 
-    let step = 1;
-    const steps = [
-      {
-        title: 'Teach Me: Variables',
-        body: 'Think of a <span class="text-primary font-bold">Variable</span> like a box with a label. <br><br>You put information (data) inside it so you can use it later by just calling its name!',
-      },
-      {
-        title: 'Teach Me: Functions',
-        body: 'A <span class="text-primary font-bold">Function</span> is a reusable block of code. <br><br>You define once and call it whenever you need the same logic.',
-      },
-      {
-        title: 'Teach Me: Loops',
-        body: '<span class="text-primary font-bold">Loops</span> repeat actions automatically. <br><br>Use them when you want to process many values with less code.',
-      },
-    ];
+    function renderTeachPage() {
+      if (!teachPages.length) {
+        teachPages = ['No lesson content available.'];
+        teachIndex = 0;
+      }
+      if (titleEl) titleEl.textContent = `Teach Me: ${teachTitle}`;
+      if (bodyEl) {
+        bodyEl.classList.add('whitespace-pre-wrap');
+        bodyEl.classList.add('overflow-y-auto');
+        bodyEl.textContent = teachPages[teachIndex];
+      }
+      if (stepBtn) stepBtn.textContent = `Step ${teachIndex + 1}/${teachPages.length}`;
+    }
 
     nextBtn?.addEventListener('click', () => {
-      step = step >= steps.length ? 1 : step + 1;
-      const item = steps[step - 1];
-      if (titleEl) titleEl.textContent = item.title;
-      if (bodyEl) bodyEl.innerHTML = item.body;
-      if (stepBtn) stepBtn.textContent = `Step ${step}/${steps.length}`;
+      if (!teachPages.length) return;
+      teachIndex = teachIndex >= teachPages.length - 1 ? 0 : teachIndex + 1;
+      renderTeachPage();
+    });
+    prevBtn?.addEventListener('click', () => {
+      if (!teachPages.length) return;
+      teachIndex = teachIndex <= 0 ? teachPages.length - 1 : teachIndex - 1;
+      renderTeachPage();
+    });
+
+    function applyTeachLanguage(language) {
+      selectedTeachLanguage = language || 'ENGLISH';
+      const sectionText = (lessonLanguageSections[selectedTeachLanguage] || '').trim();
+      const fallbackText = (lessonLanguageSections.ENGLISH || '').trim();
+      const finalText = sectionText || fallbackText || 'Lesson plan could not be loaded for selected language.';
+      teachPages = chunkLessonContent(finalText);
+      teachIndex = 0;
+      renderTeachPage();
+    }
+
+    languageSelect?.addEventListener('change', () => {
+      applyTeachLanguage(languageSelect.value);
+    });
+
+    async function loadTeachMeFromSelectedLesson() {
+      const selected = getLessonSelectionFromUrl();
+      const response = await fetch(
+        `${API_BASE_URL}/courses/${encodeURIComponent(selected.course)}/lessons/${encodeURIComponent(selected.lesson)}`
+      );
+      if (!response.ok) {
+        throw new Error('Could not load lesson plan from database.');
+      }
+      const lesson = await response.json();
+      teachTitle = lesson?.title || `Lesson ${selected.lesson}`;
+      lessonLanguageSections = parseLessonByLanguage(lesson?.content || '');
+      const preferred = languageSelect?.value || 'ENGLISH';
+      applyTeachLanguage(preferred);
+    }
+
+    loadTeachMeFromSelectedLesson().catch(() => {
+      teachTitle = 'Lesson';
+      lessonLanguageSections = {};
+      applyTeachLanguage(languageSelect?.value || 'ENGLISH');
     });
   }
 
