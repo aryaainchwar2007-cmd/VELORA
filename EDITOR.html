@@ -347,6 +347,11 @@
   let listening = false;
   let stopRequested = false;
   let activeRecognition = null;
+  let transcriptBaseText = "";
+  let finalTranscript = "";
+  let mediaRecorder = null;
+  let audioChunks = [];
+  let audioStream = null;
 
   function detectLanguageFromText(text) {
     if (!text) return null;
@@ -390,100 +395,85 @@
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
       throw new Error("This browser does not support microphone access.");
     }
-    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    stream.getTracks().forEach((t) => t.stop());
+    return navigator.mediaDevices.getUserMedia({ audio: true });
   }
 
-  function recognizeOnce(lang, timeoutMs = 12000) {
-    return new Promise((resolve) => {
-      const rec = new SpeechRecognition();
-      let settled = false;
-      let text = "";
-      let confidence = 0;
-      let timer = null;
+  async function transcribeAudio(audioBlob, languageCode) {
+    const formData = new FormData();
+    formData.append("audio", audioBlob, "editor-recording.webm");
+    formData.append("language", languageCode);
 
-      const finish = (result) => {
-        if (settled) return;
-        settled = true;
-        if (timer) window.clearTimeout(timer);
-        activeRecognition = null;
-        resolve(result);
-      };
-
-      rec.lang = lang;
-      rec.continuous = false;
-      rec.interimResults = false;
-      rec.maxAlternatives = 1;
-      activeRecognition = rec;
-
-      rec.onresult = (event) => {
-        const segments = [];
-        for (let i = event.resultIndex; i < event.results.length; i++) {
-          const alt = event.results[i][0];
-          if (event.results[i].isFinal && alt?.transcript) {
-            segments.push(alt.transcript.trim());
-            if (typeof alt.confidence === "number") {
-              confidence = Math.max(confidence, alt.confidence);
-            }
-          }
-        }
-        text = segments.join(" ").trim();
-      };
-
-      rec.onerror = () => finish({ lang, text: "", confidence: 0 });
-      rec.onend = () => finish({ lang, text, confidence });
-
-      try {
-        rec.start();
-      } catch (_) {
-        finish({ lang, text: "", confidence: 0 });
-        return;
-      }
-
-      timer = window.setTimeout(() => {
-        try {
-          rec.stop();
-        } catch (_) {}
-      }, timeoutMs);
+    const response = await fetch("http://127.0.0.1:8000/speech-to-text", {
+      method: "POST",
+      body: formData
     });
+
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) {
+      throw new Error(data?.detail || "Speech transcription failed.");
+    }
+    return data;
   }
 
   async function startListening() {
-    if (listening) {
-      stopRequested = true;
-      if (activeRecognition) {
-        try {
-          activeRecognition.stop();
-        } catch (_) {}
-      }
+    if (mediaRecorder && mediaRecorder.state === "recording") {
       setStatus("Stopping...");
+      mediaRecorder.stop();
       return;
     }
 
     try {
-      await ensureMicPermission();
-      stopRequested = false;
+      audioStream = await ensureMicPermission();
       setButtonVisualState(true);
       updateLanguageBadge(null);
+      audioChunks = [];
 
       const selected = langSelect.value;
-      setStatus("Listening (" + (LANG_LABELS[selected] || selected) + ")...");
-      const result = await recognizeOnce(selected, 12000);
-      if (!stopRequested && result.text) {
-        inputEl.value = result.text;
-        updateLanguageBadge(selected);
-        setStatus("Voice captured");
-      } else if (!stopRequested) {
-        setStatus("No speech detected, try again");
-      }
+      setStatus("Recording (" + (LANG_LABELS[selected] || selected) + ")... click mic again to stop");
+
+      mediaRecorder = new MediaRecorder(audioStream);
+      mediaRecorder.ondataavailable = (event) => {
+        if (event.data && event.data.size > 0) {
+          audioChunks.push(event.data);
+        }
+      };
+
+      mediaRecorder.onstop = async () => {
+        setButtonVisualState(false);
+        setStatus("Transcribing audio...");
+
+        const audioBlob = new Blob(audioChunks, { type: mediaRecorder?.mimeType || "audio/webm" });
+        audioChunks = [];
+
+        try {
+          const data = await transcribeAudio(audioBlob, selected);
+          if (data.text) {
+            const baseText = inputEl.value.trim();
+            inputEl.value = [baseText, data.text].filter(Boolean).join(baseText && data.text ? "\n" : "");
+            const detected = detectLanguageFromText(data.text) || selected;
+            updateLanguageBadge(detected);
+            setStatus("Voice captured");
+          } else {
+            setStatus("No speech detected, try again");
+          }
+        } catch (error) {
+          setStatus(error?.message || "Speech transcription failed.");
+        } finally {
+          audioStream?.getTracks().forEach((t) => t.stop());
+          audioStream = null;
+          mediaRecorder = null;
+          inputEl.focus();
+        }
+      };
+
+      mediaRecorder.start();
     } catch (err) {
       setStatus("Mic permission blocked. Please allow microphone access.");
-    } finally {
       setButtonVisualState(false);
     }
   }
 
-  if (!SpeechRecognition) {
+  if (!window.MediaRecorder || !navigator.mediaDevices?.getUserMedia) {
     setStatus("Voice input not supported. Use latest Chrome/Edge.");
     micBtn.disabled = true;
     helpBtn.disabled = true;
