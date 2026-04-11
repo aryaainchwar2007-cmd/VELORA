@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Basics of Python - Indigo Academy</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;family=Fira+Code&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-primary-fixed-variant": "#3323cc",
+            "on-error": "#690005",
+            "on-background": "#e4e1ee",
+            "surface-bright": "#393842",
+            "on-primary": "#1d00a5",
+            "surface-container-low": "#1b1b24",
+            "outline": "#918fa1",
+            "on-tertiary-fixed-variant": "#653e00",
+            "inverse-surface": "#e4e1ee",
+            "on-secondary-fixed-variant": "#005236",
+            "tertiary-fixed": "#ffddb8",
+            "surface-container-highest": "#35343e",
+            "primary-container": "#4f46e5",
+            "secondary-container": "#00a572",
+            "on-primary-fixed": "#0f0069",
+            "error-container": "#93000a",
+            "tertiary-container": "#885500",
+            "secondary": "#4edea3",
+            "on-secondary-container": "#00311f",
+            "on-tertiary-fixed": "#2a1700",
+            "tertiary-fixed-dim": "#ffb95f",
+            "surface-container-high": "#2a2933",
+            "on-tertiary-container": "#ffd4a4",
+            "on-surface-variant": "#c7c4d8",
+            "primary-fixed-dim": "#c3c0ff",
+            "tertiary": "#ffb95f",
+            "surface-container": "#1f1f28",
+            "inverse-on-surface": "#302f39",
+            "secondary-fixed-dim": "#4edea3",
+            "background": "#13121b",
+            "surface-tint": "#c3c0ff",
+            "primary": "#c3c0ff",
+            "surface": "#13121b",
+            "on-error-container": "#ffdad6",
+            "error": "#ffb4ab",
+            "outline-variant": "#464555",
+            "inverse-primary": "#4d44e3",
+            "surface-container-lowest": "#0e0d16",
+            "on-secondary-fixed": "#002113",
+            "surface-dim": "#13121b",
+            "on-tertiary": "#472a00",
+            "on-surface": "#e4e1ee",
+            "secondary-fixed": "#6ffbbe",
+            "surface-variant": "#35343e",
+            "on-secondary": "#003824",
+            "on-primary-container": "#dad7ff",
+            "primary-fixed": "#e2dfff"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "2xl": "1.5rem",
+            "full": "9999px"
+          },
+          "fontFamily": {
+            "headline": ["Plus Jakarta Sans"],
+            "body": ["Inter"],
+            "label": ["Inter"]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    body {
+      background-color: #13121b;
+      color: #e4e1ee;
+      font-family: 'Inter', sans-serif;
+    }
+    .glass-card {
+      background: rgba(53, 52, 62, 0.4);
+      backdrop-filter: blur(20px);
+    }
+    .brand-gradient-text {
+      background: linear-gradient(135deg, #c3c0ff 0%, #4F46E5 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .primary-gradient-btn {
+      background: linear-gradient(135deg, #c3c0ff 0%, #4F46E5 100%);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background font-body">
+<nav class="fixed top-0 w-full flex items-center justify-between px-6 py-3 bg-[#13121b]/80 backdrop-blur-xl z-50 shadow-[0_20px_40px_rgba(0,0,0,0.3)]">
+<div class="flex items-center gap-8">
+<span class="text-2xl font-black tracking-tighter bg-gradient-to-br from-[#c3c0ff] to-[#4F46E5] bg-clip-text text-transparent font-headline">Indigo Academy</span>
+<div class="hidden md:flex gap-6 items-center">
+<a class="text-[#c3c0ff] font-bold font-headline hover:text-white transition-colors duration-300" href="#">Dashboard</a>
+<a class="text-slate-400 font-headline hover:text-white transition-colors duration-300" href="#">Practice</a>
+<a class="text-slate-400 font-headline hover:text-white transition-colors duration-300" href="#">Projects</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative group">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-white cursor-pointer">notifications</span>
+</div>
+<div class="flex items-center gap-2 bg-surface-container-high px-3 py-1.5 rounded-full border border-outline-variant/15">
+<span class="material-symbols-outlined text-tertiary" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+<span class="text-sm font-medium text-on-surface">Pro</span>
+</div>
+<div class="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity">
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="professional portrait of a young student with a friendly expression in a modern study environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAFtDzIU9B3QoCOzyW_oI3mrRWRabGMN1KmtC5i4cpZU-l7srQ6-1C9JEGSQRuvbEvIeoAoyEmt977wTX5Gx0xLjAysqp0mgPztgYnBE0Joj3YFQLll730KwxhrWkB6ujwZu5ckvYwaFJgch3FuG0eFthOF6-p_AstaqM4jcwjKiFOmSZ0Y1WZMqJBkxCSAZIjgaSOIV3wuJj4w8eb9oWSIYb0YD4vmwiaRGlQs8OdXz5EfIVjTdnPdy7odcb9n8N6RH2_caFsH8XsU"/>
+</div>
+<span class="text-on-surface font-medium hidden sm:inline">Profile</span>
+</div>
+</div>
+<div class="absolute bottom-0 left-0 bg-gradient-to-b from-[#c3c0ff]/5 to-transparent h-[1px] w-full"></div>
+</nav>
+<aside class="h-screen w-64 fixed left-0 top-0 z-40 bg-[#13121b] flex flex-col border-r border-[#c3c0ff]/10 pt-20 hidden md:flex">
+<div class="px-6 py-4 flex flex-col gap-1">
+<div class="flex items-center gap-3 mb-6 p-4 rounded-xl bg-surface-container-low">
+<div class="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary">school</span>
+</div>
+<div>
+<p class="text-xs text-slate-500 uppercase tracking-widest font-bold">Luminescent Scholar</p>
+<p class="text-sm text-on-surface font-semibold">Basics of Python</p>
+</div>
+</div>
+<div class="space-y-1">
+<a class="flex items-center gap-3 text-slate-500 px-4 py-3 hover:bg-white/5 hover:text-white transition-all rounded-lg group" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-headline tracking-wide text-sm">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 bg-gradient-to-r from-[#4F46E5]/20 to-transparent text-[#c3c0ff] border-l-4 border-[#4F46E5] px-4 py-3 group" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">terminal</span>
+<span class="font-headline tracking-wide text-sm">Practice</span>
+</a>
+<a class="flex items-center gap-3 text-slate-500 px-4 py-3 hover:bg-white/5 hover:text-white transition-all rounded-lg group" href="#">
+<span class="material-symbols-outlined">account_tree</span>
+<span class="font-headline tracking-wide text-sm">Projects</span>
+</a>
+<a class="flex items-center gap-3 text-slate-500 px-4 py-3 hover:bg-white/5 hover:text-white transition-all rounded-lg group" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-headline tracking-wide text-sm">Profile</span>
+</a>
+</div>
+</div>
+<div class="mt-auto px-6 py-8">
+<button class="w-full flex items-center justify-center gap-2 bg-surface-container-high py-3 rounded-xl text-primary font-bold hover:bg-surface-container-highest transition-colors mb-6 border border-primary/20">
+<span class="material-symbols-outlined">mic</span>
+        Voice Help
+      </button>
+<div class="space-y-1">
+<a class="flex items-center gap-3 text-slate-500 px-4 py-2 hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined text-xl">settings</span>
+<span class="text-sm">Settings</span>
+</a>
+<a class="flex items-center gap-3 text-slate-500 px-4 py-2 hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined text-xl">help</span>
+<span class="text-sm">Support</span>
+</a>
+</div>
+</div>
+</aside>
+<main class="md:pl-64 pt-24 pb-12 min-h-screen">
+<div class="max-w-6xl mx-auto px-6 md:px-12">
+<header class="mb-12 relative">
+<div class="absolute -top-12 -left-12 w-64 h-64 bg-primary/10 blur-[100px] rounded-full pointer-events-none"></div>
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div class="space-y-2">
+<h1 class="text-5xl md:text-7xl font-extrabold font-headline tracking-tight text-on-surface">
+              Basics of <span class="brand-gradient-text">Python</span>
+</h1>
+<div class="flex items-center gap-4 text-slate-400 font-medium">
+<span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-sm">apps</span> 12 Modules</span>
+<span class="w-1 h-1 bg-slate-600 rounded-full"></span>
+<span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">stars</span> Course Progress: 0%</span>
+</div>
+</div>
+<div class="hidden md:block text-right">
+<p class="text-xs uppercase tracking-[0.2em] font-bold text-primary mb-2">Estimated Time</p>
+<p class="text-2xl font-headline font-bold">14 Hours</p>
+</div>
+</div>
+</header>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<div class="lg:col-span-8 space-y-4">
+<div class="glass-card p-6 rounded-2xl flex items-center justify-between border-l-4 border-secondary group hover:bg-surface-container-high/50 transition-all">
+<div class="flex items-center gap-6">
+<div class="w-14 h-14 rounded-xl bg-secondary/10 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-3xl">waving_hand</span>
+</div>
+<div>
+<h3 class="text-xl font-bold font-headline mb-1 text-on-surface">1. Introduction to Python</h3>
+<p class="text-slate-400 text-sm">Getting started with the language of the future.</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="px-3 py-1 rounded-full text-xs font-bold bg-secondary-container/20 text-secondary hidden sm:inline-flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">bolt</span> Ready
+              </span>
+<button class="primary-gradient-btn px-6 py-2.5 rounded-xl font-bold text-on-primary-fixed shadow-lg shadow-primary-container/25 active:scale-95 transition-transform">
+                Start Lesson
+              </button>
+</div>
+</div>
+<div class="glass-card p-6 rounded-2xl flex items-center justify-between border-l-4 border-slate-700/50 group hover:bg-surface-container-high/50 transition-all opacity-70 grayscale-[0.5]">
+<div class="flex items-center gap-6">
+<div class="w-14 h-14 rounded-xl bg-slate-800 flex items-center justify-center text-slate-500">
+<span class="material-symbols-outlined text-3xl">data_object</span>
+</div>
+<div>
+<h3 class="text-xl font-bold font-headline mb-1 text-on-surface">2. Variables &amp; Data Types</h3>
+<p class="text-slate-400 text-sm">Storing information and understanding data structures.</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="px-3 py-1 rounded-full text-xs font-bold bg-surface-container-highest text-slate-400 inline-flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">lock</span> Locked
+              </span>
+</div>
+</div>
+<div class="glass-card p-6 rounded-2xl flex items-center justify-between border-l-4 border-slate-700/50 group opacity-70 grayscale-[0.5]">
+<div class="flex items-center gap-6">
+<div class="w-14 h-14 rounded-xl bg-slate-800 flex items-center justify-center text-slate-500">
+<span class="material-symbols-outlined text-3xl">calculate</span>
+</div>
+<div>
+<h3 class="text-xl font-bold font-headline mb-1 text-on-surface">3. Operators</h3>
+<p class="text-slate-400 text-sm">Performing arithmetic and logical operations in code.</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="px-3 py-1 rounded-full text-xs font-bold bg-surface-container-highest text-slate-400 inline-flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">lock</span> Locked
+              </span>
+</div>
+</div>
+<div class="glass-card p-6 rounded-2xl flex items-center justify-between border-l-4 border-slate-700/50 group opacity-70 grayscale-[0.5]">
+<div class="flex items-center gap-6">
+<div class="w-14 h-14 rounded-xl bg-slate-800 flex items-center justify-center text-slate-500">
+<span class="material-symbols-outlined text-3xl">alt_route</span>
+</div>
+<div>
+<h3 class="text-xl font-bold font-headline mb-1 text-on-surface">4. Control Flow (Decision Making)</h3>
+<p class="text-slate-400 text-sm">Mastering if-statements and conditional logic.</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="px-3 py-1 rounded-full text-xs font-bold bg-surface-container-highest text-slate-400 inline-flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">lock</span> Locked
+              </span>
+</div>
+</div>
+<div class="glass-card p-6 rounded-2xl flex items-center justify-between border-l-4 border-slate-700/50 group opacity-70 grayscale-[0.5]">
+<div class="flex items-center gap-6">
+<div class="w-14 h-14 rounded-xl bg-slate-800 flex items-center justify-center text-slate-500">
+<span class="material-symbols-outlined text-3xl">all_inclusive</span>
+</div>
+<div>
+<h3 class="text-xl font-bold font-headline mb-1 text-on-surface">5. Loops</h3>
+<p class="text-slate-400 text-sm">Automating repetitive tasks with for and while.</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="px-3 py-1 rounded-full text-xs font-bold bg-surface-container-highest text-slate-400 inline-flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">lock</span> Locked
+              </span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
+<div class="bg-surface-container-lowest p-6 rounded-2xl border border-outline-variant/10">
+<div class="flex items-center gap-2 text-tertiary mb-3">
+<span class="material-symbols-outlined">auto_awesome</span>
+<span class="text-xs uppercase font-bold tracking-widest">Next Achievement</span>
+</div>
+<p class="text-lg font-bold mb-1">Code Novice</p>
+<p class="text-sm text-slate-400 mb-4">Complete 3 modules to unlock your first badge.</p>
+<div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+<div class="bg-tertiary h-full w-[10%]"></div>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-2xl border border-outline-variant/10">
+<div class="flex items-center gap-2 text-primary mb-3">
+<span class="material-symbols-outlined">lightbulb</span>
+<span class="text-xs uppercase font-bold tracking-widest">AI Tip</span>
+</div>
+<p class="text-sm text-on-surface leading-relaxed">"Focus on indentation early—Python uses whitespace to define blocks of code, unlike Java or C++."</p>
+</div>
+</div>
+<div class="pt-4 space-y-4">
+<h4 class="text-sm uppercase tracking-[0.2em] font-bold text-slate-500 mb-6">Remaining Curriculum</h4>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="bg-surface-container-low p-5 rounded-xl flex items-center gap-4 opacity-50">
+<div class="text-slate-500"><span class="material-symbols-outlined">database</span></div>
+<div><p class="font-bold text-sm">6. Data Structures</p></div>
+</div>
+<div class="bg-surface-container-low p-5 rounded-xl flex items-center gap-4 opacity-50">
+<div class="text-slate-500"><span class="material-symbols-outlined">function</span></div>
+<div><p class="font-bold text-sm">7. Functions</p></div>
+</div>
+<div class="bg-surface-container-low p-5 rounded-xl flex items-center gap-4 opacity-50">
+<div class="text-slate-500"><span class="material-symbols-outlined">short_text</span></div>
+<div><p class="font-bold text-sm">8. Strings</p></div>
+</div>
+<div class="bg-surface-container-low p-5 rounded-xl flex items-center gap-4 opacity-50">
+<div class="text-slate-500"><span class="material-symbols-outlined">folder_open</span></div>
+<div><p class="font-bold text-sm">9. File Handling</p></div>
+</div>
+<div class="bg-surface-container-low p-5 rounded-xl flex items-center gap-4 opacity-50">
+<div class="text-slate-500"><span class="material-symbols-outlined">bug_report</span></div>
+<div><p class="font-bold text-sm">10. Error Handling</p></div>
+</div>
+<div class="bg-surface-container-low p-5 rounded-xl flex items-center gap-4 opacity-50">
+<div class="text-slate-500"><span class="material-symbols-outlined">inventory_2</span></div>
+<div><p class="font-bold text-sm">11. Modules &amp; Packages</p></div>
+</div>
+<div class="bg-surface-container-low p-5 rounded-xl flex items-center gap-4 opacity-50 col-span-1 md:col-span-2">
+<div class="text-slate-500"><span class="material-symbols-outlined">layers</span></div>
+<div><p class="font-bold text-sm">12. Basic OOP Concepts</p></div>
+</div>
+</div>
+</div>
+</div>
+<div class="lg:col-span-4 space-y-6">
+<div class="glass-card p-8 rounded-2xl relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-32 h-32 bg-secondary/10 blur-3xl group-hover:bg-secondary/20 transition-all"></div>
+<h3 class="text-2xl font-bold font-headline mb-6">Your Mentor</h3>
+<div class="flex items-center gap-4 mb-6">
+<div class="w-16 h-16 rounded-2xl bg-surface-container-highest overflow-hidden p-1">
+<img class="w-full h-full object-cover rounded-xl" data-alt="close-up portrait of an experienced software engineer with glasses, looking professional and approachable" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDafPIKh5sGRrVHpTgmBHRpJkcigK7SBro3Tyc40pVCOi8WXEWpnsoFQ8M7eSt0IEzlBIrST1CxcSuF6NhRLNPochDmB5k1wbIVK90jy_cx4uvnvkWD9L_torB7sCVfveWxX0UUkN1rnZF-YptZ6HXn8NESHak2YRFCUaMMVZ3Svxra4Lh-xgELhhidZlHrPrqXKuO5nGinLgCgm7H6rxl4BUZWG0fHxseagOEDgCPTw4_AWtKDjLhC7fHsMuC7VJX3a__m1JLHKwtl"/>
+</div>
+<div>
+<p class="font-bold text-lg">Dr. Aris Thorne</p>
+<p class="text-slate-400 text-sm">Ex-Google Python Lead</p>
+</div>
+</div>
+<p class="text-sm text-slate-300 leading-relaxed mb-6">
+              "Python isn't just a language; it's a way of thinking. This curriculum is designed to take you from 'Hello World' to building scalable systems."
+            </p>
+<button class="w-full py-3 rounded-xl bg-surface-container-highest text-on-surface font-bold hover:bg-white/10 transition-colors border border-outline-variant/20">
+              Book Office Hours
+            </button>
+</div>
+<div class="bg-surface-container-lowest p-8 rounded-2xl border border-outline-variant/15">
+<h4 class="font-headline font-bold mb-4 text-lg">Course Resources</h4>
+<ul class="space-y-4">
+<li>
+<a class="flex items-center justify-between text-sm text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="flex items-center gap-2"><span class="material-symbols-outlined text-sm">description</span> Python Cheat Sheet</span>
+<span class="material-symbols-outlined text-sm">download</span>
+</a>
+</li>
+<li>
+<a class="flex items-center justify-between text-sm text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="flex items-center gap-2"><span class="material-symbols-outlined text-sm">terminal</span> Offline Sandbox</span>
+<span class="material-symbols-outlined text-sm">open_in_new</span>
+</a>
+</li>
+<li>
+<a class="flex items-center justify-between text-sm text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="flex items-center gap-2"><span class="material-symbols-outlined text-sm">forum</span> Community Discord</span>
+<span class="material-symbols-outlined text-sm">link</span>
+</a>
+</li>
+</ul>
+</div>
+<div class="bg-gradient-to-br from-[#4F46E5] to-[#c3c0ff] p-8 rounded-2xl text-on-primary relative overflow-hidden">
+<div class="relative z-10">
+<h4 class="font-headline font-extrabold text-xl mb-2">Get Certified</h4>
+<p class="text-sm text-white/80 mb-6">Complete the full curriculum and final project to receive your Luminescent Scholar badge.</p>
+<div class="flex items-center gap-2 opacity-60">
+<span class="material-symbols-outlined">workspace_premium</span>
+<span class="text-xs font-bold uppercase tracking-widest">Industry Recognized</span>
+</div>
+</div>
+<div class="absolute -bottom-4 -right-4 text-white/10 transform rotate-12">
+<span class="material-symbols-outlined text-9xl">verified</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<nav class="md:hidden fixed bottom-0 w-full bg-[#13121b]/90 backdrop-blur-xl flex items-center justify-around py-4 z-50 shadow-[0_-10px_30px_rgba(0,0,0,0.4)]">
+<a class="flex flex-col items-center gap-1 text-slate-400" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-[#c3c0ff]" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">terminal</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-400" href="#">
+<span class="material-symbols-outlined">account_tree</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-400" href="#">
+<span class="material-symbols-outlined">person</span>
+</a>
+</nav>
+</body></html>
