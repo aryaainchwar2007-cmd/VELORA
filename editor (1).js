@@ -8,6 +8,9 @@
   const outputEl = document.getElementById('codeOutput');
   const runBtn = document.getElementById('runCodeBtn');
   const teachMeToggleBtn = document.getElementById('teachMeToggleBtn');
+  const resizer = document.getElementById('paneResizer');
+  const rightPane = document.getElementById('aiRightPane');
+  const leftPane = document.getElementById('editorLeftPane');
   const chatInput = document.getElementById('aiMentorInput');
   const chatContainer = document.querySelector('.flex-1.overflow-y-auto.p-6.space-y-6');
   const sendBtn = chatInput?.closest('.relative')?.querySelector('button:last-child');
@@ -25,6 +28,38 @@
   let chatSessionId = sessionStorage.getItem(CHAT_SESSION_KEY) || null;
 
   if (!editor || !lineNumbers) return;
+
+  if (resizer && rightPane && leftPane) {
+    let isResizing = false;
+    const minRight = 320;
+    const maxRight = 900;
+
+    const onMove = (e) => {
+      if (!isResizing) return;
+      const rightWidth = Math.min(maxRight, Math.max(minRight, window.innerWidth - e.clientX));
+      rightPane.style.flex = '0 0 auto';
+      rightPane.style.width = `${rightWidth}px`;
+      leftPane.style.flex = '1 1 auto';
+    };
+
+    const stopResize = () => {
+      isResizing = false;
+      document.body.style.userSelect = '';
+      document.body.style.cursor = '';
+      window.removeEventListener('mousemove', onMove);
+      window.removeEventListener('mouseup', stopResize);
+    };
+
+    resizer.addEventListener('mousedown', (e) => {
+      if (window.innerWidth < 768) return;
+      e.preventDefault();
+      isResizing = true;
+      document.body.style.userSelect = 'none';
+      document.body.style.cursor = 'col-resize';
+      window.addEventListener('mousemove', onMove);
+      window.addEventListener('mouseup', stopResize);
+    });
+  }
 
   const defaultCode = `def calculate_fibonacci(n):
     # Fibonacci sequence generator
