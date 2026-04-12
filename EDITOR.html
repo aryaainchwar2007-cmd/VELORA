@@ -232,7 +232,7 @@
 <!-- Resize Handle -->
 <div class="hidden md:flex w-1 cursor-col-resize bg-outline-variant/30 hover:bg-primary/60 transition-colors" id="paneResizer" title="Resize panels"></div>
 <!-- AI Mentor Section -->
-<section class="flex-1 flex flex-col bg-surface border-l border-[#c3c0ff]/10 min-w-[320px]" id="aiRightPane">
+<section class="relative flex-1 flex flex-col bg-surface border-l border-[#c3c0ff]/10 min-w-[320px]" id="aiRightPane">
 <!-- AI Header -->
 <div class="h-14 flex items-center px-6 bg-surface-container">
 <div class="flex items-center gap-3">
@@ -321,6 +321,9 @@
                         </button>
 </div>
 </div>
+<button class="absolute bottom-5 right-5 w-11 h-11 flex items-center justify-center rounded-full bg-primary-container text-white shadow-lg shadow-primary/30 hover:opacity-95 active:scale-95 transition-all z-20" id="chatSpeakBtn" title="Read latest AI reply">
+<span class="material-symbols-outlined text-base">volume_up</span>
+</button>
 </section>
 </div>
 </main>
@@ -349,9 +352,7 @@
   let activeRecognition = null;
   let transcriptBaseText = "";
   let finalTranscript = "";
-  let mediaRecorder = null;
-  let audioChunks = [];
-  let audioStream = null;
+  const MAX_VOICE_CAPTURE_MS = 30000;
 
   function detectLanguageFromText(text) {
     if (!text) return null;
@@ -391,92 +392,102 @@
     micBtn.title = isListening ? "Stop voice input" : "Start voice input";
   }
 
-  async function ensureMicPermission() {
-    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-      throw new Error("This browser does not support microphone access.");
-    }
-    return navigator.mediaDevices.getUserMedia({ audio: true });
-  }
-
-  async function transcribeAudio(audioBlob, languageCode) {
-    const formData = new FormData();
-    formData.append("audio", audioBlob, "editor-recording.webm");
-    formData.append("language", languageCode);
-
-    const response = await fetch("http://127.0.0.1:8000/speech-to-text", {
-      method: "POST",
-      body: formData
-    });
-
-    const data = await response.json().catch(() => ({}));
-    if (!response.ok) {
-      throw new Error(data?.detail || "Speech transcription failed.");
-    }
-    return data;
-  }
-
-  async function startListening() {
-    if (mediaRecorder && mediaRecorder.state === "recording") {
+  function startListening() {
+    if (listening && activeRecognition) {
+      stopRequested = true;
       setStatus("Stopping...");
-      mediaRecorder.stop();
+      activeRecognition.stop();
       return;
     }
 
-    try {
-      audioStream = await ensureMicPermission();
-      setButtonVisualState(true);
-      updateLanguageBadge(null);
-      audioChunks = [];
-
-      const selected = langSelect.value;
-      setStatus("Recording (" + (LANG_LABELS[selected] || selected) + ")... click mic again to stop");
-
-      mediaRecorder = new MediaRecorder(audioStream);
-      mediaRecorder.ondataavailable = (event) => {
-        if (event.data && event.data.size > 0) {
-          audioChunks.push(event.data);
-        }
-      };
-
-      mediaRecorder.onstop = async () => {
-        setButtonVisualState(false);
-        setStatus("Transcribing audio...");
-
-        const audioBlob = new Blob(audioChunks, { type: mediaRecorder?.mimeType || "audio/webm" });
-        audioChunks = [];
-
-        try {
-          const data = await transcribeAudio(audioBlob, selected);
-          if (data.text) {
-            const baseText = inputEl.value.trim();
-            inputEl.value = [baseText, data.text].filter(Boolean).join(baseText && data.text ? "\n" : "");
-            const detected = detectLanguageFromText(data.text) || selected;
-            updateLanguageBadge(detected);
-            setStatus("Voice captured");
-          } else {
-            setStatus("No speech detected, try again");
-          }
-        } catch (error) {
-          setStatus(error?.message || "Speech transcription failed.");
-        } finally {
-          audioStream?.getTracks().forEach((t) => t.stop());
-          audioStream = null;
-          mediaRecorder = null;
-          inputEl.focus();
-        }
-      };
-
-      mediaRecorder.start();
-    } catch (err) {
-      setStatus("Mic permission blocked. Please allow microphone access.");
-      setButtonVisualState(false);
+    if (!SpeechRecognition) {
+      setStatus("Voice input not supported. Use latest Chrome/Edge.");
+      return;
     }
+
+    const recognition = new SpeechRecognition();
+    activeRecognition = recognition;
+    stopRequested = false;
+    finalTranscript = "";
+    transcriptBaseText = inputEl.value.trim();
+
+    const selected = langSelect.value || "en-IN";
+    recognition.lang = selected;
+    recognition.continuous = true;
+    recognition.interimResults = true;
+    recognition.maxAlternatives = 1;
+
+    setButtonVisualState(true);
+    updateLanguageBadge(null);
+    setStatus("Listening (" + (LANG_LABELS[selected] || selected) + ")...");
+
+    const captureDeadline = Date.now() + MAX_VOICE_CAPTURE_MS;
+    const timer = setTimeout(() => {
+      if (listening && activeRecognition === recognition) {
+        stopRequested = true;
+        recognition.stop();
+      }
+    }, MAX_VOICE_CAPTURE_MS);
+
+    recognition.onresult = (event) => {
+      let interimTranscript = "";
+      for (let i = event.resultIndex; i < event.results.length; i++) {
+        const chunk = event.results[i][0].transcript || "";
+        if (event.results[i].isFinal) {
+          finalTranscript += (finalTranscript ? " " : "") + chunk;
+        } else {
+          interimTranscript += chunk;
+        }
+      }
+      const combined = `${finalTranscript} ${interimTranscript}`.trim();
+      inputEl.value = [transcriptBaseText, combined].filter(Boolean).join(transcriptBaseText && combined ? "\n" : "");
+    };
+
+    recognition.onerror = (event) => {
+      clearTimeout(timer);
+      if (event.error === "not-allowed" || event.error === "service-not-allowed") {
+        setStatus("Mic permission blocked. Please allow microphone access.");
+      } else if (event.error !== "aborted") {
+        setStatus("Voice input error: " + event.error);
+      }
+      setButtonVisualState(false);
+      activeRecognition = null;
+    };
+
+    recognition.onend = () => {
+      // Keep listening until timeout or explicit stop; improves multilingual capture.
+      if (!stopRequested && Date.now() < captureDeadline && activeRecognition === recognition) {
+        try {
+          recognition.start();
+          return;
+        } catch (_) {
+          // Fall through to finalize.
+        }
+      }
+
+      clearTimeout(timer);
+      setButtonVisualState(false);
+      activeRecognition = null;
+
+      const captured = finalTranscript.trim();
+      if (captured) {
+        const detected = detectLanguageFromText(captured) || selected;
+        updateLanguageBadge(detected);
+        setStatus(stopRequested ? "Voice captured (time limit reached)" : "Voice captured");
+      } else {
+        setStatus("No speech detected, try again");
+      }
+      stopRequested = false;
+      inputEl.focus();
+    };
+
+    recognition.start();
   }
 
-  if (!window.MediaRecorder || !navigator.mediaDevices?.getUserMedia) {
+  if (!SpeechRecognition) {
     setStatus("Voice input not supported. Use latest Chrome/Edge.");
     micBtn.disabled = true;
-    helpBtn.disabled = true;
+    if (helpBtn) helpBtn.disabled = true;
     return;
   }
 

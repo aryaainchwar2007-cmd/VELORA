@@ -107,7 +107,7 @@
 </div>
 <div class="flex items-center gap-3">
 <button class="px-5 py-1.5 rounded-lg text-sm bg-surface-container-high text-white hover:bg-surface-container-highest transition-all duration-150 active:scale-95" id="runCodeBtn">Run</button>
-<button class="px-5 py-1.5 rounded-lg text-sm bg-primary-container text-white font-semibold hover:opacity-90 transition-all duration-150 active:scale-95">Submit</button>
+<button class="px-5 py-1.5 rounded-lg text-sm bg-primary-container text-white font-semibold hover:opacity-90 transition-all duration-150 active:scale-95" id="submitCodeBtn" type="button">Submit</button>
 <div class="w-8 h-8 rounded-full overflow-hidden ml-2 ring-2 ring-primary/20">
 <img alt="User profile avatar" class="w-full h-full object-cover" data-alt="close-up portrait of a young professional with short dark hair in high-key soft studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3nqJzMtKB-CrHnV4b40VDxRELTj8sDjw4qMp5TkCXh6UCEkuz7lqURorudw0w9C3shcOwyu7hXFflXSI_8z8bTWu-44LwT03qLXY0IdpvLCRFhPS1ruqK-AxFQaVIInjd1CWovoUSG0hQMb04_3XaVSJQPiHGnLpm9GKnFGad-6xCzEsj_feCm2Yx6M0N5aZICaWMMDB4FKMvm0Lu--m_lv4kAwLiQWlpoT_2Umy2iPdzVqpneidZ-3t7ECmQ2ebo2zShgAlR3wvY"/>
 </div>
@@ -150,18 +150,6 @@
 </div>
 </div>
 </div>
-<div class="bg-surface-container-high rounded-2xl p-4 border border-primary/10">
-<h4 class="text-xs font-bold text-primary mb-3 flex items-center gap-2">
-<span class="material-symbols-outlined text-base">emoji_events</span>
-                            Arena Progress
-                        </h4>
-<div class="flex items-center gap-3">
-<div class="flex-1 h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
-<div class="w-3/4 h-full bg-gradient-to-r from-primary to-secondary rounded-full"></div>
-</div>
-<span class="text-[10px] font-bold text-on-surface">75%</span>
-</div>
-</div>
 </section>
 <!-- Middle Panel: Code Editor (Expanded) -->
 <section class="flex-1 flex flex-col bg-surface-container-lowest rounded-2xl overflow-hidden border border-outline-variant/10">
@@ -193,12 +181,15 @@ solve()
 </textarea>
 </div>
 <!-- Collapsible Bottom Console -->
-<div class="mt-auto border-t border-outline-variant/10 bg-surface-container-low">
-<div class="px-4 py-2 border-b border-outline-variant/10 bg-surface-container-low">
+<div class="mt-auto border-t border-outline-variant/10 bg-surface-container-low" id="bottomConsolePanel" style="border-top-width:0.5px;">
+<div class="px-4 pt-2 flex items-center justify-center">
+<button class="w-14 h-1.5 rounded-full bg-outline-variant/60 hover:bg-primary/70 transition-colors cursor-row-resize" id="consoleResizeHandle" title="Drag to resize stdin and output together" type="button"></button>
+</div>
+<div class="px-4 py-2 border-b border-outline-variant/10 bg-surface-container-low" style="border-bottom-width:0.5px;">
 <label class="text-[10px] font-bold text-outline uppercase tracking-wider mb-1 block">Custom Input (stdin)</label>
-<textarea class="w-full h-16 bg-surface-container-lowest border border-outline-variant/20 rounded-lg px-3 py-2 text-xs font-mono text-on-surface placeholder:text-outline-variant resize-none" id="codeInput" placeholder="Example:
+<textarea class="w-full bg-surface-container-lowest border border-outline-variant/10 rounded-lg px-3 py-2 text-xs font-mono text-on-surface placeholder:text-outline-variant resize-none" id="codeInput" placeholder="Example:
 5
-10"></textarea>
+10" style="height:176px;"></textarea>
 </div>
 <div class="flex items-center justify-between px-4 py-2 cursor-pointer hover:bg-surface-container-highest transition-all group">
 <div class="flex items-center gap-2">
@@ -207,7 +198,7 @@ solve()
 </div>
 <span class="material-symbols-outlined text-outline">keyboard_arrow_up</span>
 </div>
-<div class="h-16 px-6 py-3 bg-surface-container-lowest font-mono text-xs text-outline/50 italic overflow-auto whitespace-pre-wrap" id="codeOutput">
+<div class="px-6 py-3 bg-surface-container-lowest font-mono text-xs text-outline/50 italic overflow-auto whitespace-pre-wrap" id="codeOutput" style="height:176px;">
                             Run your code to see the output here...
                         </div>
 </div>
@@ -243,7 +234,16 @@ solve()
 <div class="relative group">
 <textarea class="w-full bg-surface-container-lowest border-none rounded-xl text-[11px] p-3 pr-10 focus:ring-1 focus:ring-primary placeholder:text-outline-variant resize-none" id="mentorInput" placeholder="Ask Aura..." rows="2"></textarea>
 <div class="absolute right-2 bottom-3 flex items-center gap-1">
-<button class="p-1.5 text-outline-variant hover:text-primary transition-colors">
+<select class="bg-surface-container-low rounded-lg border border-outline-variant/30 px-2 py-1 text-[10px] text-on-surface" id="mentorVoiceLangSelect">
+<option value="en-IN">English</option>
+<option value="hi-IN">Hindi</option>
+<option value="mr-IN">Marathi</option>
+<option value="ta-IN">Tamil</option>
+<option value="te-IN">Telugu</option>
+<option value="kn-IN">Kannada</option>
+<option value="ml-IN">Malayalam</option>
+</select>
+<button class="p-1.5 text-outline-variant hover:text-primary transition-colors" id="mentorVoiceMicBtn" title="Start voice input" type="button">
 <span class="material-symbols-outlined text-base">mic</span>
 </button>
 <button class="p-1.5 bg-primary text-on-primary rounded-lg hover:opacity-90 transition-all" id="mentorSendBtn" type="button">
@@ -251,17 +251,9 @@ solve()
 </button>
 </div>
 </div>
-</div>
-</div>
-<!-- Achievement Card (Compact) -->
-<div class="bg-gradient-to-br from-tertiary-container/30 to-surface-container-low rounded-2xl p-3 border border-tertiary/10">
-<div class="flex items-center gap-3">
-<div class="p-1.5 bg-tertiary/20 rounded-full text-tertiary">
-<span class="material-symbols-outlined text-lg">local_fire_department</span>
-</div>
-<div>
-<h5 class="text-[11px] font-bold text-white">5 Day Streak!</h5>
-<p class="text-[9px] text-tertiary-fixed-dim">+50 XP on completion</p>
+<div class="flex items-center gap-2 mt-2 px-1">
+<span class="text-[9px] text-outline" id="mentorVoiceStatus">Voice input: idle</span>
+<span class="text-[9px] text-secondary hidden" id="mentorDetectedLanguageBadge"></span>
 </div>
 </div>
 </div>

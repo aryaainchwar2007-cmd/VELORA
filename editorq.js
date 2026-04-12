@@ -12,10 +12,12 @@
   };
 
   const runBtn = document.getElementById('runCodeBtn');
+  const submitBtn = document.getElementById('submitCodeBtn');
   const codeEditor = document.getElementById('codeEditor');
   const codeInput = document.getElementById('codeInput');
   const lineNumbers = document.getElementById('lineNumbers');
   const codeOutput = document.getElementById('codeOutput');
+  const consoleResizeHandle = document.getElementById('consoleResizeHandle');
   const mentorMessages = document.getElementById('mentorMessages');
   const mentorInput = document.getElementById('mentorInput');
   const mentorSendBtn = document.getElementById('mentorSendBtn');
@@ -31,9 +33,14 @@
   const statementEl = document.getElementById('questionStatement');
   const testCasesEl = document.getElementById('questionTestCases');
   const keywordsEl = document.getElementById('questionKeywords');
+  const PRACTICE_COURSE_SLUG = 'python-foundations';
 
   let chatSessionId = null;
   let chatSessionPromise = null;
+  let currentProblem = null;
+  let incorrectAttempts = 0;
+  let successModalEl = null;
+  let failModalEl = null;
   let mentorListening = false;
   let mentorStopRequested = false;
   let mentorActiveRecognition = null;
@@ -62,6 +69,174 @@
     codeOutput.classList.toggle('text-error', isError);
     codeOutput.classList.toggle('text-outline/50', !isError);
     codeOutput.classList.remove('italic');
+  }
+
+  function initLinkedConsoleResize() {
+    if (!consoleResizeHandle || !codeInput || !codeOutput) return;
+
+    const MIN_HEIGHT = 64;
+    const MAX_HEIGHT = 260;
+    let linkedHeight = 176;
+    let dragging = false;
+    let startY = 0;
+    let startHeight = linkedHeight;
+
+    const clamp = (value) => Math.min(MAX_HEIGHT, Math.max(MIN_HEIGHT, value));
+    const applyHeight = (nextHeight) => {
+      linkedHeight = clamp(nextHeight);
+      codeInput.style.height = `${linkedHeight}px`;
+      codeOutput.style.height = `${linkedHeight}px`;
+    };
+
+    const onPointerMove = (event) => {
+      if (!dragging) return;
+      const delta = startY - event.clientY;
+      applyHeight(startHeight + delta);
+    };
+
+    const stopDragging = () => {
+      dragging = false;
+      document.body.style.userSelect = '';
+      document.body.style.cursor = '';
+      window.removeEventListener('pointermove', onPointerMove);
+      window.removeEventListener('pointerup', stopDragging);
+      window.removeEventListener('pointercancel', stopDragging);
+    };
+
+    consoleResizeHandle.addEventListener('pointerdown', (event) => {
+      event.preventDefault();
+      dragging = true;
+      startY = event.clientY;
+      startHeight = linkedHeight;
+      document.body.style.userSelect = 'none';
+      document.body.style.cursor = 'row-resize';
+      window.addEventListener('pointermove', onPointerMove);
+      window.addEventListener('pointerup', stopDragging);
+      window.addEventListener('pointercancel', stopDragging);
+    });
+
+    applyHeight(linkedHeight);
+  }
+
+  function normalizeOutput(value) {
+    return String(value ?? '')
+      .replace(/\r\n/g, '\n')
+      .replace(/[ \t]+$/gm, '')
+      .trim();
+  }
+
+  function shouldRetryWithSplitInput(errorText, stdin) {
+    const rawError = String(errorText || '');
+    const rawInput = String(stdin || '');
+    if (!rawInput.trim()) return false;
+    if (rawInput.includes('\n')) return false;
+    if (!/\s+/.test(rawInput.trim())) return false;
+
+    // Common beginner mismatch: testcase is "3 5" but code uses int(input()) twice.
+    return /ValueError|EOFError|invalid literal for int\(\)/i.test(rawError);
+  }
+
+  function ensureSuccessModal() {
+    if (successModalEl) return successModalEl;
+
+    const overlay = document.createElement('div');
+    overlay.className = 'fixed inset-0 z-[100] hidden items-center justify-center bg-black/60 backdrop-blur-sm p-4';
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+    overlay.innerHTML = `
+      <div class="w-full max-w-md rounded-2xl border border-primary/30 bg-surface-container-high p-6 shadow-2xl shadow-primary/15">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-10 rounded-full bg-secondary/15 flex items-center justify-center text-secondary">
+            <span class="material-symbols-outlined">emoji_events</span>
+          </div>
+          <h3 class="text-lg font-headline font-extrabold text-on-surface">Well done!</h3>
+        </div>
+        <p class="text-sm text-on-surface-variant mb-5">Your answer is correct. Ready for the next challenge?</p>
+        <button id="nextQuestionModalBtn" type="button" class="w-full px-4 py-2.5 rounded-xl font-semibold bg-primary-container text-white hover:opacity-90 transition-all duration-150 active:scale-95">
+          Next Question
+        </button>
+      </div>
+    `;
+
+    overlay.addEventListener('click', (event) => {
+      if (event.target === overlay) {
+        overlay.classList.add('hidden');
+        overlay.classList.remove('flex');
+      }
+    });
+
+    document.body.appendChild(overlay);
+    const nextBtn = overlay.querySelector('#nextQuestionModalBtn');
+    nextBtn?.addEventListener('click', () => {
+      redirectToNextQuestion();
+    });
+
+    successModalEl = overlay;
+    return overlay;
+  }
+
+  function showSuccessModal() {
+    const modal = ensureSuccessModal();
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+  }
+
+  function ensureFailModal() {
+    if (failModalEl) return failModalEl;
+
+    const overlay = document.createElement('div');
+    overlay.className = 'fixed inset-0 z-[100] hidden items-center justify-center bg-black/60 backdrop-blur-sm p-4';
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+    overlay.innerHTML = `
+      <div class="w-full max-w-md rounded-2xl border border-error/40 bg-surface-container-high p-6 shadow-2xl shadow-error/10">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-10 rounded-full bg-error-container/30 flex items-center justify-center text-error">
+            <span class="material-symbols-outlined">error</span>
+          </div>
+          <h3 class="text-lg font-headline font-extrabold text-on-surface">Incorrect Output</h3>
+        </div>
+        <p class="text-sm text-on-surface-variant mb-5">You have reached 3 attempts. Let’s revise the matching lesson first.</p>
+        <button id="goToLessonModalBtn" type="button" class="w-full px-4 py-2.5 rounded-xl font-semibold bg-primary-container text-white hover:opacity-90 transition-all duration-150 active:scale-95">
+          Go to lesson
+        </button>
+      </div>
+    `;
+
+    overlay.addEventListener('click', (event) => {
+      if (event.target === overlay) {
+        overlay.classList.add('hidden');
+        overlay.classList.remove('flex');
+      }
+    });
+
+    document.body.appendChild(overlay);
+    const goBtn = overlay.querySelector('#goToLessonModalBtn');
+    goBtn?.addEventListener('click', async () => {
+      if (!(goBtn instanceof HTMLButtonElement)) return;
+      goBtn.disabled = true;
+      goBtn.textContent = 'Opening lesson...';
+      try {
+        await redirectToKeywordLesson(currentProblem);
+      } catch (_) {
+        goBtn.disabled = false;
+        goBtn.textContent = 'Go to lesson';
+      }
+    });
+
+    failModalEl = overlay;
+    return overlay;
+  }
+
+  function showFailModal() {
+    const modal = ensureFailModal();
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    const goBtn = modal.querySelector('#goToLessonModalBtn');
+    if (goBtn instanceof HTMLButtonElement) {
+      goBtn.disabled = false;
+      goBtn.textContent = 'Go to lesson';
+    }
   }
 
   function getConsoleInput() {
@@ -400,21 +575,7 @@
     setOutput('Running code...');
 
     try {
-      const response = await fetch(`${API_BASE_URL}/run-code`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          code,
-          language_id: 71,
-          stdin: getConsoleInput(),
-        }),
-      });
-
-      const data = await response.json();
-      if (!response.ok) {
-        const detail = typeof data.detail === 'string' ? data.detail : JSON.stringify(data.detail);
-        throw new Error(detail || 'Run request failed.');
-      }
+      const data = await executeCodeWithInput(getConsoleInput());
 
       const stdout = typeof data.output === 'string' ? data.output : '';
       const stderr = typeof data.error === 'string' ? data.error : '';
@@ -424,6 +585,166 @@
       setOutput(`Could not run code: ${error?.message || error}`, true);
     } finally {
       if (runBtn) runBtn.disabled = false;
+    }
+  }
+
+  async function executeCodeWithInput(stdin) {
+    const response = await fetch(`${API_BASE_URL}/run-code`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        code: codeEditor?.value || '',
+        language_id: 71,
+        stdin: stdin ?? '',
+      }),
+    });
+
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) {
+      const detail = typeof data.detail === 'string' ? data.detail : JSON.stringify(data.detail);
+      throw new Error(detail || 'Run request failed.');
+    }
+    return data;
+  }
+
+  function redirectToNextQuestion() {
+    const nextQuestion = getQuestionNoFromUrl() + 1;
+    window.location.href = `editorq.html?question_no=${encodeURIComponent(nextQuestion)}`;
+  }
+
+  async function findBestLessonByKeywords(keywords) {
+    const safeKeywords = (Array.isArray(keywords) ? keywords : [])
+      .map((k) => String(k || '').trim().toLowerCase())
+      .filter(Boolean);
+
+    if (!safeKeywords.length) return null;
+
+    const listResponse = await fetch(`${API_BASE_URL}/courses/${encodeURIComponent(PRACTICE_COURSE_SLUG)}/lessons`);
+    if (!listResponse.ok) return null;
+
+    const listData = await listResponse.json().catch(() => ({}));
+    const lessons = Array.isArray(listData?.lessons) ? listData.lessons : [];
+    if (!lessons.length) return null;
+
+    let bestOrder = null;
+    let bestScore = 0;
+
+    for (const lesson of lessons) {
+      const order = Number(lesson?.order);
+      if (!Number.isFinite(order) || order <= 0) continue;
+
+      const detailResponse = await fetch(
+        `${API_BASE_URL}/courses/${encodeURIComponent(PRACTICE_COURSE_SLUG)}/lessons/${encodeURIComponent(order)}`
+      );
+      if (!detailResponse.ok) continue;
+
+      const detail = await detailResponse.json().catch(() => ({}));
+      const haystack = `${lesson?.title || ''}\n${detail?.content || ''}`.toLowerCase();
+      const score = safeKeywords.reduce((total, keyword) => (haystack.includes(keyword) ? total + 1 : total), 0);
+
+      if (score > bestScore) {
+        bestScore = score;
+        bestOrder = order;
+      }
+    }
+
+    return bestScore > 0 ? bestOrder : null;
+  }
+
+  async function redirectToKeywordLesson(problem) {
+    const linkedOrders = Array.isArray(problem?.linked_lesson_orders) ? problem.linked_lesson_orders : [];
+    const firstLinked = Number(linkedOrders.find((value) => Number.isFinite(Number(value)) && Number(value) > 0));
+    if (Number.isFinite(firstLinked) && firstLinked > 0) {
+      window.location.href = `EDITOR.html?course=${encodeURIComponent(PRACTICE_COURSE_SLUG)}&lesson=${encodeURIComponent(firstLinked)}`;
+      return;
+    }
+
+    const keywordOrder = await findBestLessonByKeywords(problem?.common_keywords || []);
+    if (keywordOrder) {
+      window.location.href = `EDITOR.html?course=${encodeURIComponent(PRACTICE_COURSE_SLUG)}&lesson=${encodeURIComponent(keywordOrder)}`;
+      return;
+    }
+
+    window.location.href = `course.html?course=${encodeURIComponent(PRACTICE_COURSE_SLUG)}`;
+  }
+
+  async function submitCode() {
+    if (!codeEditor) return;
+
+    const code = codeEditor.value.trim();
+    if (!code) {
+      setOutput('Editor is empty. Write code first.', true);
+      return;
+    }
+
+    const testCases = Array.isArray(currentProblem?.test_cases) ? currentProblem.test_cases : [];
+    if (!testCases.length) {
+      setOutput('No test cases available for this question.', true);
+      return;
+    }
+
+    if (submitBtn) submitBtn.disabled = true;
+    setOutput('Submitting solution...');
+
+    try {
+      let failedCase = null;
+
+      for (let idx = 0; idx < testCases.length; idx += 1) {
+        const testCase = testCases[idx] || {};
+        const primaryInput = String(testCase.input ?? '');
+        let result = await executeCodeWithInput(primaryInput);
+
+        if (result?.error && shouldRetryWithSplitInput(result.error, primaryInput)) {
+          const retryInput = primaryInput.trim().split(/\s+/).join('\n');
+          result = await executeCodeWithInput(retryInput);
+        }
+
+        if (result?.error) {
+          failedCase = {
+            caseNumber: idx + 1,
+            actual: String(result.error),
+            expected: String(testCase.output ?? ''),
+            isRuntimeError: true,
+          };
+          break;
+        }
+
+        const actual = normalizeOutput(result?.output);
+        const expected = normalizeOutput(testCase.output);
+        if (actual !== expected) {
+          failedCase = {
+            caseNumber: idx + 1,
+            actual,
+            expected,
+            isRuntimeError: false,
+          };
+          break;
+        }
+      }
+
+      if (!failedCase) {
+        incorrectAttempts = 0;
+        setOutput('Correct output. Great job!');
+        showSuccessModal();
+        return;
+      }
+
+      incorrectAttempts += 1;
+      const baseMessage = failedCase.isRuntimeError
+        ? `Try again. Runtime error on case ${failedCase.caseNumber}: ${failedCase.actual}`
+        : `Try again. Wrong output on case ${failedCase.caseNumber}. Expected "${failedCase.expected}" but got "${failedCase.actual}".`;
+
+      if (incorrectAttempts < 3) {
+        setOutput(`${baseMessage} Attempt ${incorrectAttempts}/3.`, true);
+        return;
+      }
+
+      setOutput('Incorrect output. You have reached 3 attempts.', true);
+      showFailModal();
+    } catch (error) {
+      setOutput(`Could not submit code: ${error?.message || error}`, true);
+    } finally {
+      if (submitBtn) submitBtn.disabled = false;
     }
   }
 
@@ -513,6 +834,8 @@
   }
 
   function renderProblem(problem) {
+    currentProblem = problem || null;
+    incorrectAttempts = 0;
     if (titleEl) titleEl.textContent = problem?.title || 'Practice Problem';
     if (codeEl) codeEl.textContent = problem?.problem_code || '';
     if (statementEl) statementEl.textContent = problem?.problem_statement || 'Problem statement not available.';
@@ -565,6 +888,7 @@
   }
 
   runBtn?.addEventListener('click', runCode);
+  submitBtn?.addEventListener('click', submitCode);
   mentorSendBtn?.addEventListener('click', () => {
     sendMentorMessage();
   });
@@ -593,5 +917,6 @@
   }
 
   updateLineNumbers();
+  initLinkedConsoleResize();
   loadProblem();
 })();

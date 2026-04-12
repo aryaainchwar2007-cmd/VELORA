@@ -14,6 +14,7 @@
   const chatInput = document.getElementById('aiMentorInput');
   const chatContainer = document.querySelector('.flex-1.overflow-y-auto.p-6.space-y-6');
   const sendBtn = chatInput?.closest('.relative')?.querySelector('button:last-child');
+  const chatSpeakBtn = document.getElementById('chatSpeakBtn');
   const langSelect = document.getElementById('voiceLangSelect');
   const refreshAiBtn = Array.from(document.querySelectorAll('button')).find((b) =>
     (b.textContent || '').toUpperCase().includes('REFRESH AI')
@@ -26,6 +27,8 @@
   const API_BASE_URL = 'http://127.0.0.1:8000';
   const LESSON_DEFAULT_COURSE = 'python-foundations';
   let chatSessionId = sessionStorage.getItem(CHAT_SESSION_KEY) || null;
+  let latestBotReply = '';
+  let ttsAudio = null;
 
   if (!editor || !lineNumbers) return;
 
@@ -387,6 +390,78 @@ print(f"The first {n_terms} terms: {result}")`;
     wrapper.querySelector('p').textContent = text;
     chatContainer.appendChild(wrapper);
     chatContainer.scrollTop = chatContainer.scrollHeight;
+    if (text && !/^typing\.\.\.$/i.test(text.trim())) {
+      latestBotReply = text;
+    }
+  }
+
+  function setSpeakButtonLoading(isLoading) {
+    if (!chatSpeakBtn) return;
+    chatSpeakBtn.disabled = isLoading;
+    chatSpeakBtn.classList.toggle('opacity-70', isLoading);
+    const icon = chatSpeakBtn.querySelector('.material-symbols-outlined');
+    if (icon) icon.textContent = isLoading ? 'hourglass_top' : 'volume_up';
+  }
+
+  function stopActiveSpeech() {
+    if (ttsAudio) {
+      ttsAudio.pause();
+      ttsAudio = null;
+    }
+    if (window.speechSynthesis) {
+      window.speechSynthesis.cancel();
+    }
+    setSpeakButtonLoading(false);
+  }
+
+  function speakWithBrowser(text) {
+    if (!('speechSynthesis' in window) || typeof SpeechSynthesisUtterance === 'undefined') {
+      appendBotMessage('Speech not supported in this browser.');
+      return;
+    }
+    stopActiveSpeech();
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = langSelect?.value || 'en-IN';
+    utterance.rate = 1;
+    utterance.pitch = 1;
+    utterance.onend = () => setSpeakButtonLoading(false);
+    utterance.onerror = () => setSpeakButtonLoading(false);
+    setSpeakButtonLoading(true);
+    window.speechSynthesis.speak(utterance);
+  }
+
+  async function speakLatestBotReply() {
+    const text = (latestBotReply || '').trim();
+    if (!text) {
+      appendBotMessage('No AI response available to read yet.');
+      return;
+    }
+
+    stopActiveSpeech();
+    setSpeakButtonLoading(true);
+
+    try {
+      const response = await fetch(
+        `${API_BASE_URL}/legacy/chat/text-to-speech?text=${encodeURIComponent(text)}&language=${encodeURIComponent(
+          selectedChatLanguage()
+        )}`,
+        { method: 'POST' }
+      );
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok || !data.audio_url) {
+        throw new Error(data?.error || data?.detail || 'Legacy TTS request failed.');
+      }
+
+      ttsAudio = new Audio(`${data.audio_url}${data.audio_url.includes('?') ? '&' : '?'}t=${Date.now()}`);
+      ttsAudio.onended = () => setSpeakButtonLoading(false);
+      ttsAudio.onerror = () => {
+        setSpeakButtonLoading(false);
+        speakWithBrowser(text);
+      };
+      await ttsAudio.play();
+    } catch (_) {
+      speakWithBrowser(text);
+    }
   }
 
   async function sendChat() {
@@ -433,6 +508,7 @@ print(f"The first {n_terms} terms: {result}")`;
   }
 
   sendBtn?.addEventListener('click', sendChat);
+  chatSpeakBtn?.addEventListener('click', speakLatestBotReply);
   chatInput?.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
       e.preventDefault();
