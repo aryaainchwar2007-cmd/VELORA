@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <html class="dark" lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Interview Verdict | Indigo Academy</title>
+<title>Interview Verdict | CODE SAGE</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;family=Fira+Code:wght@400;500&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
@@ -103,18 +103,14 @@
 <!-- TopNavBar -->
 <nav class="fixed top-0 w-full z-50 bg-[#13121b]/80 backdrop-blur-xl bg-gradient-to-b from-indigo-500/5 to-transparent shadow-[0_20px_40px_rgba(0,0,0,0.3)]">
 <div class="flex justify-between items-center px-8 h-16 w-full max-w-full">
-<div class="text-xl font-bold tracking-tighter text-indigo-100 font-headline cursor-pointer" data-route="dashboard">Indigo Academy</div>
+<div class="text-xl font-bold tracking-tighter text-indigo-100 font-headline cursor-pointer" data-route="dashboard">CODE SAGE</div>
 <div class="hidden md:flex items-center gap-8">
 <a class="text-indigo-100/50 hover:text-indigo-100 transition-colors font-plus-jakarta text-sm tracking-tight" data-route="interview" href="#">Lobby</a>
 <a class="text-indigo-100/50 hover:text-indigo-100 transition-colors font-plus-jakarta text-sm tracking-tight" data-route="interview_workspace" href="#">Workspace</a>
 <a class="text-indigo-300 font-semibold border-b-2 border-indigo-500 pb-1 font-plus-jakarta text-sm tracking-tight" data-route="interview_post" href="#">Analytics</a>
 </div>
 <div class="flex items-center gap-4">
-<span class="material-symbols-outlined text-indigo-100/50 cursor-pointer hover:bg-indigo-500/10 p-2 rounded-full transition-all" data-icon="settings" data-route="profile">settings</span>
 <span class="material-symbols-outlined text-indigo-100/50 cursor-pointer hover:bg-indigo-500/10 p-2 rounded-full transition-all" data-icon="help" data-route="welcome">help</span>
-<div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container-high border border-outline-variant/30">
-<img alt="User profile avatar" data-alt="Close up portrait of a professional software engineer with modern lighting and high-tech atmosphere" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAr1V7U1L3qgTqItbV4y7WNQ8hO-hdtWHGPYIAALGHAU3fkHifCtybDRSQWiE340GWwq9vfrOzCrQyOS100hPnT6kVaiC-bo0HpNAfg6S5P95EOdfoHRd8oWCCGTAZfQd8j3X3e92HaqMGtTtBEPb42RzPgvRMgD3vUHz4lLPVoNT4A8b7pk785x-5vXx-_wGtGcyJ7pzAyW2t4BIRHKsDwRbByLwdD3qtmQGtvi85ynU2SJkxXlUaBLPYJ3gURvrW_lAQtrETK4esL"/>
-</div>
 </div>
 </div>
 </nav>
@@ -187,11 +183,11 @@
 <div class="absolute top-0 right-0 w-64 h-64 bg-secondary-container/10 blur-[100px] rounded-full -mr-20 -mt-20"></div>
 <div class="relative z-10">
 <div class="flex items-center gap-3 mb-6">
-<span class="px-4 py-1.5 rounded-full bg-secondary-container text-on-secondary font-bold text-xs uppercase tracking-tighter">Strong Hire</span>
+<span class="px-4 py-1.5 rounded-full bg-secondary-container text-on-secondary font-bold text-xs uppercase tracking-tighter" id="report-pill">Strong Hire</span>
 <span class="text-on-surface-variant text-sm font-medium">Full Stack Engineer Simulation #242</span>
 </div>
-<h2 class="text-3xl font-bold mb-4 text-on-surface">Verdict: Strong Hire</h2>
-<p class="text-on-surface-variant leading-relaxed mb-8 max-w-2xl">
+<h2 class="text-3xl font-bold mb-4 text-on-surface" id="report-verdict">Verdict: Strong Hire</h2>
+<p class="text-on-surface-variant leading-relaxed mb-8 max-w-2xl" id="report-summary-text">
                         The candidate demonstrated exceptional algorithmic efficiency and system-level thinking. While communication was technical, the ability to articulate complex trade-offs during the React optimization task stood out. The code produced was clean, modular, and performance-oriented.
                     </p>
 <div class="flex items-center gap-6">
@@ -215,30 +211,30 @@
 <div class="space-y-2">
 <div class="flex justify-between items-end">
 <span class="text-sm font-medium text-on-surface-variant">Coding Proficiency</span>
-<span class="text-xl font-bold text-secondary">85%</span>
+<span class="text-xl font-bold text-secondary" id="metric-coding">85%</span>
 </div>
 <div class="h-1.5 w-full bg-surface-container-highest rounded-full overflow-hidden">
-<div class="h-full bg-secondary w-[85%]"></div>
+<div class="h-full bg-secondary w-[85%]" id="metric-coding-bar"></div>
 </div>
 </div>
 <!-- Metric 2 -->
 <div class="space-y-2">
 <div class="flex justify-between items-end">
 <span class="text-sm font-medium text-on-surface-variant">Communication</span>
-<span class="text-xl font-bold text-primary">70%</span>
+<span class="text-xl font-bold text-primary" id="metric-communication">70%</span>
 </div>
 <div class="h-1.5 w-full bg-surface-container-highest rounded-full overflow-hidden">
-<div class="h-full bg-primary w-[70%]"></div>
+<div class="h-full bg-primary w-[70%]" id="metric-communication-bar"></div>
 </div>
 </div>
 <!-- Metric 3 -->
 <div class="space-y-2">
 <div class="flex justify-between items-end">
 <span class="text-sm font-medium text-on-surface-variant">Problem Solving</span>
-<span class="text-xl font-bold text-tertiary">90%</span>
+<span class="text-xl font-bold text-tertiary" id="metric-problem-solving">90%</span>
 </div>
 <div class="h-1.5 w-full bg-surface-container-highest rounded-full overflow-hidden">
-<div class="h-full bg-tertiary w-[90%]"></div>
+<div class="h-full bg-tertiary w-[90%]" id="metric-problem-solving-bar"></div>
 </div>
 </div>
 </div>
@@ -248,7 +244,7 @@
 <!-- Middle Section: Asymmetric Content -->
 <div class="flex flex-col lg:flex-row gap-8 mb-12">
 <!-- Round-by-Round Breakdown -->
-<div class="flex-1 space-y-6">
+<div class="flex-1 space-y-6" id="round-breakdown-section">
 <h3 class="text-2xl font-bold text-on-surface px-2">Round-by-Round Breakdown</h3>
 <!-- Round 1 -->
 <div class="bg-surface-container-low rounded-3xl overflow-hidden">
@@ -267,10 +263,10 @@
 <div class="bg-surface-container-lowest rounded-xl p-4 font-mono text-sm border border-outline-variant/5 mb-6 overflow-x-auto">
 <div class="text-on-surface-variant/40 mb-2">// User Solution</div>
 <span class="text-primary">const</span> <span class="text-secondary">fib</span> = (n, memo = {}) =&gt; {<br/>
-                              <span class="text-primary">if</span> (n <span class="text-primary">in</span> memo) <span class="text-primary">return</span> memo[n];<br/>
-                              <span class="text-primary">if</span> (n &lt;= <span class="text-tertiary">2</span>) <span class="text-primary">return</span> <span class="text-tertiary">1</span>;<br/>
-                              memo[n] = fib(n - <span class="text-tertiary">1</span>, memo) + fib(n - <span class="text-tertiary">2</span>, memo);<br/>
-                              <span class="text-primary">return</span> memo[n];<br/>
+                            Â Â <span class="text-primary">if</span> (n <span class="text-primary">in</span> memo) <span class="text-primary">return</span> memo[n];<br/>
+                            Â Â <span class="text-primary">if</span> (n &lt;= <span class="text-tertiary">2</span>) <span class="text-primary">return</span> <span class="text-tertiary">1</span>;<br/>
+                            Â Â memo[n] = fib(n - <span class="text-tertiary">1</span>, memo) + fib(n - <span class="text-tertiary">2</span>, memo);<br/>
+                            Â Â <span class="text-primary">return</span> memo[n];<br/>
                             };
                         </div>
 <div class="glass-card rounded-2xl p-6 border-l-4 border-primary">
@@ -371,4 +367,113 @@
 </div>
 </nav>
 <script src="session.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const REPORT_STORE_KEY = "velora_interview_report";
+    const raw = localStorage.getItem(REPORT_STORE_KEY);
+    if (!raw) return;
+
+    let report = null;
+    try {
+      report = JSON.parse(raw);
+    } catch (_) {
+      return;
+    }
+    if (!report || !report.summary) return;
+
+    const summary = report.summary || {};
+    const rounds = Array.isArray(report.rounds) ? report.rounds : [];
+
+    const verdict = String(summary.verdict || "No Hire");
+    const avgScore = Number(summary.average_score || 0);
+
+    const codingPct = Math.max(0, Math.min(100, Math.round(avgScore * 10)));
+    const communicationPct = Math.max(0, Math.min(100, Math.round(codingPct * 0.82)));
+    const problemPct = Math.max(0, Math.min(100, Math.round(codingPct * 1.08)));
+
+    const setText = (id, text) => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = text;
+    };
+    const setBar = (id, pct) => {
+      const el = document.getElementById(id);
+      if (el) el.style.width = pct + "%";
+    };
+
+    setText("report-pill", verdict);
+    setText("report-verdict", "Verdict: " + verdict);
+    setText(
+      "report-summary-text",
+      "Average score: " +
+        avgScore.toFixed(2) +
+        "/10 across " +
+        rounds.length +
+        " round(s). The report is generated from your live interview submissions."
+    );
+
+    setText("metric-coding", codingPct + "%");
+    setText("metric-communication", communicationPct + "%");
+    setText("metric-problem-solving", problemPct + "%");
+    setBar("metric-coding-bar", codingPct);
+    setBar("metric-communication-bar", communicationPct);
+    setBar("metric-problem-solving-bar", problemPct);
+
+    const section = document.getElementById("round-breakdown-section");
+    if (section && rounds.length) {
+      const header = '<h3 class="text-2xl font-bold text-on-surface px-2">Round-by-Round Breakdown</h3>';
+      const cards = rounds
+        .map(function (round) {
+          const statusTone = (round.correctness || "").toLowerCase() === "yes" ? "secondary" : "tertiary";
+          const feedback =
+            (round.ai_feedback && Array.isArray(round.ai_feedback.suggestions) && round.ai_feedback.suggestions[0]) ||
+            "Keep refining your approach and explain your trade-offs clearly.";
+          return (
+            '<div class="bg-surface-container-low rounded-3xl overflow-hidden">' +
+            '<div class="px-8 py-5 flex justify-between items-center bg-surface-container-high/50 border-b border-outline-variant/10">' +
+            '<div class="flex items-center gap-4">' +
+            '<span class="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center text-primary font-bold">' +
+            round.round +
+            "</span>" +
+            '<span class="font-bold">Interview Round ' +
+            round.round +
+            "</span>" +
+            "</div>" +
+            '<span class="px-3 py-1 rounded-full bg-' +
+            statusTone +
+            '-container/20 text-' +
+            statusTone +
+            ' text-[10px] font-bold uppercase tracking-wider">' +
+            (round.correctness || "N/A") +
+            "</span>" +
+            "</div>" +
+            '<div class="p-8 space-y-4">' +
+            '<p class="text-sm italic text-on-surface">' +
+            (round.question || "Question unavailable.") +
+            "</p>" +
+            '<p class="text-xs text-on-surface-variant uppercase tracking-widest font-bold">Score: ' +
+            Number(round.score || 0).toFixed(2) +
+            '/10 • Passed: ' +
+            Number(round.passed_cases || 0) +
+            "/" +
+            Number(round.total_cases || 0) +
+            "</p>" +
+            '<div class="glass-card rounded-2xl p-6 border-l-4 border-primary">' +
+            '<div class="flex items-center gap-2 mb-3 text-primary">' +
+            '<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: \'FILL\' 1;">auto_awesome</span>' +
+            '<span class="text-xs font-bold uppercase tracking-widest">AI Feedback</span>' +
+            "</div>" +
+            '<p class="text-sm text-on-surface-variant leading-relaxed">' +
+            feedback +
+            "</p>" +
+            "</div>" +
+            "</div>" +
+            "</div>"
+          );
+        })
+        .join("");
+      section.innerHTML = header + cards;
+    }
+  });
+</script>
 </body></html>
+

@@ -3,7 +3,7 @@
 <html class="dark" lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Profile &amp; Achievements | Indigo Academy</title>
+<title>Profile &amp; Achievements | CODE SAGE</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
@@ -98,7 +98,7 @@
 <!-- TopNavBar -->
 <nav class="fixed top-0 w-full flex items-center justify-between px-6 py-3 bg-[#13121b]/80 backdrop-blur-xl z-50 shadow-[0_20px_40px_rgba(0,0,0,0.3)]">
 <div class="flex items-center gap-8">
-<span class="text-2xl font-black tracking-tighter bg-gradient-to-br from-[#c3c0ff] to-[#4F46E5] bg-clip-text text-transparent font-headline">Indigo Academy</span>
+<span class="text-2xl font-black tracking-tighter bg-gradient-to-br from-[#c3c0ff] to-[#4F46E5] bg-clip-text text-transparent font-headline">CODE SAGE</span>
 <div class="hidden md:flex items-center gap-6">
 <a class="text-slate-400 font-['Plus_Jakarta_SANS'] font-medium hover:text-white transition-colors duration-300" href="#">Dashboard</a>
 <a class="text-slate-400 font-['Plus_Jakarta_SANS'] font-medium hover:text-white transition-colors duration-300" href="#">Practice</a>
@@ -108,51 +108,50 @@
 <div class="flex items-center gap-4">
 <button class="text-[#c3c0ff] scale-95 active:scale-90 transition-transform"><span class="material-symbols-outlined">notifications</span></button>
 <button class="text-[#c3c0ff] scale-95 active:scale-90 transition-transform"><span class="material-symbols-outlined">workspace_premium</span></button>
-<div class="w-8 h-8 rounded-full overflow-hidden border border-primary/20">
-<img alt="Profile" class="w-full h-full object-cover" data-alt="close-up portrait of a young professional student with a friendly expression and stylish glasses in soft cinematic lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuANg21LXqOIHKST0KTrXok1ldQBRZTPoXE5q9NxjNOsb94Ic064L2Jk486318V2A1htLd6Nx-gNXZp5V2hmbku8WAtNR_yIE_Dvn6JSzmgMXOrCEGwRBpBnHXDF9JASFXxeWrcjjOZ6vqHIPbpno5cPmxJVPtFXKpdcCANHuS-Y5S_gpRAItHchYiCnIZANkHimecDIfqkv_RRYU0fx46v1pay5c2vAvvdHn55hmxSrCOcu2CxDntKRmGFI7tLQyo16aBtXEv6oZlOJ"/>
-</div>
 </div>
 <div class="absolute bottom-0 left-0 bg-gradient-to-b from-[#c3c0ff]/5 to-transparent h-[1px] w-full"></div>
 </nav>
-<!-- SideNavBar (Hidden on small screens) -->
-<aside class="hidden md:flex h-screen w-64 fixed left-0 top-0 z-40 flex-col bg-[#13121b] border-r border-[#c3c0ff]/10 pt-20">
-<div class="px-6 py-8 flex flex-col gap-1">
-<div class="flex items-center gap-3 mb-6">
-<img alt="Student Avatar" class="w-10 h-10 rounded-xl" data-alt="professional headshot avatar of a young digital native student with soft purple ambient lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAviw0rC0ah4Yy_0KY-qMS_Ddj8jbu1mDTDxGYeLYOSyb9Fmy84GimfsTwSuzsKT1l84YAa5cwcvd_U0Tx_-Br6tSBEqktYYf9S8I9UVGg6hQFfpQD6j3gZM2M7mGdHGTv9Eb1DIskRweW9cVq1sSIhaLWYV8KgsUdtjV0hUAqlhtqGtucMtB9WYTSgwlTnyuDTlbST7-OsjwPQolPUN6uDHwi0T6-CotNA3xNScloQ6ByY38kM2lq9Vn_8h7jQCJBzTJGoKnCDT4Ap"/>
-<div>
-<p class="text-on-surface font-headline font-bold text-sm">Luminescent Scholar</p>
-<p class="text-slate-500 text-xs">Level 12 Developer</p>
+<!-- SideNavBar (Shared Component Identity) -->
+<nav class="h-screen w-64 fixed left-0 top-0 z-40 flex flex-col bg-[#13121b] border-r border-[#c3c0ff]/10 pt-20">
+<div class="px-6 py-4 flex flex-col items-center">
+<div class="relative">
+<img alt="Student Avatar" class="w-16 h-16 rounded-full ring-4 ring-primary-container/20" data-alt="minimalist avatar profile picture of a tech enthusiast with modern aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2rh7BRrua086KgYKg_DJYM1lbA6_0WZ3meJUAxeZxDH-ycQP2cEjAW4ZgR-W6E82xL2IUle5ya7sEPDgd6ZYNjWajTygRGim08UuHoZ56udDS62vMrBzo1wgwNiyP2YNiiD36Y4j6wNhXVPyoJZBxgYpzMrANXxhQz16PxGs2y3hfSQPBrauwqN7oq5AamTf667Kgfos7Ass7AdO52w7HktCxndHCIHl9-In2cUu88jZdsvoCOSn1Y64pYVurHVUq3AP34khc6q4y"/>
+<div class="absolute bottom-0 right-0 w-4 h-4 bg-secondary rounded-full border-2 border-surface"></div>
+</div>
+<h3 class="mt-4 font-headline font-bold text-[#e4e1ee]">Luminescent Scholar</h3>
+<p class="text-xs text-slate-500 tracking-wide">Level 12 Developer</p>
+</div>
+<div class="mt-8 space-y-2">
+<a class="flex items-center gap-3 text-slate-500 px-4 py-3 hover:bg-white/5 hover:text-white transition-all font-['Plus_Jakarta_SANS'] text-sm tracking-wide" href="dashboard.html">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-3 text-slate-500 px-4 py-3 hover:bg-white/5 hover:text-white transition-all font-['Plus_Jakarta_SANS'] text-sm tracking-wide" href="practice.html">
+<span class="material-symbols-outlined" data-icon="terminal">terminal</span>
+<span>Practice</span>
+</a>
+<a class="flex items-center gap-3 text-slate-500 px-4 py-3 hover:bg-white/5 hover:text-white transition-all font-['Plus_Jakarta_SANS'] text-sm tracking-wide" href="project.html">
+<span class="material-symbols-outlined" data-icon="account_tree">account_tree</span>
+<span>Projects</span>
+</a>
+<a class="flex items-center gap-3 bg-gradient-to-r from-[#4F46E5]/20 to-transparent text-[#c3c0ff] border-l-4 border-[#4F46E5] px-4 py-3 font-['Plus_Jakarta_SANS'] text-sm tracking-wide transition-all translate-x-1" href="profile.html">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span>Profile</span>
+</a>
+</div>
+<div class="mt-auto pb-10 space-y-2">
+<div class="mt-6 border-t border-outline-variant/10 pt-4">
+<a class="flex items-center gap-3 text-slate-500 px-6 py-2 hover:text-white transition-all text-sm" href="profile.html">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+<a class="flex items-center gap-3 text-slate-500 px-6 py-2 hover:text-white transition-all text-sm" href="welcome.html">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span>Support</span>
+</a>
 </div>
 </div>
-<nav class="flex flex-col gap-1">
-<a class="flex items-center gap-3 text-slate-500 px-4 py-3 font-['Plus_Jakarta_SANS'] text-sm tracking-wide hover:bg-white/5 hover:text-white transition-all" href="#">
-<span class="material-symbols-outlined">dashboard</span> Dashboard
-                </a>
-<a class="flex items-center gap-3 text-slate-500 px-4 py-3 font-['Plus_Jakarta_SANS'] text-sm tracking-wide hover:bg-white/5 hover:text-white transition-all" href="#">
-<span class="material-symbols-outlined">terminal</span> Practice
-                </a>
-<a class="flex items-center gap-3 text-slate-500 px-4 py-3 font-['Plus_Jakarta_SANS'] text-sm tracking-wide hover:bg-white/5 hover:text-white transition-all" href="#">
-<span class="material-symbols-outlined">account_tree</span> Projects
-                </a>
-<a class="flex items-center gap-3 bg-gradient-to-r from-[#4F46E5]/20 to-transparent text-[#c3c0ff] border-l-4 border-[#4F46E5] px-4 py-3 font-['Plus_Jakarta_SANS'] text-sm tracking-wide translate-x-1 transition-transform" href="#">
-<span class="material-symbols-outlined">person</span> Profile
-                </a>
 </nav>
-</div>
-<div class="mt-auto p-6 border-t border-outline-variant/10">
-<button class="w-full py-3 px-4 rounded-xl bg-gradient-to-br from-primary to-primary-container text-on-primary font-bold text-sm mb-6 flex items-center justify-center gap-2">
-<span class="material-symbols-outlined text-sm">mic</span> Voice Help
-            </button>
-<nav class="flex flex-col gap-1">
-<a class="flex items-center gap-3 text-slate-500 px-4 py-2 text-xs hover:text-white transition-colors" href="#">
-<span class="material-symbols-outlined text-lg">settings</span> Settings
-                </a>
-<a class="flex items-center gap-3 text-slate-500 px-4 py-2 text-xs hover:text-white transition-colors" href="#">
-<span class="material-symbols-outlined text-lg">help</span> Support
-                </a>
-</nav>
-</div>
-</aside>
 <!-- Main Content Canvas -->
 <main class="md:ml-64 pt-24 pb-12 px-6 lg:px-12">
 <div class="max-w-7xl mx-auto space-y-8">
@@ -371,4 +370,5 @@
 <script src="session.js"></script>
 <script src="profile (1).js"></script>
 </body></html>
+
 

@@ -1,8 +1,8 @@
-// ============================================================
-// project.js — Indigo Academy Project Hub
+﻿// ============================================================
+// project.js â€” CODE SAGE Project Hub
 // ============================================================
 
-// ── Nav routing ───────────────────────────────────────────────
+// â”€â”€ Nav routing â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 document.querySelectorAll('aside nav a, header + * nav a').forEach(link => {
   link.addEventListener('click', e => {
     e.preventDefault();
@@ -17,7 +17,7 @@ document.querySelectorAll('aside nav a, header + * nav a').forEach(link => {
   });
 });
 
-// ── Mobile bottom-nav ─────────────────────────────────────────
+// â”€â”€ Mobile bottom-nav â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 document.querySelectorAll('nav.md\\:hidden a').forEach(link => {
   link.addEventListener('click', e => {
     e.preventDefault();
@@ -30,7 +30,7 @@ document.querySelectorAll('nav.md\\:hidden a').forEach(link => {
   });
 });
 
-// ── Link GitHub button ────────────────────────────────────────
+// â”€â”€ Link GitHub button â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 document.querySelectorAll('button').forEach(btn => {
   if (btn.textContent.trim().includes('Link GitHub')) {
     btn.addEventListener('click', () => {
@@ -40,7 +40,7 @@ document.querySelectorAll('button').forEach(btn => {
   }
 });
 
-// ── AI Idea Generator ─────────────────────────────────────────
+// â”€â”€ AI Idea Generator â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const ideas = [
   { title: 'Distributed File System with Raft Consensus', desc: 'Solidify your distributed computing knowledge after excelling in OS.' },
   { title: 'Real-Time Collaborative Code Editor',          desc: 'Build a VS Code-like editor with WebSockets and OT/CRDT.' },
@@ -66,7 +66,7 @@ document.querySelectorAll('button').forEach(btn => {
   }
 });
 
-// ── Progress bars animate on load ────────────────────────────
+// â”€â”€ Progress bars animate on load â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 document.querySelectorAll('.h-full.bg-gradient-to-r').forEach(bar => {
   const target = bar.style.width;
   bar.style.width = '0';
@@ -76,7 +76,7 @@ document.querySelectorAll('.h-full.bg-gradient-to-r').forEach(bar => {
   });
 });
 
-// ── Completed project "open_in_new" ──────────────────────────
+// â”€â”€ Completed project "open_in_new" â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 document.querySelectorAll('span[data-icon="open_in_new"]').forEach(icon => {
   icon.parentElement.style.cursor = 'pointer';
   icon.parentElement.addEventListener('click', function () {
@@ -85,14 +85,14 @@ document.querySelectorAll('span[data-icon="open_in_new"]').forEach(icon => {
   });
 });
 
-// ── Search bar ────────────────────────────────────────────────
+// â”€â”€ Search bar â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 document.querySelector('div[class*="hidden lg:flex items-center bg-surface"]')
   ?.addEventListener('click', () => {
     const q = prompt('Search projects:');
     if (q) alert(`Searching for "${q}" (connect to your backend)`);
   });
 
-// ── View All link ─────────────────────────────────────────────
+// â”€â”€ View All link â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 document.querySelectorAll('span.text-primary.font-semibold').forEach(el => {
   if (el.textContent.trim() === 'View All') {
     el.style.cursor = 'pointer';
@@ -100,9 +100,10 @@ document.querySelectorAll('span.text-primary.font-semibold').forEach(el => {
   }
 });
 
-// ── Voice Help ────────────────────────────────────────────────
+// â”€â”€ Voice Help â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 document.querySelectorAll('button').forEach(btn => {
   if (btn.textContent.trim() === 'Voice Help') {
     btn.addEventListener('click', () => alert('Voice Help: coming soon!'));
   }
 });
+

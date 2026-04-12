@@ -1,5 +1,5 @@
 ﻿// ============================================================
-// practice.js â€” Indigo Academy Practice Arena
+// practice.js â€” CODE SAGE Practice Arena
 // ============================================================
 
 // â”€â”€ Nav routing â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
@@ -126,5 +126,6 @@ document.querySelectorAll('button').forEach(btn => {
     btn.addEventListener('click', () => alert('Study plan feature coming soon!'));
   }
 });
+
 
 

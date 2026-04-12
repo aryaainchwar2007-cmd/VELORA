@@ -1,5 +1,5 @@
 ﻿// ============================================================
-// dashboard.js â€” Indigo Academy Student Dashboard
+// dashboard.js â€” CODE SAGE Student Dashboard
 // ============================================================
 
 // â”€â”€ Navigation routing â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
@@ -82,4 +82,5 @@ document.querySelectorAll('button span.material-symbols-outlined').forEach(btn =
     });
   }
 });
+
 

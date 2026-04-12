@@ -1,14 +1,14 @@
-/**
+﻿/**
  * ============================================================
- *  VELORA — Indigo Academy Shared JS
+ *  VELORA â€” CODE SAGE Shared JS
  *  Interconnects: welcome, dashboard, practice, EDITOR,
  *                 project, profile
  * ============================================================
  */
 
-/* ─────────────────────────────────────────────
-   1. ROUTING — page navigation between HTML files
-   ───────────────────────────────────────────── */
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+   1. ROUTING â€” page navigation between HTML files
+   â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 const VELORA_ROUTES = {
   welcome:   'welcome.html',
   dashboard: 'dashboard.html',
@@ -43,9 +43,9 @@ function veloraGetNavState() {
   try { return JSON.parse(raw); } catch { return {}; }
 }
 
-/* ─────────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    2. SHARED USER STORE (localStorage)
-   ───────────────────────────────────────────── */
+   â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 const VELORA_STORE_KEY = 'velora_user';
 
 const VeloraUser = {
@@ -99,7 +99,7 @@ const VeloraUser = {
       user.xp -= user.xpToNext;
       user.level += 1;
       user.xpToNext = Math.floor(user.xpToNext * 1.3);
-      VeloraNotify.push(`🎉 Level Up! You are now Level ${user.level}`, 'success');
+      VeloraNotify.push(`ðŸŽ‰ Level Up! You are now Level ${user.level}`, 'success');
     }
     this.save(user);
     return user;
@@ -113,7 +113,7 @@ const VeloraUser = {
       user.solvedProblems.push(title);
       this.save(user);
       this.addXP(xpMap[difficulty] ?? 150);
-      VeloraNotify.push(`✅ Problem "${title}" solved! +${xpMap[difficulty] ?? 150} XP`, 'success');
+      VeloraNotify.push(`âœ… Problem "${title}" solved! +${xpMap[difficulty] ?? 150} XP`, 'success');
     }
   },
 
@@ -133,7 +133,7 @@ const VeloraUser = {
   /** Register the user from the welcome page sign-up form. */
   register({ name, branch, year, language }) {
     const user = this.update({ name, branch, year, language, isLoggedIn: true });
-    VeloraNotify.push(`Welcome, ${name}! 🚀 Your journey begins now.`, 'success');
+    VeloraNotify.push(`Welcome, ${name}! ðŸš€ Your journey begins now.`, 'success');
     return user;
   },
 
@@ -145,9 +145,9 @@ const VeloraUser = {
   },
 };
 
-/* ─────────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    3. NOTIFICATION SYSTEM
-   ───────────────────────────────────────────── */
+   â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 const VeloraNotify = {
   container: null,
 
@@ -216,10 +216,10 @@ const VeloraNotify = {
   },
 };
 
-/* ─────────────────────────────────────────────
-   4. NAV LINK WIRING — attaches href to all nav items
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+   4. NAV LINK WIRING â€” attaches href to all nav items
       across every page automatically
-   ───────────────────────────────────────────── */
+   â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 const NAV_MAP = [
   { labels: ['dashboard', 'home'],    route: 'dashboard' },
   { labels: ['practice', 'terminal'], route: 'practice'  },
@@ -249,7 +249,7 @@ function wireNavLinks() {
     }
   });
 
-  // "Solve Now" buttons → editor page
+  // "Solve Now" buttons â†’ editor page
   document.querySelectorAll('button').forEach(btn => {
     if (btn.textContent.trim() === 'Solve Now') {
       const card = btn.closest('[class*="rounded"]');
@@ -271,11 +271,11 @@ function wireNavLinks() {
   });
 }
 
-/* ─────────────────────────────────────────────
-   5. WELCOME PAGE — sign-up form logic
-   ───────────────────────────────────────────── */
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+   5. WELCOME PAGE â€” sign-up form logic
+   â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 function initWelcomePage() {
-  // "Get Started" button already triggers modal via inline onclick — we just
+  // "Get Started" button already triggers modal via inline onclick â€” we just
   // enhance the form submission.
   const form = document.querySelector('#signup-modal form');
   if (!form) return;
@@ -305,9 +305,9 @@ function initWelcomePage() {
   });
 }
 
-/* ─────────────────────────────────────────────
-   6. DASHBOARD PAGE — dynamic data population
-   ───────────────────────────────────────────── */
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+   6. DASHBOARD PAGE â€” dynamic data population
+   â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 function initDashboardPage() {
   const user = VeloraUser.get();
 
@@ -339,22 +339,22 @@ function initDashboardPage() {
     }
   });
 
-  // FAB rocket → navigate to practice
+  // FAB rocket â†’ navigate to practice
   const fab = document.querySelector('button.fixed.bottom-8.right-8');
   if (fab) fab.addEventListener('click', () => veloraNavigate('practice'));
 
-  // Profile avatar click → profile page
+  // Profile avatar click â†’ profile page
   const profileLink = document.querySelector('header .flex.items-center.gap-2.pl-4');
   if (profileLink) profileLink.addEventListener('click', () => veloraNavigate('profile'));
 }
 
-/* ─────────────────────────────────────────────
-   7. PRACTICE PAGE — bookmark + solve buttons
-   ───────────────────────────────────────────── */
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+   7. PRACTICE PAGE â€” bookmark + solve buttons
+   â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 function initPracticePage() {
   const user = VeloraUser.get();
 
-  // Bookmark buttons — each problem card
+  // Bookmark buttons â€” each problem card
   document.querySelectorAll('[class*="rounded-xl"].bg-surface-container-low').forEach(card => {
     const titleEl = card.querySelector('h3');
     if (!titleEl) return;
@@ -380,7 +380,7 @@ function initPracticePage() {
     });
   });
 
-  // FAB bolt → open random recommended problem in editor
+  // FAB bolt â†’ open random recommended problem in editor
   const fab = document.querySelector('button.fixed.bottom-8.right-8');
   if (fab) {
     fab.addEventListener('click', () => {
@@ -394,16 +394,16 @@ function initPracticePage() {
   document.querySelectorAll('button').forEach(btn => {
     if (btn.textContent.trim() === 'View Study Plan') {
       btn.addEventListener('click', () => {
-        VeloraNotify.push('📚 Study plan updated based on your recent activity.', 'info');
+        VeloraNotify.push('ðŸ“š Study plan updated based on your recent activity.', 'info');
       });
     }
   });
 }
 
-/* ─────────────────────────────────────────────
-   8. EDITOR PAGE — run code, AI mentor chat,
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+   8. EDITOR PAGE â€” run code, AI mentor chat,
       teach-me popup, problem title injection
-   ───────────────────────────────────────────── */
+   â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 function initEditorPage() {
   const navState = veloraGetNavState();
 
@@ -414,12 +414,12 @@ function initEditorPage() {
     VeloraNotify.push(`Solving: ${navState.problem}`, 'info');
   }
 
-  // ── Run Code button ──
+  // â”€â”€ Run Code button â”€â”€
   const runBtn = document.querySelector('button:has(span[class*="play_arrow"])') ??
                  [...document.querySelectorAll('button')].find(b => b.textContent.includes('Run Code'));
   if (runBtn) {
     runBtn.addEventListener('click', () => {
-      VeloraNotify.push('⚙️ Running code… Output ready!', 'info', 2500);
+      VeloraNotify.push('âš™ï¸ Running codeâ€¦ Output ready!', 'info', 2500);
 
       // Simulate solve + XP when run is clicked (demo behaviour)
       const problem = navState.problem ?? 'Fibonacci';
@@ -429,7 +429,7 @@ function initEditorPage() {
     });
   }
 
-  // ── AI Mentor chat ──
+  // â”€â”€ AI Mentor chat â”€â”€
   const chatInput = document.querySelector('input[placeholder*="AI Mentor"]');
   const sendBtn   = document.querySelector('button:has(span[class*="send"])');
   const chatArea  = document.querySelector('.flex-1.overflow-y-auto.p-6.space-y-6');
@@ -458,18 +458,18 @@ function initEditorPage() {
         <div class="bg-surface-variant/40 backdrop-blur-md px-4 py-3 rounded-2xl rounded-tl-none border-l-2 border-primary">
           <p class="text-sm text-on-surface leading-relaxed">${text}</p>
         </div>
-        <span class="text-[10px] text-outline px-2">Just now • AI Mentor</span>
+        <span class="text-[10px] text-outline px-2">Just now â€¢ AI Mentor</span>
       </div>`;
     chatArea.appendChild(div);
     chatArea.scrollTop = chatArea.scrollHeight;
   }
 
   const AI_RESPONSES = [
-    'Great question! Think of it step by step — break the problem into smaller sub-problems. 🧩',
+    'Great question! Think of it step by step â€” break the problem into smaller sub-problems. ðŸ§©',
     'Bilkul sahi! Yeh concept <span class="text-primary font-bold">recursion</span> ka ek perfect example hai. Try to trace the call stack mentally.',
-    'Time complexity: O(n). Kya aap O(log n) solution soch sakte ho? Hint: binary search! 🔍',
-    'You\'re on the right track. Remember: edge cases bhi handle karo — empty array aur single element.',
-    'Python mein <code class="bg-surface-container px-1 rounded text-primary">list comprehension</code> use karo — code 60% chhota ho jayega! 💡',
+    'Time complexity: O(n). Kya aap O(log n) solution soch sakte ho? Hint: binary search! ðŸ”',
+    'You\'re on the right track. Remember: edge cases bhi handle karo â€” empty array aur single element.',
+    'Python mein <code class="bg-surface-container px-1 rounded text-primary">list comprehension</code> use karo â€” code 60% chhota ho jayega! ðŸ’¡',
     'Interesting approach! Consider using a <span class="text-secondary font-medium">hash map</span> for O(1) lookups instead of nested loops.',
   ];
 
@@ -489,21 +489,21 @@ function initEditorPage() {
   sendBtn?.addEventListener('click', handleSend);
   chatInput?.addEventListener('keydown', e => { if (e.key === 'Enter') handleSend(); });
 
-  // ── Teach Me popup close ──
+  // â”€â”€ Teach Me popup close â”€â”€
   const closeTeachMe = document.querySelector('.absolute.bottom-10 button');
   const teachMePopup = document.querySelector('.absolute.bottom-10');
   if (closeTeachMe && teachMePopup) {
     closeTeachMe.addEventListener('click', () => teachMePopup.remove());
   }
 
-  // ── "Next" inside teach-me ──
+  // â”€â”€ "Next" inside teach-me â”€â”€
   const nextBtn = document.querySelector('.absolute.bottom-10 button:last-child');
   const stepEl  = document.querySelector('.absolute.bottom-10 .rounded-full:first-child');
   let step = 1;
   const steps = [
-    { label: 'Step 1/3', text: 'Think of a <span class="text-primary font-bold">Variable</span> like a box with a label. 📦<br><br>You put information (data) inside it so you can use it later by just calling its name!' },
-    { label: 'Step 2/3', text: 'A <span class="text-primary font-bold">Function</span> is like a recipe. 🍳<br><br>You give it ingredients (parameters), follow the steps (body), and get a result (return value).' },
-    { label: 'Step 3/3', text: '<span class="text-primary font-bold">Loops</span> let you repeat an action many times. 🔁<br><br>Instead of writing the same line 10 times, just say "do this 10 times" with a for/while loop.' },
+    { label: 'Step 1/3', text: 'Think of a <span class="text-primary font-bold">Variable</span> like a box with a label. ðŸ“¦<br><br>You put information (data) inside it so you can use it later by just calling its name!' },
+    { label: 'Step 2/3', text: 'A <span class="text-primary font-bold">Function</span> is like a recipe. ðŸ³<br><br>You give it ingredients (parameters), follow the steps (body), and get a result (return value).' },
+    { label: 'Step 3/3', text: '<span class="text-primary font-bold">Loops</span> let you repeat an action many times. ðŸ”<br><br>Instead of writing the same line 10 times, just say "do this 10 times" with a for/while loop.' },
   ];
 
   if (nextBtn && stepEl && teachMePopup) {
@@ -518,15 +518,15 @@ function initEditorPage() {
     });
   }
 
-  // ── Voice Help FAB ──
+  // â”€â”€ Voice Help FAB â”€â”€
   const voiceFab = document.querySelector('button.fixed.bottom-8.right-8');
   if (voiceFab) {
     voiceFab.addEventListener('click', () => {
-      VeloraNotify.push('🎙️ Voice Help activated. Speak your question…', 'info');
+      VeloraNotify.push('ðŸŽ™ï¸ Voice Help activated. Speak your questionâ€¦', 'info');
     });
   }
 
-  // ── Side nav icon links ──
+  // â”€â”€ Side nav icon links â”€â”€
   const sideIcons = document.querySelectorAll('aside .p-3');
   const sideRoutes = ['editor', 'dashboard', 'projects', 'profile'];
   sideIcons.forEach((icon, i) => {
@@ -537,20 +537,20 @@ function initEditorPage() {
   });
 }
 
-/* ─────────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    9. PROJECT PAGE
-   ───────────────────────────────────────────── */
+   â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 function initProjectPage() {
   // "Open in New" completed projects
   document.querySelectorAll('.material-symbols-outlined').forEach(el => {
     if (el.textContent.trim() === 'open_in_new') {
       el.closest('[class*="rounded"]')?.addEventListener('click', () => {
-        VeloraNotify.push('📂 Opening project… (demo mode)', 'info');
+        VeloraNotify.push('ðŸ“‚ Opening projectâ€¦ (demo mode)', 'info');
       });
     }
   });
 
-  // Progress bars — animate on load
+  // Progress bars â€” animate on load
   document.querySelectorAll('.h-full.bg-gradient-to-r').forEach(bar => {
     const width = bar.style.width;
     bar.style.width = '0';
@@ -563,19 +563,19 @@ function initProjectPage() {
     if (t === 'New Project' || t.includes('Start Building')) {
       btn.addEventListener('click', () => {
         VeloraUser.update({ streak: VeloraUser.get().streak });
-        VeloraNotify.push('🚀 New project started! Good luck!', 'success');
+        VeloraNotify.push('ðŸš€ New project started! Good luck!', 'success');
         veloraNavigate('editor');
       });
     }
     if (t === 'See Other Ideas') {
-      btn.addEventListener('click', () => VeloraNotify.push('💡 Loading more project ideas…', 'info'));
+      btn.addEventListener('click', () => VeloraNotify.push('ðŸ’¡ Loading more project ideasâ€¦', 'info'));
     }
   });
 }
 
-/* ─────────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    10. PROFILE PAGE
-   ───────────────────────────────────────────── */
+   â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 function initProfilePage() {
   const user = VeloraUser.get();
 
@@ -588,7 +588,7 @@ function initProfilePage() {
   document.querySelectorAll('button').forEach(btn => {
     if (btn.textContent.includes('Download All')) {
       btn.addEventListener('click', () => {
-        VeloraNotify.push('📥 Downloading certificates ZIP…', 'info');
+        VeloraNotify.push('ðŸ“¥ Downloading certificates ZIPâ€¦', 'info');
       });
     }
   });
@@ -599,7 +599,7 @@ function initProfilePage() {
     if (icon?.textContent.trim() === 'download') {
       const cert = btn.closest('[class*="rounded"]')?.querySelector('h4')?.textContent;
       btn.addEventListener('click', () => {
-        VeloraNotify.push(`📄 Downloading "${cert ?? 'Certificate'}"…`, 'info');
+        VeloraNotify.push(`ðŸ“„ Downloading "${cert ?? 'Certificate'}"â€¦`, 'info');
       });
     }
   });
@@ -611,9 +611,9 @@ function initProfilePage() {
   });
 }
 
-/* ─────────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    11. GLOBAL SEARCH (all pages)
-   ───────────────────────────────────────────── */
+   â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 function initGlobalSearch() {
   const searchInputs = document.querySelectorAll('input[type="text"][placeholder*="Search"], input[placeholder*="Find"]');
   const SEARCH_INDEX = [
@@ -669,9 +669,9 @@ function initGlobalSearch() {
   });
 }
 
-/* ─────────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    12. NOTIFICATIONS BELL
-   ───────────────────────────────────────────── */
+   â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 function initNotificationBell() {
   document.querySelectorAll('.material-symbols-outlined').forEach(el => {
     if (el.textContent.trim() === 'notifications') {
@@ -689,20 +689,20 @@ function initNotificationBell() {
   });
 }
 
-/* ─────────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    13. UPGRADE / PRO BUTTON
-   ───────────────────────────────────────────── */
+   â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 function initProButton() {
   document.querySelectorAll('button').forEach(btn => {
     if (btn.textContent.trim().includes('Go Pro') || btn.closest('button')?.textContent.includes('workspace_premium')) {
-      btn.addEventListener('click', () => VeloraNotify.push('⭐ Indigo Academy Pro coming soon! Stay tuned.', 'info'));
+      btn.addEventListener('click', () => VeloraNotify.push('â­ CODE SAGE Pro coming soon! Stay tuned.', 'info'));
     }
   });
 }
 
-/* ─────────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    14. UTILITY
-   ───────────────────────────────────────────── */
+   â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 function escapeHTML(str) {
   return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
@@ -722,9 +722,9 @@ function detectPage() {
   return 'unknown';
 }
 
-/* ─────────────────────────────────────────────
-   15. BOOTSTRAP — runs on every page
-   ───────────────────────────────────────────── */
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+   15. BOOTSTRAP â€” runs on every page
+   â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 document.addEventListener('DOMContentLoaded', () => {
   const page = detectPage();
 
@@ -744,5 +744,5 @@ document.addEventListener('DOMContentLoaded', () => {
     case 'profile':   initProfilePage();   break;
   }
 
-  console.log(`[Velora] ✅ Initialized on page: ${page}`);
+  console.log(`[Velora] âœ… Initialized on page: ${page}`);
 });

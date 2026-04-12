@@ -1,47 +1,47 @@
-// ============================================================
-// velora.js — Indigo Academy Dashboard Interactivity
+﻿// ============================================================
+// velora.js â€” CODE SAGE Dashboard Interactivity
 // ============================================================
 
 document.addEventListener("DOMContentLoaded", () => {
 
-  // ── 1. SEARCH BAR ──────────────────────────────────────────
+  // â”€â”€ 1. SEARCH BAR â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   const searchInput = document.querySelector("input[placeholder='Search curriculum...']");
   if (searchInput) {
     searchInput.addEventListener("keydown", (e) => {
       if (e.key === "Enter") {
         const query = searchInput.value.trim();
-        if (query) showToast(`🔍 Searching for "${query}"...`, "primary");
+        if (query) showToast(`ðŸ” Searching for "${query}"...`, "primary");
         searchInput.blur();
       }
     });
   }
 
-  // ── 2. NOTIFICATION BELL ──────────────────────────────────
+  // â”€â”€ 2. NOTIFICATION BELL â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   const notifIcon = document.querySelector('[data-icon="notifications"]');
   if (notifIcon) {
     notifIcon.addEventListener("click", () => {
-      showToast("🔔 You have 3 new notifications!", "primary");
+      showToast("ðŸ”” You have 3 new notifications!", "primary");
     });
   }
 
-  // ── 3. PREMIUM / WORKSPACE ICON ───────────────────────────
+  // â”€â”€ 3. PREMIUM / WORKSPACE ICON â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   const premiumIcon = document.querySelector('[data-icon="workspace_premium"]');
   if (premiumIcon) {
     premiumIcon.addEventListener("click", () => {
-      showToast("⭐ Upgrade to Indigo Pro for unlimited access!", "tertiary");
+      showToast("â­ Upgrade to Indigo Pro for unlimited access!", "tertiary");
     });
   }
 
-  // ── 4. PROFILE HEADER ─────────────────────────────────────
+  // â”€â”€ 4. PROFILE HEADER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   const profileArea = document.querySelector("header .flex.items-center.gap-2.pl-4");
   if (profileArea) {
     profileArea.style.cursor = "pointer";
     profileArea.addEventListener("click", () => {
-      showToast("👤 Opening your profile...", "secondary");
+      showToast("ðŸ‘¤ Opening your profile...", "secondary");
     });
   }
 
-  // ── 5. SIDEBAR NAV LINKS ──────────────────────────────────
+  // â”€â”€ 5. SIDEBAR NAV LINKS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   const navLinks = document.querySelectorAll("nav a");
   navLinks.forEach((link) => {
     link.addEventListener("click", (e) => {
@@ -62,108 +62,108 @@ document.addEventListener("DOMContentLoaded", () => {
       link.classList.remove("text-slate-500");
 
       const label = link.querySelector("span:last-child")?.textContent?.trim();
-      if (label) showToast(`📂 Navigating to ${label}`, "primary");
+      if (label) showToast(`ðŸ“‚ Navigating to ${label}`, "primary");
     });
   });
 
-  // ── 6. VOICE HELP BUTTON ──────────────────────────────────
+  // â”€â”€ 6. VOICE HELP BUTTON â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   const voiceBtn = document.querySelector("button[class*='Voice Help'], nav button");
   if (voiceBtn) {
     voiceBtn.addEventListener("click", () => {
-      showToast("🎤 Voice Help activated! Say a command...", "primary");
+      showToast("ðŸŽ¤ Voice Help activated! Say a command...", "primary");
     });
   }
 
-  // ── 7. SETTINGS & SUPPORT LINKS ───────────────────────────
+  // â”€â”€ 7. SETTINGS & SUPPORT LINKS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   const settingsLink = document.querySelector('[data-icon="settings"]')?.closest("a");
   const supportLink = document.querySelector('[data-icon="help"]')?.closest("a");
   if (settingsLink) {
     settingsLink.addEventListener("click", (e) => {
       e.preventDefault();
-      showToast("⚙️ Opening Settings...", "primary");
+      showToast("âš™ï¸ Opening Settings...", "primary");
     });
   }
   if (supportLink) {
     supportLink.addEventListener("click", (e) => {
       e.preventDefault();
-      showToast("🆘 Opening Support Center...", "secondary");
+      showToast("ðŸ†˜ Opening Support Center...", "secondary");
     });
   }
 
-  // ── 8. CONTINUE LESSON BUTTON ─────────────────────────────
+  // â”€â”€ 8. CONTINUE LESSON BUTTON â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   const continueBtn = document.querySelector("button.indigo-gradient");
   if (continueBtn && continueBtn.textContent.trim() === "Continue Lesson") {
     continueBtn.addEventListener("click", () => {
-      showToast("📘 Resuming Data Structures — Chapter 4!", "primary");
+      showToast("ðŸ“˜ Resuming Data Structures â€” Chapter 4!", "primary");
     });
   }
 
-  // ── 9. PRACTICE ARENA — JOIN ROOM ─────────────────────────
+  // â”€â”€ 9. PRACTICE ARENA â€” JOIN ROOM â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   const joinRoomBtn = document.querySelector("button.text-secondary");
   if (joinRoomBtn) {
     joinRoomBtn.addEventListener("click", () => {
-      showToast("⚔️ Joining today's Algorithm Challenge room...", "secondary");
+      showToast("âš”ï¸ Joining today's Algorithm Challenge room...", "secondary");
     });
   }
 
-  // ── 10. PROJECT HUB — EXPLORE REPOS ──────────────────────
+  // â”€â”€ 10. PROJECT HUB â€” EXPLORE REPOS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   const exploreBtn = document.querySelector("button.text-tertiary");
   if (exploreBtn) {
     exploreBtn.addEventListener("click", () => {
-      showToast("🗂️ Opening Project Hub repositories...", "tertiary");
+      showToast("ðŸ—‚ï¸ Opening Project Hub repositories...", "tertiary");
     });
   }
 
-  // ── 11. PROGRESS HUB — MORE ICON ─────────────────────────
+  // â”€â”€ 11. PROGRESS HUB â€” MORE ICON â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   const moreIcon = document.querySelector('[data-icon="more_horiz"]');
   if (moreIcon) {
     moreIcon.addEventListener("click", () => {
-      showToast("📊 Full progress report coming soon!", "primary");
+      showToast("ðŸ“Š Full progress report coming soon!", "primary");
     });
   }
 
-  // ── 12. AI RECOMMENDATION CARD ───────────────────────────
+  // â”€â”€ 12. AI RECOMMENDATION CARD â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   const aiCard = document.querySelector(".glass-card");
   if (aiCard) {
     aiCard.style.cursor = "pointer";
     aiCard.addEventListener("click", () => {
-      showToast("🤖 Loading: Solve Linked List in Hindi (12 min)...", "primary");
+      showToast("ðŸ¤– Loading: Solve Linked List in Hindi (12 min)...", "primary");
     });
   }
 
-  // ── 13. QUICK STATS — RANK & TIME ─────────────────────────
+  // â”€â”€ 13. QUICK STATS â€” RANK & TIME â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   const statCards = document.querySelectorAll(".bg-surface-container-low.p-4.rounded-xl");
   statCards.forEach((card) => {
     card.style.cursor = "pointer";
     card.addEventListener("click", () => {
       const label = card.querySelector("p.text-\\[10px\\]")?.textContent?.trim() || "Stat";
       const value = card.querySelector("p.text-sm")?.textContent?.trim() || "";
-      showToast(`📈 ${label}: ${value}`, "secondary");
+      showToast(`ðŸ“ˆ ${label}: ${value}`, "secondary");
     });
   });
 
-  // ── 14. FAB ROCKET BUTTON ─────────────────────────────────
+  // â”€â”€ 14. FAB ROCKET BUTTON â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   const fab = document.querySelector("button[class*='fixed bottom-8']");
   if (fab) {
     fab.addEventListener("click", () => {
-      showToast("🚀 Launching your next challenge!", "primary");
+      showToast("ðŸš€ Launching your next challenge!", "primary");
       // Animate the button
       fab.classList.add("scale-125");
       setTimeout(() => fab.classList.remove("scale-125"), 300);
     });
   }
 
-  // ── 15. ACTIVITY FEED ITEMS ───────────────────────────────
+  // â”€â”€ 15. ACTIVITY FEED ITEMS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   const activityItems = document.querySelectorAll(".space-y-4 .group");
   activityItems.forEach((item) => {
     item.style.cursor = "pointer";
     item.addEventListener("click", () => {
       const text = item.querySelector("p.text-sm")?.textContent?.trim() || "Activity";
-      showToast(`🕒 ${text}`, "secondary");
+      showToast(`ðŸ•’ ${text}`, "secondary");
     });
   });
 
-  // ── 16. STREAK / POINTS / BADGES STATS ───────────────────
+  // â”€â”€ 16. STREAK / POINTS / BADGES STATS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   const headerStats = document.querySelectorAll("header .flex.items-center.gap-2:not(.gap-8):not(.gap-6):not(.gap-4.pl-4)");
   headerStats.forEach((stat) => {
     stat.style.cursor = "pointer";
@@ -174,7 +174,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // ── TOAST NOTIFICATION SYSTEM ─────────────────────────────
+  // â”€â”€ TOAST NOTIFICATION SYSTEM â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   function showToast(message, type = "primary") {
     // Remove existing toasts
     document.querySelectorAll(".velora-toast").forEach(t => t.remove());

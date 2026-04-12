@@ -1,5 +1,5 @@
 ﻿// ============================================================
-// editor (1).js — Indigo Academy AI Coding Editor
+// editor (1).js — CODE SAGE AI Coding Editor
 // ============================================================
 
 (function () {
@@ -652,3 +652,4 @@ print(f"The first {n_terms} terms: {result}")`;
     }
   })();
 })();
+

@@ -34,13 +34,17 @@
   const testCasesEl = document.getElementById('questionTestCases');
   const keywordsEl = document.getElementById('questionKeywords');
   const PRACTICE_COURSE_SLUG = 'python-foundations';
+  const EASY_PROGRESS_KEY = 'velora_easy_correct_count';
+  const EASY_PROGRESS_TARGET = 3;
 
   let chatSessionId = null;
   let chatSessionPromise = null;
   let currentProblem = null;
   let incorrectAttempts = 0;
+  let easyCorrectCount = Number.parseInt(localStorage.getItem(EASY_PROGRESS_KEY) || '0', 10);
   let successModalEl = null;
   let failModalEl = null;
+  let levelChoiceModalEl = null;
   let mentorListening = false;
   let mentorStopRequested = false;
   let mentorActiveRecognition = null;
@@ -237,6 +241,93 @@
       goBtn.disabled = false;
       goBtn.textContent = 'Go to lesson';
     }
+  }
+
+  function normalizeDifficulty(value) {
+    return String(value || 'easy').trim().toLowerCase();
+  }
+
+  function getNextDifficulty(currentDifficulty) {
+    const current = normalizeDifficulty(currentDifficulty);
+    if (current === 'easy') return 'medium';
+    if (current === 'medium') return 'hard';
+    return 'hard';
+  }
+
+  function ensureLevelChoiceModal() {
+    if (levelChoiceModalEl) return levelChoiceModalEl;
+
+    const overlay = document.createElement('div');
+    overlay.className = 'fixed inset-0 z-[100] hidden items-center justify-center bg-black/60 backdrop-blur-sm p-4';
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+    overlay.innerHTML = `
+      <div class="w-full max-w-md rounded-2xl border border-primary/30 bg-surface-container-high p-6 shadow-2xl shadow-primary/15">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-10 rounded-full bg-primary/15 flex items-center justify-center text-primary">
+            <span class="material-symbols-outlined">trophy</span>
+          </div>
+          <h3 class="text-lg font-headline font-extrabold text-on-surface">Great Progress!</h3>
+        </div>
+        <p class="text-sm text-on-surface-variant mb-5">You solved 3 Easy questions correctly. Choose your next step.</p>
+        <div class="grid grid-cols-1 gap-3">
+          <button id="staySameLevelBtn" type="button" class="w-full px-4 py-2.5 rounded-xl font-semibold bg-surface-container-lowest border border-outline-variant/20 text-on-surface hover:bg-surface-container-highest transition-all duration-150 active:scale-95">
+            Stay on Easy
+          </button>
+          <button id="goNextLevelBtn" type="button" class="w-full px-4 py-2.5 rounded-xl font-semibold bg-primary-container text-white hover:opacity-90 transition-all duration-150 active:scale-95">
+            Go to Medium
+          </button>
+        </div>
+      </div>
+    `;
+
+    overlay.addEventListener('click', (event) => {
+      if (event.target === overlay) {
+        overlay.classList.add('hidden');
+        overlay.classList.remove('flex');
+      }
+    });
+
+    document.body.appendChild(overlay);
+
+    const stayBtn = overlay.querySelector('#staySameLevelBtn');
+    const nextBtn = overlay.querySelector('#goNextLevelBtn');
+
+    stayBtn?.addEventListener('click', async () => {
+      if (!(stayBtn instanceof HTMLButtonElement) || !(nextBtn instanceof HTMLButtonElement)) return;
+      stayBtn.disabled = true;
+      nextBtn.disabled = true;
+      stayBtn.textContent = 'Opening...';
+      await redirectToDifficultyQuestion('easy');
+      stayBtn.disabled = false;
+      nextBtn.disabled = false;
+      stayBtn.textContent = 'Stay on Easy';
+    });
+
+    nextBtn?.addEventListener('click', async () => {
+      if (!(stayBtn instanceof HTMLButtonElement) || !(nextBtn instanceof HTMLButtonElement)) return;
+      stayBtn.disabled = true;
+      nextBtn.disabled = true;
+      nextBtn.textContent = 'Opening...';
+      await redirectToDifficultyQuestion(getNextDifficulty(currentProblem?.difficulty || 'easy'));
+      stayBtn.disabled = false;
+      nextBtn.disabled = false;
+      nextBtn.textContent = 'Go to Medium';
+    });
+
+    levelChoiceModalEl = overlay;
+    return overlay;
+  }
+
+  function showLevelChoiceModal() {
+    const modal = ensureLevelChoiceModal();
+    const nextBtn = modal.querySelector('#goNextLevelBtn');
+    if (nextBtn instanceof HTMLButtonElement) {
+      const nextDifficulty = getNextDifficulty(currentProblem?.difficulty || 'easy');
+      nextBtn.textContent = `Go to ${nextDifficulty.charAt(0).toUpperCase()}${nextDifficulty.slice(1)}`;
+    }
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
   }
 
   function getConsoleInput() {
@@ -612,6 +703,36 @@
     window.location.href = `editorq.html?question_no=${encodeURIComponent(nextQuestion)}`;
   }
 
+  async function findNextQuestionByDifficulty(targetDifficulty) {
+    const startQuestionNo = getQuestionNoFromUrl();
+    const wanted = normalizeDifficulty(targetDifficulty);
+    const maxLookAhead = 120;
+
+    for (let step = 1; step <= maxLookAhead; step += 1) {
+      const questionNo = startQuestionNo + step;
+      try {
+        const response = await fetch(`${API_BASE_URL}/practice-problems/${questionNo}`);
+        if (!response.ok) continue;
+        const data = await response.json().catch(() => ({}));
+        if (normalizeDifficulty(data?.difficulty) === wanted) {
+          return questionNo;
+        }
+      } catch (_) {
+        // Try next available question number.
+      }
+    }
+    return null;
+  }
+
+  async function redirectToDifficultyQuestion(targetDifficulty) {
+    const questionNo = await findNextQuestionByDifficulty(targetDifficulty);
+    if (questionNo) {
+      window.location.href = `editorq.html?question_no=${encodeURIComponent(questionNo)}`;
+      return;
+    }
+    redirectToNextQuestion();
+  }
+
   async function findBestLessonByKeywords(keywords) {
     const safeKeywords = (Array.isArray(keywords) ? keywords : [])
       .map((k) => String(k || '').trim().toLowerCase())
@@ -724,6 +845,17 @@
 
       if (!failedCase) {
         incorrectAttempts = 0;
+        if (normalizeDifficulty(currentProblem?.difficulty) === 'easy') {
+          easyCorrectCount = Number.isFinite(easyCorrectCount) ? easyCorrectCount + 1 : 1;
+          localStorage.setItem(EASY_PROGRESS_KEY, String(easyCorrectCount));
+          if (easyCorrectCount >= EASY_PROGRESS_TARGET) {
+            easyCorrectCount = 0;
+            localStorage.setItem(EASY_PROGRESS_KEY, '0');
+            setOutput('Correct output. You solved 3 Easy questions. Choose your next level.');
+            showLevelChoiceModal();
+            return;
+          }
+        }
         setOutput('Correct output. Great job!');
         showSuccessModal();
         return;

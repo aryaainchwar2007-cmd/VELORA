@@ -3,7 +3,7 @@
 <html class="dark" lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Indigo Academy - Student Dashboard</title>
+<title>CODE SAGE - Student Dashboard</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;family=Fira+Code:wght@400;500&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
@@ -102,7 +102,7 @@
 <!-- TopNavBar (Shared Component Identity) -->
 <header class="fixed top-0 w-full flex items-center justify-between px-6 py-3 bg-[#13121b]/80 backdrop-blur-xl z-50 shadow-[0_20px_40px_rgba(0,0,0,0.3)]">
 <div class="flex items-center gap-8">
-<span class="text-2xl font-black tracking-tighter bg-gradient-to-br from-[#c3c0ff] to-[#4F46E5] bg-clip-text text-transparent">Indigo Academy</span>
+<span class="text-2xl font-black tracking-tighter bg-gradient-to-br from-[#c3c0ff] to-[#4F46E5] bg-clip-text text-transparent">CODE SAGE</span>
 <div class="hidden md:flex items-center bg-surface-container-lowest px-4 py-2 rounded-full border-none">
 <span class="material-symbols-outlined text-slate-400 mr-2" data-icon="search">search</span>
 <input class="bg-transparent border-none focus:ring-0 text-sm w-64 placeholder:text-slate-500" placeholder="Search curriculum..." type="text"/>
@@ -112,10 +112,6 @@
 <div class="flex items-center gap-4 text-[#c3c0ff]">
 <span class="material-symbols-outlined hover:text-white transition-colors duration-300 cursor-pointer" data-icon="notifications">notifications</span>
 <span class="material-symbols-outlined hover:text-white transition-colors duration-300 cursor-pointer" data-icon="workspace_premium">workspace_premium</span>
-</div>
-<div class="flex items-center gap-2 pl-4 border-l border-outline-variant/20 cursor-pointer" data-route="profile" title="Go to Profile">
-<span class="text-sm font-medium">Profile</span>
-<img class="w-8 h-8 rounded-full" data-alt="close-up portrait of a young computer science student wearing glasses in soft studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAovGc8fKdYNKuMSb7rpo8kh8JKrjZWUX70J_3sg-IN7Fkl4jy1k_wxyP5xh-Dev2D4IX7KzjSh6wVuoIxsAQgdo8UF_LtWNYbWh1HFMZkNn_9lWWQn0t8hQsZ3WNo1A1LCXIUXNXvxQYXwkFkvWSsMaQWO51U7to6PElA7guoK-dvf7auTtnA4QU5VsHnA6T5xDtJcXEikKaykTBC96a7T-41ogKZ4l2Nug5y33cPCjoZ6GdKzSN7t3cBnElSMpxt_FnAbQsmpnJJK"/>
 </div>
 </div>
 <div class="absolute bottom-0 left-0 bg-gradient-to-b from-[#c3c0ff]/5 to-transparent h-[1px] w-full"></div>
@@ -149,10 +145,6 @@
 </a>
 </div>
 <div class="mt-auto pb-10 space-y-2">
-<button class="mx-6 w-52 flex items-center justify-center gap-2 py-3 rounded-xl indigo-gradient text-on-primary text-sm font-bold shadow-lg hover:opacity-90 active:scale-95 transition-all" data-route="EDITOR.html">
-<span class="material-symbols-outlined" data-icon="keyboard_voice">keyboard_voice</span>
-                Voice Help
-            </button>
 <div class="mt-6 border-t border-outline-variant/10 pt-4">
 <a class="flex items-center gap-3 text-slate-500 px-6 py-2 hover:text-white transition-all text-sm" href="profile.html">
 <span class="material-symbols-outlined" data-icon="settings">settings</span>
@@ -211,7 +203,7 @@
 <div class="col-span-1 md:col-span-2 group relative overflow-hidden rounded-xl bg-surface-container-lowest p-8 flex flex-col justify-between min-h-[240px]">
 <div class="z-10">
 <h2 class="text-3xl font-black font-headline text-on-surface mb-2">Start Coding</h2>
-<p class="text-slate-400 max-w-[240px]">Pick up exactly where you left off in <span class="text-primary font-bold">Data Structures</span>.</p>
+<p class="text-slate-400 max-w-[240px]">Pick up exactly where you left off in <span class="text-primary font-bold">Basics of Python</span>.</p>
 </div>
 <button class="z-10 w-fit mt-6 px-6 py-3 indigo-gradient text-on-primary font-bold rounded-lg shadow-xl group-hover:scale-105 transition-transform" data-route="course.html">
                         Continue Lesson
@@ -361,10 +353,6 @@
 </aside>
 </div>
 </main>
-<!-- Contextual FAB (Only for Dashboard/Home) -->
-<button class="fixed bottom-8 right-8 w-16 h-16 rounded-full indigo-gradient text-on-primary shadow-2xl flex items-center justify-center hover:scale-110 active:scale-90 transition-all group z-50" data-route="EDITOR.html">
-<span class="material-symbols-outlined text-3xl group-hover:rotate-12 transition-transform" data-icon="rocket_launch">rocket_launch</span>
-</button>
 <script>
   document.querySelectorAll("button[data-route]").forEach((btn) => {
     btn.addEventListener("click", () => {
@@ -378,5 +366,6 @@
 <script src="session.js"></script>
 <script src="dashboard (1).js"></script>
 </body></html>
+
 
 

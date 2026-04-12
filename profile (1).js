@@ -1,5 +1,5 @@
 ﻿// ============================================================
-// profile (1).js — Indigo Academy Profile & Achievements
+// profile (1).js — CODE SAGE Profile & Achievements
 // ============================================================
 
 (function () {
@@ -228,3 +228,4 @@
     }
   });
 })();
+
