@@ -8,6 +8,9 @@
     profile: "profile.html",
     editor: "EDITOR.html",
     editorq: "editorq.html",
+    interview: "interview.html",
+    interview_workspace: "editorI.html",
+    interview_post: "post.html",
     welcome: "welcome.html",
   };
 
@@ -84,6 +87,18 @@
     if (t.includes("project")) return "projects";
     if (t.includes("profile")) return "profile";
     if (t.includes("editor")) return "editor";
+    if (t.includes("interview lab")) return "interview";
+    if (t.includes("interview lobby")) return "interview";
+    if (t.includes("simulator")) return "interview_workspace";
+    if (t.includes("start interview")) return "interview_workspace";
+    if (t.includes("start simulation")) return "interview_workspace";
+    if (t.includes("start technical interview")) return "interview_workspace";
+    if (t.includes("lobby")) return "interview";
+    if (t.includes("workspace")) return "interview_workspace";
+    if (t.includes("analytics")) return "interview_post";
+    if (t.includes("verdict")) return "interview_post";
+    if (t.includes("post-simulation")) return "interview_post";
+    if (t.includes("final submit")) return "interview_post";
     if (t.includes("continue lesson")) return "editor";
     if (t.includes("voice help")) return "editor";
     if (t.includes("join room")) return "practice";

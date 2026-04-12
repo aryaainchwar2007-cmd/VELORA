@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Indigo Academy | Interview Workspace</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;family=Fira+Code:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed": "#2a1700",
+                        "surface": "#13121b",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "on-surface-variant": "#c7c4d8",
+                        "on-secondary-container": "#00311f",
+                        "surface-container-high": "#2a2933",
+                        "on-surface": "#e4e1ee",
+                        "error-container": "#93000a",
+                        "on-background": "#e4e1ee",
+                        "primary-fixed": "#e2dfff",
+                        "surface-container-lowest": "#0e0d16",
+                        "background": "#13121b",
+                        "on-secondary-fixed": "#002113",
+                        "inverse-surface": "#e4e1ee",
+                        "tertiary": "#ffb95f",
+                        "tertiary-container": "#885500",
+                        "surface-variant": "#35343e",
+                        "on-primary-fixed-variant": "#3323cc",
+                        "surface-container-low": "#1b1b24",
+                        "secondary-fixed-dim": "#4edea3",
+                        "on-primary-container": "#dad7ff",
+                        "inverse-on-surface": "#302f39",
+                        "outline": "#918fa1",
+                        "tertiary-fixed": "#ffddb8",
+                        "surface-dim": "#13121b",
+                        "surface-container": "#1f1f28",
+                        "primary": "#c3c0ff",
+                        "on-tertiary-container": "#ffd4a4",
+                        "surface-tint": "#c3c0ff",
+                        "on-tertiary": "#472a00",
+                        "secondary-fixed": "#6ffbbe",
+                        "on-secondary-fixed-variant": "#005236",
+                        "surface-bright": "#393842",
+                        "primary-container": "#4f46e5",
+                        "on-error-container": "#ffdad6",
+                        "on-error": "#690005",
+                        "secondary-container": "#00a572",
+                        "on-secondary": "#003824",
+                        "on-primary-fixed": "#0f0069",
+                        "surface-container-highest": "#35343e",
+                        "error": "#ffb4ab",
+                        "secondary": "#4edea3",
+                        "inverse-primary": "#4d44e3",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "primary-fixed-dim": "#c3c0ff",
+                        "outline-variant": "#464555",
+                        "on-primary": "#1d00a5"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Plus Jakarta Sans"],
+                        "body": ["Inter"],
+                        "label": ["Inter"],
+                        "mono": ["Fira Code"]
+                    }
+                },
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+        }
+        .mono-text { font-family: 'Fira Code', monospace; }
+        .ai-glow { box-shadow: -4px 0 20px -10px rgba(195, 192, 255, 0.2); }
+        .editor-shell {
+            display: grid;
+            grid-template-columns: 3rem 1fr;
+            gap: 1.5rem;
+            height: 100%;
+        }
+        .editor-lines {
+            color: rgba(199, 196, 216, 0.35);
+            text-align: right;
+            user-select: none;
+            white-space: pre;
+            padding-top: 0.125rem;
+        }
+        .editor-input {
+            width: 100%;
+            min-height: 100%;
+            background: transparent;
+            border: 0;
+            outline: none;
+            resize: none;
+            color: #e4e1ee;
+            white-space: pre;
+            overflow: auto;
+            caret-color: #c3c0ff;
+        }
+        .editor-input::placeholder {
+            color: rgba(145, 143, 161, 0.7);
+        }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #464555; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface overflow-hidden">
+<header class="fixed top-0 w-full z-50 bg-[#13121b]/80 backdrop-blur-xl flex justify-between items-center px-8 h-16 w-full max-w-full shadow-[0_20px_40px_rgba(0,0,0,0.3)] bg-gradient-to-b from-indigo-500/5 to-transparent">
+<div class="flex items-center gap-6">
+<span class="text-xl font-bold tracking-tighter text-indigo-100 font-headline cursor-pointer" data-route="dashboard">Indigo Academy</span>
+<nav class="hidden md:flex gap-8 font-plus-jakarta text-sm tracking-tight">
+<a class="text-indigo-100/50 hover:text-indigo-100 transition-colors" data-route="interview" href="#">Lobby</a>
+<a class="text-indigo-300 font-semibold border-b-2 border-indigo-500 pb-1" data-route="interview_workspace" href="#">Workspace</a>
+<a class="text-indigo-100/50 hover:text-indigo-100 transition-colors" data-route="interview_post" href="#">Analytics</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-indigo-100/50 hover:bg-indigo-500/10 transition-all duration-300 p-2 rounded-lg" data-icon="help" data-route="welcome">help</button>
+<button class="material-symbols-outlined text-indigo-100/50 hover:bg-indigo-500/10 transition-all duration-300 p-2 rounded-lg" data-icon="settings" data-route="profile">settings</button>
+<div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container-high border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="Close up professional portrait of a software engineer with soft studio lighting and dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIIfr6KKYztY5bp8nZMFukxYtHN-azbzQb_LT1B6CCt1I9pJdXo582RZq4lpHWs7mbgwOukbfUekhyBuIVXFin7hANHf0oEwSaQfo3zJUvaLmLujvAQeahWxmUfVQNDdV2t_DWMdrKuOgog8cdpUFLmcLJVjThsgCf9lKv6o0BMVfpzU3QnCTS8Bd45LsZLzf5MgkjHgc4cwPJJ185GfZjp45oz1_BaRvMZ65e5TVS6qN5L72sk5T123pGQzL8eUork4VNab5ApaRj"/>
+</div>
+</div>
+</header>
+<main class="pt-16 h-screen flex overflow-hidden">
+<section class="flex-1 flex flex-col bg-surface-container-lowest relative">
+<div class="h-12 flex items-center justify-between px-6 bg-surface-container-low/50">
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2 px-3 py-1 bg-surface-container-high rounded-lg text-xs font-mono">
+<span class="w-2 h-2 rounded-full bg-indigo-400"></span>
+                        solution.py
+                    </div>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-[10px] text-outline uppercase tracking-widest font-bold">Python 3.11</span>
+</div>
+</div>
+<div class="flex-1 p-6 overflow-auto mono-text text-sm leading-relaxed text-on-surface-variant">
+<div class="editor-shell">
+<div class="editor-lines text-outline/30" id="editor-line-numbers">1</div>
+<textarea autocapitalize="off" autocomplete="off" autocorrect="off" class="editor-input mono-text text-sm leading-relaxed" id="code-editor" spellcheck="false">class LRUCache:
+    def __init__(self, capacity: int):
+        self.cap = capacity
+        self.cache = {}
+        # Initialize doubly linked list here
+
+    def get(self, key: int) -> int:
+        if key in self.cache:
+            self.make_recent(key)
+            return self.cache[key]
+        return -1
+
+    def put(self, key: int, value: int) -> None:
+        # Implementation required
+        pass</textarea>
+</div>
+</div>
+<div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-4 bg-surface-container-high/80 backdrop-blur-xl p-2 rounded-2xl shadow-2xl border border-outline-variant/10">
+<button class="flex items-center gap-2 px-4 py-2 hover:bg-indigo-500/10 rounded-xl transition-all duration-300 group" type="button">
+<span class="material-symbols-outlined text-indigo-400 group-active:scale-90 duration-200" data-icon="mic">mic</span>
+<span class="text-xs font-semibold text-indigo-100">Mic</span>
+</button>
+<div class="w-[1px] h-6 bg-outline-variant/20"></div>
+<button class="flex items-center gap-2 px-4 py-2 hover:bg-indigo-500/10 rounded-xl transition-all duration-300 group" type="button">
+<span class="material-symbols-outlined text-tertiary group-active:scale-90 duration-200" data-icon="lightbulb">lightbulb</span>
+<span class="text-xs font-semibold text-indigo-100">Request Hint</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-2 hover:bg-red-500/10 rounded-xl transition-all duration-300 group" id="clear-code-btn" type="button">
+<span class="material-symbols-outlined text-red-300 group-active:scale-90 duration-200" data-icon="delete">delete</span>
+<span class="text-xs font-semibold text-indigo-100">Clear Code</span>
+</button>
+<button class="flex items-center gap-2 px-6 py-2 bg-gradient-to-br from-primary to-primary-container text-on-primary rounded-xl font-bold text-sm hover:shadow-[0_0_20px_rgba(79,70,229,0.4)] transition-all active:scale-95 duration-200" data-route="interview_post" type="button">
+                    Final Submit
+                </button>
+</div>
+</section>
+<aside class="w-[420px] bg-surface-container-low flex flex-col ai-glow border-l border-outline-variant/5">
+<div class="p-6 space-y-4">
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-2 px-3 py-1 bg-secondary-container/20 rounded-full">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="text-[10px] font-bold text-secondary-fixed-dim uppercase tracking-wider">Live Interview</span>
+</div>
+<div class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest bg-surface-container-high px-2 py-1 rounded">
+                        Current Round: 1/3
+                    </div>
+</div>
+<div class="flex flex-col items-center py-6">
+<div class="relative">
+<div class="w-32 h-32 rounded-full p-1 bg-gradient-to-tr from-indigo-500 via-purple-400 to-indigo-300 animate-pulse">
+<div class="w-full h-full rounded-full bg-surface-container-low overflow-hidden border-4 border-surface">
+<img class="w-full h-full object-cover grayscale brightness-90 hover:grayscale-0 transition-all duration-700" data-alt="A highly professional digital human face with sharp features, wearing a dark academic suit, cinematic lighting, neutral authoritative expression" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSmVFLhJ6wcmlAv81ZtlJChrHaQWFsRip1Twg_3_u2rmgc28vhs1Tp11UlnpTV0L5QEW4xIuciDpIv4Hw9VPb-I2zDzhg-8ycnyBFNldlR-kOiW5eAj69JzsHwRDtjVELavSyM-OHneKGWkYupKhGTTzOOElmY_yRnodfih4Fc-zsqSlOess0B2QEUBurhEGa_T9aBVlznwzePTd0hy7mfnjrcMMKj2FoMHhnkGFj00NvxUbTV9lmTOizQQr5yeFONTVKLkt-nKT5x"/>
+</div>
+</div>
+<div class="absolute -bottom-2 left-1/2 -translate-x-1/2 flex items-end gap-1 h-6">
+<div class="w-1 bg-indigo-400 h-2 rounded-full"></div>
+<div class="w-1 bg-indigo-300 h-4 rounded-full"></div>
+<div class="w-1 bg-indigo-200 h-5 rounded-full"></div>
+<div class="w-1 bg-indigo-300 h-3 rounded-full"></div>
+<div class="w-1 bg-indigo-400 h-4 rounded-full"></div>
+</div>
+</div>
+<h3 class="mt-6 text-xl font-headline font-bold text-indigo-100 tracking-tight">AI Interviewer Dr. Silas</h3>
+<p class="text-xs text-outline font-medium">Senior Engineering Architect</p>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto px-6 space-y-6 pb-24">
+<div class="bg-surface-variant/40 backdrop-blur-md p-5 rounded-2xl border-l-2 border-primary">
+<p class="text-sm text-indigo-100 leading-relaxed font-medium">
+                        "Welcome to the first round. I'd like you to implement a <span class="text-indigo-300 font-bold">Least Recently Used (LRU) Cache</span>. Your solution should support both <code class="bg-surface-container-highest px-1 rounded text-xs">get</code> and <code class="bg-surface-container-highest px-1 rounded text-xs">put</code> operations in <span class="text-tertiary font-mono">O(1)</span> time complexity."
+                    </p>
+<div class="mt-4 flex flex-wrap gap-2">
+<span class="px-2 py-1 bg-surface-container-highest rounded text-[10px] text-outline-variant font-bold uppercase">Linked List</span>
+<span class="px-2 py-1 bg-surface-container-highest rounded text-[10px] text-outline-variant font-bold uppercase">Hash Map</span>
+</div>
+</div>
+<div class="space-y-4">
+<div class="flex justify-end">
+<div class="bg-indigo-500/10 p-4 rounded-2xl rounded-tr-none max-w-[85%] border border-indigo-500/10">
+<p class="text-sm text-indigo-200">Should I use a doubly linked list for the recent items tracking?</p>
+</div>
+</div>
+<div class="flex justify-start">
+<div class="bg-surface-container-high p-4 rounded-2xl rounded-tl-none max-w-[85%] border border-outline-variant/10">
+<div class="flex items-center gap-1 mb-2">
+<span class="material-symbols-outlined text-[14px] text-indigo-400" data-icon="smart_toy" data-weight="fill" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+<span class="text-[10px] font-bold text-outline uppercase tracking-widest">Silas</span>
+</div>
+<p class="text-sm text-on-surface-variant leading-relaxed">
+                                Precisely. A doubly linked list allows for constant time removals and additions at both ends. How will you pair that with the hash map?
+                            </p>
+</div>
+</div>
+</div>
+</div>
+<div class="p-6 bg-surface-container-low/80 backdrop-blur-xl border-t border-outline-variant/10">
+<div class="relative group">
+<input class="w-full bg-surface-container-lowest border-none rounded-xl py-3 pl-4 pr-12 text-sm text-on-surface placeholder:text-outline-variant focus:ring-1 focus:ring-primary-container transition-all" placeholder="Ask Dr. Silas a question..." type="text"/>
+<button class="absolute right-2 top-1/2 -translate-y-1/2 p-2 text-indigo-400 hover:text-indigo-200 transition-colors" type="button">
+<span class="material-symbols-outlined" data-icon="send">send</span>
+</button>
+</div>
+</div>
+</aside>
+</main>
+<nav class="fixed bottom-0 w-full z-50 md:hidden bg-[#13121b]/90 backdrop-blur-md flex justify-around items-center h-20 px-4 pb-safe border-t border-indigo-500/15 shadow-[0_-10px_30px_rgba(0,0,0,0.5)]">
+<div class="flex flex-col items-center justify-center bg-indigo-500/20 text-indigo-300 rounded-xl px-4 py-1">
+<span class="material-symbols-outlined" data-icon="code">code</span>
+<span class="text-[10px] uppercase tracking-widest font-bold">Workspace</span>
+</div>
+<div class="flex flex-col items-center justify-center text-indigo-100/40">
+<span class="material-symbols-outlined" data-icon="chat_bubble">chat_bubble</span>
+<span class="text-[10px] uppercase tracking-widest font-bold">Messages</span>
+</div>
+<div class="flex flex-col items-center justify-center text-indigo-100/40">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="text-[10px] uppercase tracking-widest font-bold">Metrics</span>
+</div>
+</nav>
+<script src="session.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const editor = document.getElementById("code-editor");
+    const lineNumbers = document.getElementById("editor-line-numbers");
+    const clearButton = document.getElementById("clear-code-btn");
+
+    if (!editor || !lineNumbers) return;
+
+    function renderLineNumbers() {
+      const lineCount = Math.max(1, editor.value.split("\n").length);
+      lineNumbers.textContent = Array.from({ length: lineCount }, function (_, index) {
+        return index + 1;
+      }).join("\n");
+      lineNumbers.scrollTop = editor.scrollTop;
+    }
+
+    editor.addEventListener("input", renderLineNumbers);
+    editor.addEventListener("scroll", function () {
+      lineNumbers.scrollTop = editor.scrollTop;
+    });
+
+    clearButton?.addEventListener("click", function () {
+      editor.value = "";
+      renderLineNumbers();
+      editor.focus();
+    });
+
+    renderLineNumbers();
+  });
+</script>
+</body></html>

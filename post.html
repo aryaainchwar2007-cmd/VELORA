@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Interview Verdict | Indigo Academy</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;family=Fira+Code:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed": "#2a1700",
+                        "surface": "#13121b",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "on-surface-variant": "#c7c4d8",
+                        "on-secondary-container": "#00311f",
+                        "surface-container-high": "#2a2933",
+                        "on-surface": "#e4e1ee",
+                        "error-container": "#93000a",
+                        "on-background": "#e4e1ee",
+                        "primary-fixed": "#e2dfff",
+                        "surface-container-lowest": "#0e0d16",
+                        "background": "#13121b",
+                        "on-secondary-fixed": "#002113",
+                        "inverse-surface": "#e4e1ee",
+                        "tertiary": "#ffb95f",
+                        "tertiary-container": "#885500",
+                        "surface-variant": "#35343e",
+                        "on-primary-fixed-variant": "#3323cc",
+                        "surface-container-low": "#1b1b24",
+                        "secondary-fixed-dim": "#4edea3",
+                        "on-primary-container": "#dad7ff",
+                        "inverse-on-surface": "#302f39",
+                        "outline": "#918fa1",
+                        "tertiary-fixed": "#ffddb8",
+                        "surface-dim": "#13121b",
+                        "surface-container": "#1f1f28",
+                        "primary": "#c3c0ff",
+                        "on-tertiary-container": "#ffd4a4",
+                        "surface-tint": "#c3c0ff",
+                        "on-tertiary": "#472a00",
+                        "secondary-fixed": "#6ffbbe",
+                        "on-secondary-fixed-variant": "#005236",
+                        "surface-bright": "#393842",
+                        "primary-container": "#4f46e5",
+                        "on-error-container": "#ffdad6",
+                        "on-error": "#690005",
+                        "secondary-container": "#00a572",
+                        "on-secondary": "#003824",
+                        "on-primary-fixed": "#0f0069",
+                        "surface-container-highest": "#35343e",
+                        "error": "#ffb4ab",
+                        "secondary": "#4edea3",
+                        "inverse-primary": "#4d44e3",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "primary-fixed-dim": "#c3c0ff",
+                        "outline-variant": "#464555",
+                        "on-primary": "#1d00a5"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "3xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Plus Jakarta Sans"],
+                        "body": ["Inter"],
+                        "label": ["Inter"],
+                        "mono": ["Fira Code"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .font-headline { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .glass-card {
+            background: rgba(53, 52, 62, 0.4);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .text-gradient-primary {
+            background: linear-gradient(135deg, #c3c0ff 0%, #4f46e5 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .btn-gradient {
+            background: linear-gradient(135deg, #c3c0ff 0%, #4f46e5 100%);
+        }
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface selection:bg-primary/30">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-[#13121b]/80 backdrop-blur-xl bg-gradient-to-b from-indigo-500/5 to-transparent shadow-[0_20px_40px_rgba(0,0,0,0.3)]">
+<div class="flex justify-between items-center px-8 h-16 w-full max-w-full">
+<div class="text-xl font-bold tracking-tighter text-indigo-100 font-headline cursor-pointer" data-route="dashboard">Indigo Academy</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-indigo-100/50 hover:text-indigo-100 transition-colors font-plus-jakarta text-sm tracking-tight" data-route="interview" href="#">Lobby</a>
+<a class="text-indigo-100/50 hover:text-indigo-100 transition-colors font-plus-jakarta text-sm tracking-tight" data-route="interview_workspace" href="#">Workspace</a>
+<a class="text-indigo-300 font-semibold border-b-2 border-indigo-500 pb-1 font-plus-jakarta text-sm tracking-tight" data-route="interview_post" href="#">Analytics</a>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-indigo-100/50 cursor-pointer hover:bg-indigo-500/10 p-2 rounded-full transition-all" data-icon="settings" data-route="profile">settings</span>
+<span class="material-symbols-outlined text-indigo-100/50 cursor-pointer hover:bg-indigo-500/10 p-2 rounded-full transition-all" data-icon="help" data-route="welcome">help</span>
+<div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container-high border border-outline-variant/30">
+<img alt="User profile avatar" data-alt="Close up portrait of a professional software engineer with modern lighting and high-tech atmosphere" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAr1V7U1L3qgTqItbV4y7WNQ8hO-hdtWHGPYIAALGHAU3fkHifCtybDRSQWiE340GWwq9vfrOzCrQyOS100hPnT6kVaiC-bo0HpNAfg6S5P95EOdfoHRd8oWCCGTAZfQd8j3X3e92HaqMGtTtBEPb42RzPgvRMgD3vUHz4lLPVoNT4A8b7pk785x-5vXx-_wGtGcyJ7pzAyW2t4BIRHKsDwRbByLwdD3qtmQGtvi85ynU2SJkxXlUaBLPYJ3gURvrW_lAQtrETK4esL"/>
+</div>
+</div>
+</div>
+</nav>
+<!-- SideNavBar (Hidden on Mobile) -->
+<aside class="fixed left-0 top-16 h-[calc(100vh-64px)] w-20 hover:w-64 transition-all duration-500 ease-in-out z-40 bg-[#13121b]/60 backdrop-blur-2xl shadow-2xl group flex flex-col py-6 overflow-hidden hidden md:flex">
+<div class="flex items-center px-6 mb-8 gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+<div class="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary" data-icon="smart_toy">smart_toy</span>
+</div>
+<div class="flex flex-col">
+<span class="text-sm font-bold text-on-surface">AI Mentor</span>
+<span class="text-[10px] text-on-surface-variant">Ready to code?</span>
+</div>
+</div>
+<nav class="flex-1 flex flex-col gap-2">
+<div class="flex items-center h-12 px-6 gap-6 text-indigo-100/40 hover:bg-indigo-500/10 transition-all duration-300 cursor-pointer">
+<span class="material-symbols-outlined" data-icon="terminal">terminal</span>
+<span class="opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap font-medium text-xs">Simulator</span>
+</div>
+<div class="flex items-center h-12 px-6 gap-6 bg-indigo-500/20 text-indigo-300 border-l-4 border-indigo-500 transition-all duration-300 cursor-pointer">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span class="opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap font-medium text-xs">History</span>
+</div>
+<div class="flex items-center h-12 px-6 gap-6 text-indigo-100/40 hover:bg-indigo-500/10 transition-all duration-300 cursor-pointer">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+<span class="opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap font-medium text-xs">Resources</span>
+</div>
+<div class="flex items-center h-12 px-6 gap-6 text-indigo-100/40 hover:bg-indigo-500/10 transition-all duration-300 cursor-pointer">
+<span class="material-symbols-outlined" data-icon="military_tech">military_tech</span>
+<span class="opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap font-medium text-xs">Leaderboard</span>
+</div>
+</nav>
+<div class="px-4 mb-6 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="w-full py-3 btn-gradient text-on-primary font-bold rounded-xl text-xs active:scale-95 transition-transform" data-route="interview_workspace">Start Simulation</button>
+</div>
+<div class="mt-auto border-t border-outline-variant/10 pt-4">
+<div class="flex items-center h-12 px-6 gap-6 text-indigo-100/40 hover:bg-indigo-500/10 transition-all duration-300 cursor-pointer">
+<span class="material-symbols-outlined" data-icon="contact_support">contact_support</span>
+<span class="opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap font-medium text-xs">Support</span>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="pt-24 pb-24 md:pb-12 md:pl-28 md:pr-12 px-6 max-w-[1600px] mx-auto min-h-screen">
+<!-- Header Section -->
+<header class="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div>
+<nav class="flex items-center gap-2 text-xs text-on-surface-variant mb-4 uppercase tracking-widest font-bold">
+<span>Analytics</span>
+<span class="material-symbols-outlined text-[14px]" data-icon="chevron_right">chevron_right</span>
+<span class="text-primary">Interview Verdict</span>
+</nav>
+<h1 class="text-4xl md:text-5xl font-extrabold tracking-tighter text-on-surface">Post-Simulation Analysis</h1>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 px-6 py-3 bg-surface-container-high rounded-xl text-sm font-semibold hover:bg-surface-container-highest transition-colors active:scale-95">
+<span class="material-symbols-outlined text-primary" data-icon="download">download</span>
+                    Download Certificate
+                </button>
+<button class="flex items-center gap-2 px-6 py-3 btn-gradient text-on-primary rounded-xl text-sm font-bold shadow-lg shadow-primary-container/20 active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-sm" data-icon="share" style="font-variation-settings: 'FILL' 1;">share</span>
+                    Share to LinkedIn
+                </button>
+</div>
+</header>
+<!-- Top Row: Bento Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-12">
+<!-- Verdict Card -->
+<div class="lg:col-span-7 glass-card rounded-3xl p-8 relative overflow-hidden border-l-4 border-secondary-container">
+<div class="absolute top-0 right-0 w-64 h-64 bg-secondary-container/10 blur-[100px] rounded-full -mr-20 -mt-20"></div>
+<div class="relative z-10">
+<div class="flex items-center gap-3 mb-6">
+<span class="px-4 py-1.5 rounded-full bg-secondary-container text-on-secondary font-bold text-xs uppercase tracking-tighter">Strong Hire</span>
+<span class="text-on-surface-variant text-sm font-medium">Full Stack Engineer Simulation #242</span>
+</div>
+<h2 class="text-3xl font-bold mb-4 text-on-surface">Verdict: Strong Hire</h2>
+<p class="text-on-surface-variant leading-relaxed mb-8 max-w-2xl">
+                        The candidate demonstrated exceptional algorithmic efficiency and system-level thinking. While communication was technical, the ability to articulate complex trade-offs during the React optimization task stood out. The code produced was clean, modular, and performance-oriented.
+                    </p>
+<div class="flex items-center gap-6">
+<div class="flex -space-x-3">
+<img alt="AI Avatar" class="w-10 h-10 rounded-full border-2 border-surface" data-alt="Futuristic AI robot head glowing with blue data lines in a minimalist digital space" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3AGPSMxHju2I3oTrPsnTfe45NAKh4PfSFdrbzGV36bdZfdji9LdfHJ2A4ulhcUltlt4eW7nNiy2cxKO-Xryxwp_qwg5QCvIXMUnP9sigAGDjKQCIROsvm5QNJkIn8D7mrfsLsiEgJGwJRW3hkecl9k-x4FmcoZfEte1kvhTSHtFmk-ugFfsf1Z41T7FgTQrAhzcoxBniRgzJ8zdBBXoU7y8d8MRE9JtWk3uwsV-lgSvffwqlt3JeB4hlJN_UIXEbdQNTAd2xlmn8P"/>
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center border-2 border-surface text-[10px] font-bold">L-7</div>
+</div>
+<span class="text-xs text-on-surface-variant font-medium">Verified by <span class="text-on-surface font-bold">Luminescent-7 AI Core</span></span>
+</div>
+</div>
+</div>
+<!-- Key Metrics Card -->
+<div class="lg:col-span-5 flex flex-col gap-6">
+<div class="bg-surface-container-low rounded-3xl p-8 flex-1">
+<h3 class="text-lg font-bold mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="monitoring">monitoring</span>
+                        Performance Metrics
+                    </h3>
+<div class="space-y-6">
+<!-- Metric 1 -->
+<div class="space-y-2">
+<div class="flex justify-between items-end">
+<span class="text-sm font-medium text-on-surface-variant">Coding Proficiency</span>
+<span class="text-xl font-bold text-secondary">85%</span>
+</div>
+<div class="h-1.5 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-secondary w-[85%]"></div>
+</div>
+</div>
+<!-- Metric 2 -->
+<div class="space-y-2">
+<div class="flex justify-between items-end">
+<span class="text-sm font-medium text-on-surface-variant">Communication</span>
+<span class="text-xl font-bold text-primary">70%</span>
+</div>
+<div class="h-1.5 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[70%]"></div>
+</div>
+</div>
+<!-- Metric 3 -->
+<div class="space-y-2">
+<div class="flex justify-between items-end">
+<span class="text-sm font-medium text-on-surface-variant">Problem Solving</span>
+<span class="text-xl font-bold text-tertiary">90%</span>
+</div>
+<div class="h-1.5 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-tertiary w-[90%]"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Middle Section: Asymmetric Content -->
+<div class="flex flex-col lg:flex-row gap-8 mb-12">
+<!-- Round-by-Round Breakdown -->
+<div class="flex-1 space-y-6">
+<h3 class="text-2xl font-bold text-on-surface px-2">Round-by-Round Breakdown</h3>
+<!-- Round 1 -->
+<div class="bg-surface-container-low rounded-3xl overflow-hidden">
+<div class="px-8 py-5 flex justify-between items-center bg-surface-container-high/50 border-b border-outline-variant/10">
+<div class="flex items-center gap-4">
+<span class="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center text-primary font-bold">1</span>
+<span class="font-bold">Algorithmic Complexity</span>
+</div>
+<span class="px-3 py-1 rounded-full bg-secondary-container/20 text-secondary text-[10px] font-bold uppercase tracking-wider">Passed</span>
+</div>
+<div class="p-8">
+<div class="mb-6">
+<p class="text-xs text-on-surface-variant uppercase font-bold tracking-widest mb-2">The Prompt</p>
+<p class="text-sm italic text-on-surface">"Optimize this recursive Fibonacci function to handle n &gt; 50 without stack overflow."</p>
+</div>
+<div class="bg-surface-container-lowest rounded-xl p-4 font-mono text-sm border border-outline-variant/5 mb-6 overflow-x-auto">
+<div class="text-on-surface-variant/40 mb-2">// User Solution</div>
+<span class="text-primary">const</span> <span class="text-secondary">fib</span> = (n, memo = {}) =&gt; {<br/>
+                              <span class="text-primary">if</span> (n <span class="text-primary">in</span> memo) <span class="text-primary">return</span> memo[n];<br/>
+                              <span class="text-primary">if</span> (n &lt;= <span class="text-tertiary">2</span>) <span class="text-primary">return</span> <span class="text-tertiary">1</span>;<br/>
+                              memo[n] = fib(n - <span class="text-tertiary">1</span>, memo) + fib(n - <span class="text-tertiary">2</span>, memo);<br/>
+                              <span class="text-primary">return</span> memo[n];<br/>
+                            };
+                        </div>
+<div class="glass-card rounded-2xl p-6 border-l-4 border-primary">
+<div class="flex items-center gap-2 mb-3 text-primary">
+<span class="material-symbols-outlined text-[18px]" data-icon="auto_awesome" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<span class="text-xs font-bold uppercase tracking-widest">AI Feedback</span>
+</div>
+<p class="text-sm text-on-surface-variant leading-relaxed">
+                                Great use of memoization. Your time complexity dropped from O(2^n) to O(n). To further improve, consider an iterative approach to achieve O(1) space complexity.
+                            </p>
+</div>
+</div>
+</div>
+<!-- Round 2 -->
+<div class="bg-surface-container-low rounded-3xl overflow-hidden opacity-80">
+<div class="px-8 py-5 flex justify-between items-center bg-surface-container-high/50">
+<div class="flex items-center gap-4 text-on-surface-variant">
+<span class="w-8 h-8 rounded-lg bg-outline-variant/20 flex items-center justify-center font-bold">2</span>
+<span class="font-bold">System Design &amp; Scalability</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="lock">lock</span>
+</div>
+</div>
+</div>
+<!-- Improvement Roadmap -->
+<div class="lg:w-[400px]">
+<div class="sticky top-24 space-y-6">
+<div class="bg-surface-container-high rounded-3xl p-8 overflow-hidden relative">
+<div class="absolute -bottom-10 -right-10 w-40 h-40 bg-tertiary/10 blur-3xl rounded-full"></div>
+<h3 class="text-xl font-bold mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary" data-icon="map">map</span>
+                            Growth Roadmap
+                        </h3>
+<p class="text-sm text-on-surface-variant mb-8 leading-relaxed">
+                            Based on your communication gaps and optimization choices, we've curated these modules for your Level 8 promotion.
+                        </p>
+<div class="space-y-4">
+<!-- Course 1 -->
+<div class="group cursor-pointer">
+<div class="bg-surface-container-lowest p-4 rounded-2xl border border-transparent hover:border-primary/20 transition-all">
+<div class="flex justify-between items-start mb-2">
+<span class="text-[10px] text-primary font-bold uppercase tracking-widest">Module 12</span>
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant group-hover:text-primary" data-icon="arrow_forward">arrow_forward</span>
+</div>
+<h4 class="font-bold text-sm mb-1">Advanced System Communication</h4>
+<p class="text-xs text-on-surface-variant">Learn to explain O-notation to non-technical stakeholders.</p>
+</div>
+</div>
+<!-- Course 2 -->
+<div class="group cursor-pointer">
+<div class="bg-surface-container-lowest p-4 rounded-2xl border border-transparent hover:border-secondary/20 transition-all">
+<div class="flex justify-between items-start mb-2">
+<span class="text-[10px] text-secondary font-bold uppercase tracking-widest">Module 08</span>
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant group-hover:text-secondary" data-icon="arrow_forward">arrow_forward</span>
+</div>
+<h4 class="font-bold text-sm mb-1">Memory Leaks &amp; React Hooks</h4>
+<p class="text-xs text-on-surface-variant">Deep dive into garbage collection and useEffect pitfalls.</p>
+</div>
+</div>
+</div>
+<button class="w-full mt-8 py-3 text-xs font-bold text-tertiary border border-tertiary/20 rounded-xl hover:bg-tertiary/10 transition-colors uppercase tracking-widest" data-route="dashboard">
+                            View All Recommendations
+                        </button>
+</div>
+<div class="bg-primary/5 rounded-3xl p-8 border border-primary/10">
+<div class="flex items-center gap-4 mb-4">
+<div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="emoji_events">emoji_events</span>
+</div>
+<div>
+<p class="text-[10px] text-primary font-bold uppercase tracking-widest">Academy Status</p>
+<p class="font-bold">Top 4% of Candidates</p>
+</div>
+</div>
+<p class="text-xs text-on-surface-variant leading-relaxed">
+                            You've outperformed 96% of users who attempted the Full Stack Engineer path this month. Keep it up!
+                        </p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="fixed bottom-0 w-full z-50 md:hidden bg-[#13121b]/90 backdrop-blur-md border-t border-indigo-500/15 shadow-[0_-10px_30px_rgba(0,0,0,0.5)]">
+<div class="flex justify-around items-center h-20 px-4 pb-safe">
+<a class="flex flex-col items-center justify-center text-indigo-100/40 tap-highlight-transparent" href="#">
+<span class="material-symbols-outlined" data-icon="code">code</span>
+<span class="text-[10px] uppercase tracking-widest font-bold mt-1">Workspace</span>
+</a>
+<a class="flex flex-col items-center justify-center text-indigo-100/40 tap-highlight-transparent" href="#">
+<span class="material-symbols-outlined" data-icon="chat_bubble">chat_bubble</span>
+<span class="text-[10px] uppercase tracking-widest font-bold mt-1">Messages</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-indigo-500/20 text-indigo-300 rounded-xl px-4 py-1 tap-highlight-transparent" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="text-[10px] uppercase tracking-widest font-bold mt-1">Metrics</span>
+</a>
+</div>
+</nav>
+<script src="session.js"></script>
+</body></html>
