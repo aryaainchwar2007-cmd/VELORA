@@ -96,8 +96,6 @@
 <span class="text-xl font-black text-[#c3c0ff] tracking-tighter">Luminescent Arena</span>
 <nav class="hidden md:flex gap-6 items-center">
 <a class="text-[#c3c0ff] border-b-2 border-[#4F46E5] pb-1" href="#">Arena</a>
-<a class="text-[#94a3b8] hover:text-white transition-colors" href="#">Curriculum</a>
-<a class="text-[#94a3b8] hover:text-white transition-colors" href="#">Leaderboard</a>
 </nav>
 </div>
 <div class="flex items-center gap-4">
@@ -116,7 +114,7 @@
 <main class="flex-1 flex flex-col h-[calc(100vh-64px)] overflow-hidden">
 <div class="flex flex-1 overflow-hidden p-4 gap-4">
 <!-- Left Panel: Problem Statement (Compact) -->
-<section class="w-full md:w-[28%] flex flex-col gap-4 overflow-y-auto">
+<section class="w-full md:w-[28%] flex flex-col gap-4 overflow-y-auto" id="questionPanel">
 <div class="bg-surface-container-low rounded-2xl p-5 flex flex-col gap-5 shadow-sm">
 <header>
 <span class="px-3 py-1 bg-secondary-container/20 text-secondary text-[10px] font-bold uppercase tracking-widest rounded-full mb-3 inline-block" id="questionDifficulty">Easy</span>
@@ -148,6 +146,9 @@
 </div>
 </div>
 </section>
+<div class="hidden md:flex items-stretch justify-center px-1">
+<div class="w-1 rounded-full bg-outline-variant/40 hover:bg-primary/70 transition-colors cursor-col-resize" id="questionResizeHandle" title="Drag to resize question panel"></div>
+</div>
 <!-- Middle Panel: Code Editor (Expanded) -->
 <section class="flex-1 flex flex-col bg-surface-container-lowest rounded-2xl overflow-hidden border border-outline-variant/10">
 <header class="flex items-center justify-between px-4 py-3 bg-surface-container-low border-b border-outline-variant/5">
@@ -200,8 +201,11 @@ solve()
                         </div>
 </div>
 </section>
+<div class="hidden lg:flex items-stretch justify-center px-1">
+<div class="w-1 rounded-full bg-outline-variant/40 hover:bg-primary/70 transition-colors cursor-col-resize" id="mentorResizeHandle" title="Drag to resize AI Mentor panel"></div>
+</div>
 <!-- Right Panel: AI Doubt Solver (Compact) -->
-<section class="hidden lg:flex w-[22%] flex-col gap-4">
+<section class="hidden lg:flex w-[22%] flex-col gap-4" id="mentorPanel">
 <div class="flex-1 bg-surface-container-low/40 backdrop-blur-xl rounded-2xl flex flex-col overflow-hidden border border-primary/5">
 <header class="p-3 bg-gradient-to-r from-primary/10 to-transparent flex items-center gap-3">
 <div class="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center text-primary">

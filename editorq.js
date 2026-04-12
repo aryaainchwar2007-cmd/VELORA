@@ -15,12 +15,16 @@
   const submitBtn = document.getElementById('submitCodeBtn');
   const codeEditor = document.getElementById('codeEditor');
   const codeInput = document.getElementById('codeInput');
+  const questionPanel = document.getElementById('questionPanel');
+  const questionResizeHandle = document.getElementById('questionResizeHandle');
   const lineNumbers = document.getElementById('lineNumbers');
   const codeOutput = document.getElementById('codeOutput');
   const consoleResizeHandle = document.getElementById('consoleResizeHandle');
   const mentorMessages = document.getElementById('mentorMessages');
   const mentorInput = document.getElementById('mentorInput');
   const mentorSendBtn = document.getElementById('mentorSendBtn');
+  const mentorPanel = document.getElementById('mentorPanel');
+  const mentorResizeHandle = document.getElementById('mentorResizeHandle');
   const mentorSuggestions = Array.from(document.querySelectorAll('[data-chat-suggestion]'));
   const mentorVoiceLangSelect = document.getElementById('mentorVoiceLangSelect');
   const mentorVoiceMicBtn = document.getElementById('mentorVoiceMicBtn');
@@ -120,6 +124,120 @@
     });
 
     applyHeight(linkedHeight);
+  }
+
+  function initQuestionPanelResize() {
+    if (!questionPanel || !questionResizeHandle) return;
+
+    const MIN_WIDTH = 280;
+    const MAX_WIDTH = 620;
+    let currentWidth = Math.round(questionPanel.getBoundingClientRect().width || 380);
+    let dragging = false;
+    let startX = 0;
+    let startWidth = currentWidth;
+
+    const clamp = (value) => Math.min(MAX_WIDTH, Math.max(MIN_WIDTH, value));
+    const shouldResize = () => window.matchMedia('(min-width: 768px)').matches;
+
+    const applyWidth = (nextWidth) => {
+      currentWidth = clamp(nextWidth);
+      questionPanel.style.width = `${currentWidth}px`;
+      questionPanel.style.minWidth = `${currentWidth}px`;
+      questionPanel.style.maxWidth = `${currentWidth}px`;
+      localStorage.setItem('velora_question_panel_width', String(currentWidth));
+    };
+
+    const onPointerMove = (event) => {
+      if (!dragging) return;
+      const delta = event.clientX - startX;
+      applyWidth(startWidth + delta);
+    };
+
+    const stopDragging = () => {
+      dragging = false;
+      document.body.style.userSelect = '';
+      document.body.style.cursor = '';
+      window.removeEventListener('pointermove', onPointerMove);
+      window.removeEventListener('pointerup', stopDragging);
+      window.removeEventListener('pointercancel', stopDragging);
+    };
+
+    questionResizeHandle.addEventListener('pointerdown', (event) => {
+      if (!shouldResize()) return;
+      event.preventDefault();
+      dragging = true;
+      startX = event.clientX;
+      startWidth = currentWidth;
+      document.body.style.userSelect = 'none';
+      document.body.style.cursor = 'col-resize';
+      window.addEventListener('pointermove', onPointerMove);
+      window.addEventListener('pointerup', stopDragging);
+      window.addEventListener('pointercancel', stopDragging);
+    });
+
+    const savedWidth = Number.parseInt(localStorage.getItem('velora_question_panel_width') || '', 10);
+    if (Number.isFinite(savedWidth) && savedWidth > 0) {
+      applyWidth(savedWidth);
+    } else {
+      applyWidth(currentWidth);
+    }
+  }
+
+  function initMentorPanelResize() {
+    if (!mentorPanel || !mentorResizeHandle) return;
+
+    const MIN_WIDTH = 280;
+    const MAX_WIDTH = 620;
+    let currentWidth = Math.round(mentorPanel.getBoundingClientRect().width || 360);
+    let dragging = false;
+    let startX = 0;
+    let startWidth = currentWidth;
+
+    const clamp = (value) => Math.min(MAX_WIDTH, Math.max(MIN_WIDTH, value));
+    const shouldResize = () => window.matchMedia('(min-width: 1024px)').matches;
+
+    const applyWidth = (nextWidth) => {
+      currentWidth = clamp(nextWidth);
+      mentorPanel.style.width = `${currentWidth}px`;
+      mentorPanel.style.minWidth = `${currentWidth}px`;
+      mentorPanel.style.maxWidth = `${currentWidth}px`;
+      localStorage.setItem('velora_mentor_panel_width', String(currentWidth));
+    };
+
+    const onPointerMove = (event) => {
+      if (!dragging) return;
+      const delta = startX - event.clientX;
+      applyWidth(startWidth + delta);
+    };
+
+    const stopDragging = () => {
+      dragging = false;
+      document.body.style.userSelect = '';
+      document.body.style.cursor = '';
+      window.removeEventListener('pointermove', onPointerMove);
+      window.removeEventListener('pointerup', stopDragging);
+      window.removeEventListener('pointercancel', stopDragging);
+    };
+
+    mentorResizeHandle.addEventListener('pointerdown', (event) => {
+      if (!shouldResize()) return;
+      event.preventDefault();
+      dragging = true;
+      startX = event.clientX;
+      startWidth = currentWidth;
+      document.body.style.userSelect = 'none';
+      document.body.style.cursor = 'col-resize';
+      window.addEventListener('pointermove', onPointerMove);
+      window.addEventListener('pointerup', stopDragging);
+      window.addEventListener('pointercancel', stopDragging);
+    });
+
+    const savedWidth = Number.parseInt(localStorage.getItem('velora_mentor_panel_width') || '', 10);
+    if (Number.isFinite(savedWidth) && savedWidth > 0) {
+      applyWidth(savedWidth);
+    } else {
+      applyWidth(currentWidth);
+    }
   }
 
   function normalizeOutput(value) {
@@ -1050,5 +1168,7 @@
 
   updateLineNumbers();
   initLinkedConsoleResize();
+  initQuestionPanelResize();
+  initMentorPanelResize();
   loadProblem();
 })();

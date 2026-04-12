@@ -96,54 +96,47 @@
     </style>
 </head>
 <body class="bg-surface text-on-surface antialiased min-h-screen">
-<!-- SideNavBar -->
-<aside class="h-screen w-64 fixed left-0 top-0 z-40 bg-[#13121b] flex flex-col h-full border-r border-[#c3c0ff]/10 font-['Plus_Jakarta_SANS'] text-sm tracking-wide">
-<div class="p-6">
-<div class="flex items-center gap-3 mb-8">
-<div class="w-10 h-10 rounded-xl bg-gradient-to-br from-[#c3c0ff] to-[#4F46E5] flex items-center justify-center">
-<span class="material-symbols-outlined text-white" style="font-variation-settings: 'FILL' 1;">terminal</span>
+<!-- SideNavBar (Shared Component Identity) -->
+<nav class="h-screen w-64 fixed left-0 top-0 z-40 flex flex-col bg-[#13121b] border-r border-[#c3c0ff]/10 pt-20">
+<div class="px-6 py-4 flex flex-col items-center">
+<div class="relative">
+<img alt="Student Avatar" class="w-16 h-16 rounded-full ring-4 ring-primary-container/20" data-alt="minimalist avatar profile picture of a tech enthusiast with modern aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2rh7BRrua086KgYKg_DJYM1lbA6_0WZ3meJUAxeZxDH-ycQP2cEjAW4ZgR-W6E82xL2IUle5ya7sEPDgd6ZYNjWajTygRGim08UuHoZ56udDS62vMrBzo1wgwNiyP2YNiiD36Y4j6wNhXVPyoJZBxgYpzMrANXxhQz16PxGs2y3hfSQPBrauwqN7oq5AamTf667Kgfos7Ass7AdO52w7HktCxndHCIHl9-In2cUu88jZdsvoCOSn1Y64pYVurHVUq3AP34khc6q4y"/>
+<div class="absolute bottom-0 right-0 w-4 h-4 bg-secondary rounded-full border-2 border-surface"></div>
 </div>
-<div>
-<h2 class="font-bold text-on-surface">Luminescent Scholar</h2>
-<p class="text-[10px] text-slate-500 uppercase tracking-widest">Level 12 Developer</p>
+<h3 class="mt-4 font-headline font-bold text-[#e4e1ee]">Luminescent Scholar</h3>
+<p class="text-xs text-slate-500 tracking-wide">Level 12 Developer</p>
 </div>
-</div>
-<nav class="space-y-1">
-<a class="text-slate-500 px-4 py-3 flex items-center gap-3 hover:bg-white/5 hover:text-white transition-all group" href="#">
-<span class="material-symbols-outlined">dashboard</span>
+<div class="mt-8 space-y-2">
+<a class="flex items-center gap-3 text-slate-500 px-4 py-3 hover:bg-white/5 hover:text-white transition-all font-['Plus_Jakarta_SANS'] text-sm tracking-wide" href="dashboard.html">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
 <span>Dashboard</span>
 </a>
-<a class="bg-gradient-to-r from-[#4F46E5]/20 to-transparent text-[#c3c0ff] border-l-4 border-[#4F46E5] px-4 py-3 flex items-center gap-3 Active: translate-x-1 transition-transform" href="#">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">terminal</span>
+<a class="flex items-center gap-3 bg-gradient-to-r from-[#4F46E5]/20 to-transparent text-[#c3c0ff] border-l-4 border-[#4F46E5] px-4 py-3 font-['Plus_Jakarta_SANS'] text-sm tracking-wide transition-all translate-x-1" href="practice.html">
+<span class="material-symbols-outlined" data-icon="terminal">terminal</span>
 <span>Practice</span>
 </a>
-<a class="text-slate-500 px-4 py-3 flex items-center gap-3 hover:bg-white/5 hover:text-white transition-all" href="#">
-<span class="material-symbols-outlined">account_tree</span>
+<a class="flex items-center gap-3 text-slate-500 px-4 py-3 hover:bg-white/5 hover:text-white transition-all font-['Plus_Jakarta_SANS'] text-sm tracking-wide" href="project.html">
+<span class="material-symbols-outlined" data-icon="account_tree">account_tree</span>
 <span>Projects</span>
 </a>
-<a class="text-slate-500 px-4 py-3 flex items-center gap-3 hover:bg-white/5 hover:text-white transition-all" href="#">
-<span class="material-symbols-outlined">person</span>
+<a class="flex items-center gap-3 text-slate-500 px-4 py-3 hover:bg-white/5 hover:text-white transition-all font-['Plus_Jakarta_SANS'] text-sm tracking-wide" href="profile.html">
+<span class="material-symbols-outlined" data-icon="person">person</span>
 <span>Profile</span>
 </a>
-</nav>
 </div>
-<div class="mt-auto p-6 space-y-6">
-<button class="w-full bg-[#c3c0ff]/10 text-[#c3c0ff] rounded-xl py-3 px-4 flex items-center justify-center gap-2 font-semibold hover:bg-[#c3c0ff]/20 transition-all border border-[#c3c0ff]/20">
-<span class="material-symbols-outlined text-sm">mic</span>
-                Voice Help
-            </button>
-<div class="space-y-1">
-<a class="text-slate-500 px-4 py-2 flex items-center gap-3 text-xs hover:text-white transition-colors" href="#">
-<span class="material-symbols-outlined text-lg">settings</span>
+<div class="mt-auto pb-10 space-y-2">
+<div class="mt-6 border-t border-outline-variant/10 pt-4">
+<a class="flex items-center gap-3 text-slate-500 px-6 py-2 hover:text-white transition-all text-sm" href="profile.html">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
 <span>Settings</span>
 </a>
-<a class="text-slate-500 px-4 py-2 flex items-center gap-3 text-xs hover:text-white transition-colors" href="#">
-<span class="material-symbols-outlined text-lg">help</span>
+<a class="flex items-center gap-3 text-slate-500 px-6 py-2 hover:text-white transition-all text-sm" href="welcome.html">
+<span class="material-symbols-outlined" data-icon="help">help</span>
 <span>Support</span>
 </a>
 </div>
 </div>
-</aside>
+</nav>
 <!-- TopNavBar -->
 <header class="fixed top-0 left-64 right-0 z-50 bg-[#13121b]/80 backdrop-blur-xl h-16 flex items-center justify-between px-8 border-b border-white/5">
 <div class="flex items-center gap-6 flex-1">
@@ -483,10 +476,6 @@
 </div>
 </div>
 </main>
-<!-- FAB Overlay -->
-<button class="fixed bottom-8 right-8 w-16 h-16 rounded-full bg-gradient-to-br from-[#c3c0ff] to-[#4F46E5] flex items-center justify-center text-on-primary shadow-2xl shadow-[#4F46E5]/40 hover:scale-110 active:scale-95 transition-all z-50">
-<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">bolt</span>
-</button>
 <script src="session.js"></script>
 <script src="practice (1).js"></script>
 </body></html>
